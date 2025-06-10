@@ -1,0 +1,34 @@
+project:
+  type: website
+
+website:
+  title: "Classification non supervisée"
+  navbar:
+    background: lightseagreen
+    left:
+      - text: Modèles de classification
+        menu: 
+          - href: modeles/mod_kmeans.qmd
+            text: "Algorithme des K-means"
+          - href: modeles/mod_CAH.qmd
+            text: "Classification Ascendante hiérarchique (CAH)"
+          - href: modeles/mod_mmelange.qmd
+            text: "Modèles de mélange"
+      - text: Examples
+        menu:
+          - href: exemples/kmeans.qmd
+            text: "Exemples de K-means"
+          - href: exemples/CAH.qmd
+            text: "Exemples de CAH"
+          - href: exemples/mmelange.qmd
+            text: "Exemples de modèles de mélange"
+
+    right:
+      - about.qmd  
+
+format:
+  html:
+    theme:
+      dark: solar
+      light: cosmo
+    css: styles.css

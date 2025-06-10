@@ -1,0 +1,170 @@
+---
+title: "Algorithme des K-means"
+author: "Olivier Malahel"
+format: html
+from: markdown+emoji
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+---
+## Introduction {.unnumbered}
+
+L'algorithme des K-means appelées aussi méthode des centres mobiles (ou algorithme de Lloyd) a pour but de fournir une partition. On considère que les observations x= {𝑥₁, .., 𝑥ₙ} sont décrites par p variables (𝑥ₙ appartient à ℝᵖ) et que l'espace est munie est de la métrique (généralement distance euclidienne).Pour simplifier les notations,on supposera que chaque observation a le même poids.
+
+## Algorithme de Lloyd (k-means) {.unnumbered}
+
+### Algorithme des *k*-means
+
+La méthode des centres mobiles a pour but de fournir une partition de **x= {𝑥₁, .., 𝑥ₙ}**.
+
+> **Principe** : Pour l’ensemble d’observations 𝑥 = {𝑥₁, .., 𝑥ₙ}, on suppose qu’il existe  
+> 𝐶ᴷ = {𝐶₁, .., 𝐶ₖ} tel que 𝑥 = ⋃ₖ₌₁ᴷ 𝐶ₖ est disjoint
+
+* Etape 1. On commence par choisir **K** observations différentes : {μ₁, .., μₖ}
+* Etape 2. On réalise itérativement une succession ces actions: 
+    - Pour chaque observation **x= {𝑥₁, .., 𝑥ₙ}** on trouve son centre (barycentre) le plus proche pour créer 𝐶ₖ = {ensemble d’observations les plus proches du centre μₖ}
+    - Dans chaque nouvelle classe 𝐶ₖ on définit le nouveau centre de classe μₖ comme étant le barycentre de 𝐶ₖ.
+* Etape 3. on réitère l'étape 1. 
+
+### Remarques {.unnumbered}
+
+- L’algorithme s’arrête lorsque la partition des classes ne change plus (critère de convergence)
+
+- l'algorithme ne s'applique que sur des données quantitatives 
+
+## Exemple 1
+
+Voici un exemple de script R utilisant l’algorithme k-means pour trouver les classes (les clusters)
+des données *x={1, 2, 9, 12, 20}*  avec les barycentres *µ₁=1 et μ₂=7* 
+
+
+```{R}
+# données
+k1 <- 2
+x1    <- c(1, 2, 9, 12, 20)
+init1 <- matrix(c(1, 7), ncol = 1)  # centres initiaux
+
+# k-means
+res1  <- kmeans(x1, centers = init1, iter.max = 10)
+
+# regroupement des données par classe
+classes1 <- split(x1, res1$cluster)
+
+# affichage des classes et de leurs éléments
+cat("\nÉléments par classe :\n")
+for (i in seq_along(classes1)) {
+  cat(sprintf("Classe %d : %s\n", i, paste(classes1[[i]], collapse = ", ")))
+}
+# affichage des centres finaux
+cat("Centres finaux :\n")
+print(res1$centers)
+```
+
+l'inertie intra classe est égale à : 
+```{R}
+total_inertia_alt1 <- sum(res1$withinss)
+print(total_inertia_alt1)
+```
+
+## Exemple 2
+
+Voici un exemple de script R utilisant l’algorithme k-means pour trouver les classes (les clusters)
+des données *x={1, 2, 9, 12, 20}*  avec les barycentres *µ1 =1, µ2 =12 et µ3 =20* 
+
+
+```{R}
+# données
+k2 <- 3
+x2 <- c(1, 2, 9, 12, 20)
+init2 <- matrix(c(1, 12, 20), ncol = 1)  # centres initiaux
+
+# k-means
+res2  <- kmeans(x2, centers = init2, iter.max = 10)
+
+# regroupement des données par classe
+classes2 <- split(x2, res2$cluster)
+
+# affichage des classes et de leurs éléments
+cat("\nÉléments par classe :\n")
+for (i in seq_along(classes2)) {
+  cat(sprintf("Classe %d : %s\n", i, paste(classes2[[i]], collapse = ", ")))
+}
+# affichage des centres finaux
+cat("Centres finaux :\n")
+print(res2$centers)
+```
+
+## Propriétés 
+
+### Inertie intra-classe
+
+> L’inertie intra-classe de x = {x1,..,xn} par rapport à la partition
+ C ={C1,..,CK} et les centres des classes dans µ = {µ1,..,µK} s’écrit:
+> IW =
+ d2(xi, µk)
+ k=1xi∈Ck
+ Notons-la IW(C,µ) à partir de maintenant.
+
+
+
+ Notons-la IW(C,µ) à partir de maintenant.
+
+l'inertie intra classe est égale à : 
+```{R}
+total_inertia_alt2 <- sum(res2$withinss)
+print(total_inertia_alt2)
+```
+
+## Exemple 3
+
+Voici un exemple de script R utilisant l’algorithme k-means pour trouver les classes (les clusters)
+des données *x={1, 2, 9, 12, 20}*  avec les barycentres *µ1 =1, µ2 =9, µ3 =12 et µ4 =20.* 
+
+
+```{R}
+# données
+x3 <- c(1, 2, 9, 12, 20)
+init3 <- matrix(c(1, 9, 12, 20), ncol = 1)  # centres initiaux
+
+# k-means
+res3 <- kmeans(x3, centers = init3, iter.max = 10)
+
+# regroupement des données par classe
+classes3 <- split(x3, res3$cluster)
+
+# affichage des classes et de leurs éléments
+cat("\nÉléments par classe :\n")
+for (i in seq_along(classes3)) {
+  cat(sprintf("Classe %d : %s\n", i, paste(classes3[[i]], collapse = ", ")))
+}
+# affichage des centres finaux
+cat("Centres finaux :\n")
+print(res3$centers)
+```
+
+l'inertie intra classe est égale à : 
+```{R}
+total_inertia_alt3 <- sum(res3$withinss)
+print(total_inertia_alt3)
+```
+
+## Méthode du coude
+
+```{R}
+
+
+# vecteur de valeurs de k à tester
+ks    <- 2:4
+
+# pré-allocation d’un vecteur pour stocker l’inertie totale
+inertias <- c(total_inertia_alt1, total_inertia_alt2, total_inertia_alt3)
+
+# tracé de la courbe inertie vs k
+plot(ks, inertias,
+     type = "b",                             # points reliés par des segments
+     pch  = 19,                              # symbole plein pour les points
+     xlab = "Nombre de clusters (k)",
+     ylab = "Inertie intra-classe totale",
+     main = "Méthode du coude pour le choix de k")
+
+```
+
