@@ -1,0 +1,15 @@
+Package: quartotuto
+Type: website
+Title: Classification non supervisée
+Description: Used to declare R dependencies
+Version: 1.0
+Authors@R: c(
+    person("Olivier", "Malahel",role = c("aut", "cre"), email = "olivier.malahel@eleve.ensai.fr"))
+URL: https://olivier92140.github.io/Projet_interne_SSCNS/
+License: MIT
+Imports:
+    dplyr,
+    ggplot2,
+    leaflet,
+    rmarkdown
+Encoding: UTF-8
