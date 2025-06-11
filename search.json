@@ -1,0 +1,72 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Classification non supervisée",
+    "section": "",
+    "text": "External link to Quarto website\nR example\nPython example 🐍"
+  },
+  {
+    "objectID": "index.html#quarto",
+    "href": "index.html#quarto",
+    "title": "Classification non supervisée",
+    "section": "",
+    "text": "External link to Quarto website\nR example\nPython example 🐍"
+  },
+  {
+    "objectID": "modeles/mod_kmeans.html",
+    "href": "modeles/mod_kmeans.html",
+    "title": "Algorithme des K-means",
+    "section": "",
+    "text": "L’algorithme des K-means appelées aussi méthode des centres mobiles (ou algorithme de Lloyd) a pour but de fournir une partition. On considère que les observations x= {𝑥₁, .., 𝑥ₙ} sont décrites par p variables (𝑥ₙ appartient à ℝᵖ) et que l’espace est munie est de la métrique (généralement distance euclidienne).Pour simplifier les notations,on supposera que chaque observation a le même poids."
+  },
+  {
+    "objectID": "modeles/mod_kmeans.html#introduction",
+    "href": "modeles/mod_kmeans.html#introduction",
+    "title": "Algorithme des K-means",
+    "section": "",
+    "text": "L’algorithme des K-means appelées aussi méthode des centres mobiles (ou algorithme de Lloyd) a pour but de fournir une partition. On considère que les observations x= {𝑥₁, .., 𝑥ₙ} sont décrites par p variables (𝑥ₙ appartient à ℝᵖ) et que l’espace est munie est de la métrique (généralement distance euclidienne).Pour simplifier les notations,on supposera que chaque observation a le même poids."
+  },
+  {
+    "objectID": "modeles/mod_kmeans.html#algorithme-de-lloyd-k-means",
+    "href": "modeles/mod_kmeans.html#algorithme-de-lloyd-k-means",
+    "title": "Algorithme des K-means",
+    "section": "Algorithme de Lloyd (k-means)",
+    "text": "Algorithme de Lloyd (k-means)\n\nAlgorithme des k-means\nLa méthode des centres mobiles a pour but de fournir une partition de x= {𝑥₁, .., 𝑥ₙ}.\n\nPrincipe : Pour l’ensemble d’observations 𝑥 = {𝑥₁, .., 𝑥ₙ}, on suppose qu’il existe\n𝐶ᴷ = {𝐶₁, .., 𝐶ₖ} tel que 𝑥 = ⋃ₖ₌₁ᴷ 𝐶ₖ est disjoint\n\n\nEtape 1. On commence par choisir K observations différentes : {μ₁, .., μₖ}\nEtape 2. On réalise itérativement une succession ces actions:\n\nPour chaque observation x= {𝑥₁, .., 𝑥ₙ} on trouve son centre (barycentre) le plus proche pour créer 𝐶ₖ = {ensemble d’observations les plus proches du centre μₖ}\nDans chaque nouvelle classe 𝐶ₖ on définit le nouveau centre de classe μₖ comme étant le barycentre de 𝐶ₖ.\n\nEtape 3. on réitère l’étape 1.\n\n\n\nRemarques\n\nL’algorithme s’arrête lorsque la partition des classes ne change plus (critère de convergence)\nl’algorithme ne s’applique que sur des données quantitatives"
+  },
+  {
+    "objectID": "modeles/mod_kmeans.html#exemple-1",
+    "href": "modeles/mod_kmeans.html#exemple-1",
+    "title": "Algorithme des K-means",
+    "section": "Exemple 1",
+    "text": "Exemple 1\nVoici un exemple de script R utilisant l’algorithme k-means pour trouver les classes (les clusters) des données x={1, 2, 9, 12, 20} avec les barycentres µ₁=1 et μ₂=7\n\n# données\nk1 &lt;- 2\nx1    &lt;- c(1, 2, 9, 12, 20)\ninit1 &lt;- matrix(c(1, 7), ncol = 1)  # centres initiaux\n\n# k-means\nres1  &lt;- kmeans(x1, centers = init1, iter.max = 10)\n\n# regroupement des données par classe\nclasses1 &lt;- split(x1, res1$cluster)\n\n# affichage des classes et de leurs éléments\ncat(\"\\nÉléments par classe :\\n\")\n\n\nÉléments par classe :\n\nfor (i in seq_along(classes1)) {\n  cat(sprintf(\"Classe %d : %s\\n\", i, paste(classes1[[i]], collapse = \", \")))\n}\n\nClasse 1 : 1, 2\nClasse 2 : 9, 12, 20\n\n# affichage des centres finaux\ncat(\"Centres finaux :\\n\")\n\nCentres finaux :\n\nprint(res1$centers)\n\n      [,1]\n1  1.50000\n2 13.66667\n\n\nl’inertie intra classe est égale à :\n\ntotal_inertia_alt1 &lt;- sum(res1$withinss)\nprint(total_inertia_alt1)\n\n[1] 65.16667"
+  },
+  {
+    "objectID": "modeles/mod_kmeans.html#exemple-2",
+    "href": "modeles/mod_kmeans.html#exemple-2",
+    "title": "Algorithme des K-means",
+    "section": "Exemple 2",
+    "text": "Exemple 2\nVoici un exemple de script R utilisant l’algorithme k-means pour trouver les classes (les clusters) des données x={1, 2, 9, 12, 20} avec les barycentres µ1 =1, µ2 =12 et µ3 =20\n\n# données\nk2 &lt;- 3\nx2 &lt;- c(1, 2, 9, 12, 20)\ninit2 &lt;- matrix(c(1, 12, 20), ncol = 1)  # centres initiaux\n\n# k-means\nres2  &lt;- kmeans(x2, centers = init2, iter.max = 10)\n\n# regroupement des données par classe\nclasses2 &lt;- split(x2, res2$cluster)\n\n# affichage des classes et de leurs éléments\ncat(\"\\nÉléments par classe :\\n\")\n\n\nÉléments par classe :\n\nfor (i in seq_along(classes2)) {\n  cat(sprintf(\"Classe %d : %s\\n\", i, paste(classes2[[i]], collapse = \", \")))\n}\n\nClasse 1 : 1, 2\nClasse 2 : 9, 12\nClasse 3 : 20\n\n# affichage des centres finaux\ncat(\"Centres finaux :\\n\")\n\nCentres finaux :\n\nprint(res2$centers)\n\n  [,1]\n1  1.5\n2 10.5\n3 20.0"
+  },
+  {
+    "objectID": "modeles/mod_kmeans.html#propriétés",
+    "href": "modeles/mod_kmeans.html#propriétés",
+    "title": "Algorithme des K-means",
+    "section": "Propriétés",
+    "text": "Propriétés\n\nInertie intra-classe\n\nL’inertie intra-classe de x = {x1,..,xn} par rapport à la partition C ={C1,..,CK} et les centres des classes dans µ = {µ1,..,µK} s’écrit: IW = d2(xi, µk) k=1xi∈Ck Notons-la IW(C,µ) à partir de maintenant.\n\nNotons-la IW(C,µ) à partir de maintenant.\nl’inertie intra classe est égale à :\n\ntotal_inertia_alt2 &lt;- sum(res2$withinss)\nprint(total_inertia_alt2)\n\n[1] 5"
+  },
+  {
+    "objectID": "modeles/mod_kmeans.html#exemple-3",
+    "href": "modeles/mod_kmeans.html#exemple-3",
+    "title": "Algorithme des K-means",
+    "section": "Exemple 3",
+    "text": "Exemple 3\nVoici un exemple de script R utilisant l’algorithme k-means pour trouver les classes (les clusters) des données x={1, 2, 9, 12, 20} avec les barycentres µ1 =1, µ2 =9, µ3 =12 et µ4 =20.\n\n# données\nx3 &lt;- c(1, 2, 9, 12, 20)\ninit3 &lt;- matrix(c(1, 9, 12, 20), ncol = 1)  # centres initiaux\n\n# k-means\nres3 &lt;- kmeans(x3, centers = init3, iter.max = 10)\n\n# regroupement des données par classe\nclasses3 &lt;- split(x3, res3$cluster)\n\n# affichage des classes et de leurs éléments\ncat(\"\\nÉléments par classe :\\n\")\n\n\nÉléments par classe :\n\nfor (i in seq_along(classes3)) {\n  cat(sprintf(\"Classe %d : %s\\n\", i, paste(classes3[[i]], collapse = \", \")))\n}\n\nClasse 1 : 1, 2\nClasse 2 : 9\nClasse 3 : 12\nClasse 4 : 20\n\n# affichage des centres finaux\ncat(\"Centres finaux :\\n\")\n\nCentres finaux :\n\nprint(res3$centers)\n\n  [,1]\n1  1.5\n2  9.0\n3 12.0\n4 20.0\n\n\nl’inertie intra classe est égale à :\n\ntotal_inertia_alt3 &lt;- sum(res3$withinss)\nprint(total_inertia_alt3)\n\n[1] 0.5"
+  },
+  {
+    "objectID": "modeles/mod_kmeans.html#méthode-du-coude",
+    "href": "modeles/mod_kmeans.html#méthode-du-coude",
+    "title": "Algorithme des K-means",
+    "section": "Méthode du coude",
+    "text": "Méthode du coude\n\n# vecteur de valeurs de k à tester\nks    &lt;- 2:4\n\n# pré-allocation d’un vecteur pour stocker l’inertie totale\ninertias &lt;- c(total_inertia_alt1, total_inertia_alt2, total_inertia_alt3)\n\n# tracé de la courbe inertie vs k\nplot(ks, inertias,\n     type = \"b\",                             # points reliés par des segments\n     pch  = 19,                              # symbole plein pour les points\n     xlab = \"Nombre de clusters (k)\",\n     ylab = \"Inertie intra-classe totale\",\n     main = \"Méthode du coude pour le choix de k\")"
+  }
+]
