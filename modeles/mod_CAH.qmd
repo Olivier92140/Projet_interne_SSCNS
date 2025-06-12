@@ -1,0 +1,78 @@
+---
+title: "Classification Ascendante Hiérarchique (CAH)"
+author: "Olivier Malahel"
+format: html
+from: markdown+emoji
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+---
+## Introduction {.unnumbered}
+
+La classification hiérarchique ascendante est une méthode de partitionnement dont l’objectif est de construire une hiérarchie sur un ensemble de n observations, en partant de n singletons puis en fusionnant itérativement les groupes deux à deux.  
+
+## Principe de la méthode 
+
+Soit **x** = {x₁, …, xₙ} l’ensemble d’observations à classer :
+
+1. **Étape initiale**  
+   Les n individus x constituent chacun une classe singleton.
+
+2. **Fusion des plus proches**  
+   On calcule la distance deux à deux entre tous les individus, puis on réunit dans la même classe les deux individus les plus proches.
+
+3. **Itération**  
+   On recalcule la distance entre la nouvelle classe formée et les n–2 individus restants.  
+   On fusionne à nouveau les deux éléments (classes ou individus) les plus proches.
+
+   Ce processus est itéré jusqu’à ce qu’il ne reste plus qu’une unique classe: x.
+
+<u>Remarque</u> : 
+
+
+**Critères d’agrégation**  
+Pour pouvoir regrouper des parties de Ω :
+
+- **Dissimilarité entre observations**  
+d(xi,xj) ∈ R+, xi,xj ∈ x,
+
+- **Dissimilarité entre classes**  
+D(A,B) ∈ R+, où A,B ∈ P(x) avec A∩B =∅.
+
+## Algorithme de CAH
+
+**Data** : x₁, …, xₙ  
+**Initialisation** : définir la partition **C**⁽⁰⁾ constituée des singletons  
+
+**for** m = 1, …, K–1 **do**  
+  - Calculer les distances deux à deux entre les classes de la partition **C**⁽ᵐ⁻¹⁾ à l’aide de **D**  
+  - Former la partition **C**⁽ᵐ⁾ en regroupant les deux classes les plus proches selon **D**  
+**end**  
+
+**Result** : Hiérarchie indicée  
+
+L’algorithme de la CAH fournit une hiérarchie indicée où D est l’indice si D
+ est croissante.
+
+## Distance entre les classes 
+
+Soit A et B deux classes de Ω, on a les **critères d’agrégation (linkages)** suivants :
+
+- **Critère du saut minimum (single linkage)**  
+    $D_m$(A,B) = min{d(x,y); x ∈ A, y ∈ B}.
+
+- **Critère du saut maximum (complete linkage)**  
+    $D_M$(A,B) = max{d(x,y); x ∈ A, y ∈ B}.
+
+- **Critère de la distance moyenne (average linkage)**  
+    $D_a(A,B) = \frac{\sum_{x\in A}\sum_{y\in B} d(x,y)}{n_A\,n_B}$
+
+
+    où $n_A$=card(A) et $n_B$=card(B)
+
+- **Critère de Ward (Ward linkage)**  
+    $D_W(A, B) = \frac{n_A\,n_B}{n_A + n_B}\,d^2(\mu_A, \mu_B)$
+
+
+    où $µ_A=\frac{\sum_{x∈A}x}{n_A}$ et $µ_B=\frac{\sum_{y∈B}y}{n_B}$
+
+
