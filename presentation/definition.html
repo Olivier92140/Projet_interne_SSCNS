@@ -7,9 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Olivier Malahel">
-<meta name="description" content="Site présentant les concepts de classification non supervisée">
 
-<title>Classification non supervisée</title>
+<title>Définition – Classification non supervisée</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -25,25 +24,25 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-8ef56b68f8fa1e9d2ba328e99e439f80.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-92b220bdc145b5627be95fad82f359d5.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-1edc446ae2f6166cac9055a43b36e106.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ef56b68f8fa1e9d2ba328e99e439f80.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-8ec57f05d65a7bcf9f706be35dd71a43.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-49f78ad772de919a72c7fce3dd20fdab.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -73,7 +72,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed fullcontent quarto-dark"><script id="quarto-html-before-body" type="application/javascript">
@@ -243,7 +242,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Classification non supervisée</span>
     </a>
   </div>
@@ -259,11 +258,11 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-présentation">    
         <li>
-    <a class="dropdown-item" href="./presentation/definition.html">
+    <a class="dropdown-item" href="../presentation/definition.html">
  <span class="dropdown-text">Définition</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./presentation/historique.html">
+    <a class="dropdown-item" href="../presentation/historique.html">
  <span class="dropdown-text">Historique</span></a>
   </li>  
     </ul>
@@ -274,15 +273,15 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-modèles">    
         <li>
-    <a class="dropdown-item" href="./modeles/mod_kmeans.html">
+    <a class="dropdown-item" href="../modeles/mod_kmeans.html">
  <span class="dropdown-text">Algorithme des K-means</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./modeles/mod_CAH.html">
+    <a class="dropdown-item" href="../modeles/mod_CAH.html">
  <span class="dropdown-text">Classification Ascendante hiérarchique (CAH)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./modeles/mod_mmelange.html">
+    <a class="dropdown-item" href="../modeles/mod_mmelange.html">
  <span class="dropdown-text">Modèles de mélange</span></a>
   </li>  
     </ul>
@@ -293,15 +292,15 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-exemples">    
         <li>
-    <a class="dropdown-item" href="./exemples/kmeans.html">
+    <a class="dropdown-item" href="../exemples/kmeans.html">
  <span class="dropdown-text">Exemples de K-means</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./exemples/CAH.html">
+    <a class="dropdown-item" href="../exemples/CAH.html">
  <span class="dropdown-text">Exemples de CAH</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./exemples/mmelange.qmd">
+    <a class="dropdown-item" href="../exemples/mmelange.qmd">
  <span class="dropdown-text">Exemples de modèles de mélange</span></a>
   </li>  
     </ul>
@@ -309,7 +308,7 @@ ul.task-list li input[type="checkbox"] {
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../about.html"> 
 <span class="menu-text">about.html</span></a>
   </li>  
 </ul>
@@ -331,14 +330,9 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Classification non supervisée</h1>
+<h1 class="title">Définition</h1>
 </div>
 
-<div>
-  <div class="description">
-    Site présentant les concepts de classification non supervisée
-  </div>
-</div>
 
 
 <div class="quarto-title-meta">
@@ -359,15 +353,15 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="des-liens-intéressants" class="level2">
-<h2 class="anchored" data-anchor-id="des-liens-intéressants">Des liens intéressants</h2>
-<ul>
-<li><a href="https://quarto.org/" target="_blank">External link to Quarto website</a></li>
-<li><a href="doc/r.qmd">R example</a></li>
-<li><a href="doc/python.qmd">Python example</a> <span class="emoji" data-emoji="snake">🐍</span></li>
-</ul>
+<section id="introduction" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="introduction">Introduction</h2>
+<section id="pourquoi-parle---t--on-de-classification-non-supervisée" class="level3">
+<h3 class="anchored" data-anchor-id="pourquoi-parle---t--on-de-classification-non-supervisée">Pourquoi parle - t -on de classification non supervisée?</h3>
+<p>Classification « supervisée » signifie une classification guidée par des étiquettes ou “superviseur” qui indiquent selon quel groupe la classification doit se faire. Exemple : classer les clients d’un magasin en “fidèle” et “occasionnel”.</p>
+<p>Ainsi, une classification non supervisée est une classification non guidée et où l’algorithme découvre lui-même la structure des données et détermine lui-même le regroupement, sans « superviseur ». Exemple : établir un classification des clients (ou clustering) selon les montants dépensés dans un magasin sans préciser à l’algorithme quels sont les clients fidèles ou non fidèles.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
