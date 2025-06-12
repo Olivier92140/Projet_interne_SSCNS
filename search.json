@@ -4,14 +4,14 @@
     "href": "presentation/definition.html",
     "title": "Définition",
     "section": "",
-    "text": "Classification « supervisée » signifie une classification guidée par des étiquettes ou “superviseur” qui indiquent selon quel groupe la classification doit se faire. Exemple : classer les clients d’un magasin en “fidèle” et “occasionnel”.\nAinsi, une classification non supervisée est une classification non guidée et où l’algorithme découvre lui-même la structure des données et détermine lui-même le regroupement, sans « superviseur ». Exemple : établir un classification des clients (ou clustering) selon les montants dépensés dans un magasin sans préciser à l’algorithme quels sont les clients fidèles ou non fidèles."
+    "text": "Classification « supervisée » signifie une classification guidée par des étiquettes (ou “superviseur”) qui indiquent selon quel groupe la classification doit se faire. Exemple : classer les clients d’un magasin en clients “fidèles” ou “occasionnels”.\nAinsi, une classification non supervisée est une classification non guidée et où l’algorithme découvre lui-même la structure des données et détermine lui-même le regroupement, sans utiliser de “superviseur”. Exemple : établir une classification des clients (ou clustering) selon les montants dépensés dans un magasin sans préciser à l’algorithme si les clients fidèles ou occasionnels."
   },
   {
     "objectID": "presentation/definition.html#introduction",
     "href": "presentation/definition.html#introduction",
     "title": "Définition",
     "section": "",
-    "text": "Classification « supervisée » signifie une classification guidée par des étiquettes ou “superviseur” qui indiquent selon quel groupe la classification doit se faire. Exemple : classer les clients d’un magasin en “fidèle” et “occasionnel”.\nAinsi, une classification non supervisée est une classification non guidée et où l’algorithme découvre lui-même la structure des données et détermine lui-même le regroupement, sans « superviseur ». Exemple : établir un classification des clients (ou clustering) selon les montants dépensés dans un magasin sans préciser à l’algorithme quels sont les clients fidèles ou non fidèles."
+    "text": "Classification « supervisée » signifie une classification guidée par des étiquettes (ou “superviseur”) qui indiquent selon quel groupe la classification doit se faire. Exemple : classer les clients d’un magasin en clients “fidèles” ou “occasionnels”.\nAinsi, une classification non supervisée est une classification non guidée et où l’algorithme découvre lui-même la structure des données et détermine lui-même le regroupement, sans utiliser de “superviseur”. Exemple : établir une classification des clients (ou clustering) selon les montants dépensés dans un magasin sans préciser à l’algorithme si les clients fidèles ou occasionnels."
   },
   {
     "objectID": "index.html",
@@ -75,6 +75,41 @@
     "title": "Algorithme des K-means",
     "section": "Méthode du coude",
     "text": "Méthode du coude\nLe critère du coude est une méthode visuelle consistant à tracer l’inertie intra de k-means en fonction de k et à choisir le nombre de clusters correspondant au point d’inflexion de la courbe.\n\n# vecteur de valeurs de k à tester\nks    &lt;- 2:4\n\n# pré-allocation d’un vecteur pour stocker l’inertie totale\ninertias &lt;- c(total_inertia_alt1, total_inertia_alt2, total_inertia_alt3)\n\n# tracé de la courbe inertie vs k\nplot(ks, inertias,\n     type = \"b\",                             # points reliés par des segments\n     pch  = 19,                              # symbole plein pour les points\n     xlab = \"Nombre de clusters (k)\",\n     ylab = \"Inertie intra-classe totale\",\n     main = \"Méthode du coude pour le choix de k\")\n\n\n\n\n\n\n\n\nConclusion : La méthode du coude privilégie donc 3 clusters qui permettent de capturer la plus grande partie de l’inertie intra-classe. En effet, ajouter une 4ème classe, n’apporte qu’un faible gain d’inertie intra-classe."
+  },
+  {
+    "objectID": "modeles/mod_CAH.html",
+    "href": "modeles/mod_CAH.html",
+    "title": "Classification Ascendante Hiérarchique (CAH)",
+    "section": "",
+    "text": "La classification hiérarchique ascendante est une méthode de partitionnement dont l’objectif est de construire une hiérarchie sur un ensemble de n observations, en partant de n singletons puis en fusionnant itérativement les groupes deux à deux."
+  },
+  {
+    "objectID": "modeles/mod_CAH.html#introduction",
+    "href": "modeles/mod_CAH.html#introduction",
+    "title": "Classification Ascendante Hiérarchique (CAH)",
+    "section": "",
+    "text": "La classification hiérarchique ascendante est une méthode de partitionnement dont l’objectif est de construire une hiérarchie sur un ensemble de n observations, en partant de n singletons puis en fusionnant itérativement les groupes deux à deux."
+  },
+  {
+    "objectID": "modeles/mod_CAH.html#principe-de-la-méthode",
+    "href": "modeles/mod_CAH.html#principe-de-la-méthode",
+    "title": "Classification Ascendante Hiérarchique (CAH)",
+    "section": "Principe de la méthode",
+    "text": "Principe de la méthode\nSoit x = {x₁, …, xₙ} l’ensemble d’observations à classer :\n\nÉtape initiale\nLes n individus x constituent chacun une classe singleton.\nFusion des plus proches\nOn calcule la distance deux à deux entre tous les individus, puis on réunit dans la même classe les deux individus les plus proches.\nItération\nOn recalcule la distance entre la nouvelle classe formée et les n–2 individus restants.\nOn fusionne à nouveau les deux éléments (classes ou individus) les plus proches.\nCe processus est itéré jusqu’à ce qu’il ne reste plus qu’une unique classe: x.\n\nRemarque :\nCritères d’agrégation\nPour pouvoir regrouper des parties de Ω :\n\nDissimilarité entre observations\nd(xi,xj) ∈ R+, xi,xj ∈ x,\nDissimilarité entre classes\nD(A,B) ∈ R+, où A,B ∈ P(x) avec A∩B =∅."
+  },
+  {
+    "objectID": "modeles/mod_CAH.html#algorithme-de-cah",
+    "href": "modeles/mod_CAH.html#algorithme-de-cah",
+    "title": "Classification Ascendante Hiérarchique (CAH)",
+    "section": "Algorithme de CAH",
+    "text": "Algorithme de CAH\nData : x₁, …, xₙ\nInitialisation : définir la partition C⁽⁰⁾ constituée des singletons\nfor m = 1, …, K–1 do\n- Calculer les distances deux à deux entre les classes de la partition C⁽ᵐ⁻¹⁾ à l’aide de D\n- Former la partition C⁽ᵐ⁾ en regroupant les deux classes les plus proches selon D\nend\nResult : Hiérarchie indicée\nL’algorithme de la CAH fournit une hiérarchie indicée où D est l’indice si D est croissante."
+  },
+  {
+    "objectID": "modeles/mod_CAH.html#distance-entre-les-classes",
+    "href": "modeles/mod_CAH.html#distance-entre-les-classes",
+    "title": "Classification Ascendante Hiérarchique (CAH)",
+    "section": "Distance entre les classes",
+    "text": "Distance entre les classes\nSoit A et B deux classes de Ω, on a les critères d’agrégation (linkages) suivants :\n\nCritère du saut minimum (single linkage)\n\\(D_m\\)(A,B) = min{d(x,y); x ∈ A, y ∈ B}.\nCritère du saut maximum (complete linkage)\n\\(D_M\\)(A,B) = max{d(x,y); x ∈ A, y ∈ B}.\nCritère de la distance moyenne (average linkage)\n\\(D_a(A,B) = \\frac{\\sum_{x\\in A}\\sum_{y\\in B} d(x,y)}{n_A\\,n_B}\\)\noù \\(n_A\\)=card(A) et \\(n_B\\)=card(B)\nCritère de Ward (Ward linkage)\n\\(D_W(A, B) = \\frac{n_A\\,n_B}{n_A + n_B}\\,d^2(\\mu_A, \\mu_B)\\)\noù \\(µ_A=\\frac{\\sum_{x∈A}x}{n_A}\\) et \\(µ_B=\\frac{\\sum_{y∈B}y}{n_B}\\)"
   },
   {
     "objectID": "exemples/kmeans.html",

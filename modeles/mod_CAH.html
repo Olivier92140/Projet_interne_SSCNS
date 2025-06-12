@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Olivier Malahel">
 
-<title>mod_cah – Classification non supervisée</title>
+<title>Classification Ascendante Hiérarchique (CAH) – Classification non supervisée</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -40,8 +41,8 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ef56b68f8fa1e9d2ba328e99e439f80.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-92b220bdc145b5627be95fad82f359d5.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-1edc446ae2f6166cac9055a43b36e106.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-8ec57f05d65a7bcf9f706be35dd71a43.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-49f78ad772de919a72c7fce3dd20fdab.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -70,6 +71,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -324,14 +354,90 @@ ul.task-list li input[type="checkbox"] {
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Classification Ascendante Hiérarchique (CAH)</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Olivier Malahel </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
 
 
+</header>
 
 
+<section id="introduction" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="introduction">Introduction</h2>
+<p>La classification hiérarchique ascendante est une méthode de partitionnement dont l’objectif est de construire une hiérarchie sur un ensemble de n observations, en partant de n singletons puis en fusionnant itérativement les groupes deux à deux.</p>
+</section>
+<section id="principe-de-la-méthode" class="level2">
+<h2 class="anchored" data-anchor-id="principe-de-la-méthode">Principe de la méthode</h2>
+<p>Soit <strong>x</strong> = {x₁, …, xₙ} l’ensemble d’observations à classer :</p>
+<ol type="1">
+<li><p><strong>Étape initiale</strong><br>
+Les n individus x constituent chacun une classe singleton.</p></li>
+<li><p><strong>Fusion des plus proches</strong><br>
+On calcule la distance deux à deux entre tous les individus, puis on réunit dans la même classe les deux individus les plus proches.</p></li>
+<li><p><strong>Itération</strong><br>
+On recalcule la distance entre la nouvelle classe formée et les n–2 individus restants.<br>
+On fusionne à nouveau les deux éléments (classes ou individus) les plus proches.</p>
+<p>Ce processus est itéré jusqu’à ce qu’il ne reste plus qu’une unique classe: x.</p></li>
+</ol>
+<p><u>Remarque</u> :</p>
+<p><strong>Critères d’agrégation</strong><br>
+Pour pouvoir regrouper des parties de Ω :</p>
+<ul>
+<li><p><strong>Dissimilarité entre observations</strong><br>
+d(xi,xj) ∈ R+, xi,xj ∈ x,</p></li>
+<li><p><strong>Dissimilarité entre classes</strong><br>
+D(A,B) ∈ R+, où A,B ∈ P(x) avec A∩B =∅.</p></li>
+</ul>
+</section>
+<section id="algorithme-de-cah" class="level2">
+<h2 class="anchored" data-anchor-id="algorithme-de-cah">Algorithme de CAH</h2>
+<p><strong>Data</strong> : x₁, …, xₙ<br>
+<strong>Initialisation</strong> : définir la partition <strong>C</strong>⁽⁰⁾ constituée des singletons</p>
+<p><strong>for</strong> m = 1, …, K–1 <strong>do</strong><br>
+- Calculer les distances deux à deux entre les classes de la partition <strong>C</strong>⁽ᵐ⁻¹⁾ à l’aide de <strong>D</strong><br>
+- Former la partition <strong>C</strong>⁽ᵐ⁾ en regroupant les deux classes les plus proches selon <strong>D</strong><br>
+<strong>end</strong></p>
+<p><strong>Result</strong> : Hiérarchie indicée</p>
+<p>L’algorithme de la CAH fournit une hiérarchie indicée où D est l’indice si D est croissante.</p>
+</section>
+<section id="distance-entre-les-classes" class="level2">
+<h2 class="anchored" data-anchor-id="distance-entre-les-classes">Distance entre les classes</h2>
+<p>Soit A et B deux classes de Ω, on a les <strong>critères d’agrégation (linkages)</strong> suivants :</p>
+<ul>
+<li><p><strong>Critère du saut minimum (single linkage)</strong><br>
+<span class="math inline">\(D_m\)</span>(A,B) = min{d(x,y); x ∈ A, y ∈ B}.</p></li>
+<li><p><strong>Critère du saut maximum (complete linkage)</strong><br>
+<span class="math inline">\(D_M\)</span>(A,B) = max{d(x,y); x ∈ A, y ∈ B}.</p></li>
+<li><p><strong>Critère de la distance moyenne (average linkage)</strong><br>
+<span class="math inline">\(D_a(A,B) = \frac{\sum_{x\in A}\sum_{y\in B} d(x,y)}{n_A\,n_B}\)</span></p>
+<p>où <span class="math inline">\(n_A\)</span>=card(A) et <span class="math inline">\(n_B\)</span>=card(B)</p></li>
+<li><p><strong>Critère de Ward (Ward linkage)</strong><br>
+<span class="math inline">\(D_W(A, B) = \frac{n_A\,n_B}{n_A + n_B}\,d^2(\mu_A, \mu_B)\)</span></p>
+<p>où <span class="math inline">\(µ_A=\frac{\sum_{x∈A}x}{n_A}\)</span> et <span class="math inline">\(µ_B=\frac{\sum_{y∈B}y}{n_B}\)</span></p></li>
+</ul>
+
+
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
