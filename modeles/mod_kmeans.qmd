@@ -31,11 +31,74 @@ La méthode des centres mobiles a pour but de fournir une partition de **x= {�
 
 - l'algorithme ne s'applique que sur des données quantitatives 
 
+- si les barycentres sont donnés, on commence l'algorithme avec ces barycentres.
+
 ## Exemple 1
 
 Voici un exemple de script R utilisant l’algorithme k-means pour trouver les classes (les clusters)
 des données *x={1, 2, 9, 12, 20}*  avec les barycentres *µ₁=1 et μ₂=7* 
 
+<u>Itération 1</u> 
+
+Etape 1 : *µ₁=1 et μ₂=7*  sont donnés par hypothèse 
+
+Etape 2 : Commençons par calculer la distance de chaque élément de x par rapport à µ₁=1 et μ₂=7
+
+```{R}
+# Fonction calculant les distances à un barycentre
+distance_au_centre <- function(x, mu) {
+  # x  : vecteur numérique
+  # mu : valeur numérique du barycentre
+  abs(x - mu)
+}
+x   <- c(1, 2, 9, 12, 20)
+mu1 <- 1
+mu2 <- 7
+distances1 <- distance_au_centre(x, mu1)
+df1<- data.frame(points = x, distance = distances1)
+distances2 <- distance_au_centre(x, mu2)
+df2<- data.frame(points = x, distance = distances2)
+df_merged <- merge(df1, df2, by= "points", suffixes = c("_mu1", "_mu2"))
+print(df_merged)
+```
+
+Etape 2 : les classes sont telles que la distance d(x,µ₁) d(x,μ₂) soit minimale. Donc les classes sont {1,2} et {9,12,20}. 
+
+<u>Itération 2 </u> : 
+
+Etape 1 : on détermine les centres de chaque classe
+
+```{R}
+mu3 <- mean(c(1, 2))
+mu4 <- mean(c(9, 12, 20))
+print(mu3)
+print(mu4)
+```
+
+Etape 2 : Commençons par calculer la distance de chaque élément de x par rapport à µ₁=1,5 et μ₂=13,67
+
+```{R}
+# Fonction calculant les distances à un barycentre
+distance_au_centre <- function(x, mu) {
+  # x  : vecteur numérique
+  # mu : valeur numérique du barycentre
+  abs(x - mu)
+}
+x   <- c(1, 2, 9, 12, 20)
+mu3 <-1.5
+mu4 <-13.67
+
+distances1 <- distance_au_centre(x, mu3)
+df1<- data.frame(points = x, distance = distances1)
+distances2 <- distance_au_centre(x, mu4)
+df2<- data.frame(points = x, distance = distances2)
+df_merged <- merge(df1, df2, by= "points", suffixes = c("_mu3", "_mu4"))
+print(df_merged)
+```
+
+Etape 2 : les classes sont telles que la distance d(x,µ3) d(x,μ4) soit minimale. Le regroupement ne change pas de la 1ère à la 2ème itération (critère de convergence) donc les classes sont {1,2} et {9,12,20}. 
+
+Sous R, la fonction kmeans permet directement de réaliser le regroupement selon l'algorithme des k-means.
 
 ```{R}
 # données
@@ -93,19 +156,13 @@ cat("Centres finaux :\n")
 print(res2$centers)
 ```
 
-## Propriétés 
+## Inertie intra-classe 
 
-### Inertie intra-classe
+### Définition
 
 > L’inertie intra-classe de x = {x1,..,xn} par rapport à la partition
- C ={C1,..,CK} et les centres des classes dans µ = {µ1,..,µK} s’écrit:
-> IW =
- d2(xi, µk)
- k=1xi∈Ck
- Notons-la IW(C,µ) à partir de maintenant.
-
-
-
+  $$C_K = \{\,C_1,\,C_2,\,\dots,\,C_K\} $$ et les centres des classes dans µ = {µ1,..,µK} s’écrit:
+> IW =$\sum_{k=1}^K d²(xi, µk)$
  Notons-la IW(C,µ) à partir de maintenant.
 
 l'inertie intra classe est égale à : 
@@ -113,8 +170,12 @@ l'inertie intra classe est égale à :
 total_inertia_alt2 <- sum(res2$withinss)
 print(total_inertia_alt2)
 ```
+### Propriétés
 
-## Exemple 3
+- L’algorithme de Lloyd permet de diminuer l'inertie intra-classe IW à chaque itération. Ainsi : 
+$\mathrm{IW}(C^{(m)}, \mu^{(m)}) \ge \mathrm{IW}(C^{(m+1)}, \mu^{(m)})$
+
+-  La suite numérique $\mathrm{IW}(C^{(m)}, \mu^{(m)})$ est stationnaire(i.e.,à partir d’un certain nombre d’itérations,elle prend toujours la même valeur).
 
 Voici un exemple de script R utilisant l’algorithme k-means pour trouver les classes (les clusters)
 des données *x={1, 2, 9, 12, 20}*  avec les barycentres *µ1 =1, µ2 =9, µ3 =12 et µ4 =20.* 
@@ -149,6 +210,8 @@ print(total_inertia_alt3)
 
 ## Méthode du coude
 
+Le critère du coude est une méthode visuelle consistant à tracer l’inertie intra de k-means en fonction de k et à choisir le nombre de clusters correspondant au point d’inflexion de la courbe.
+
 ```{R}
 
 
@@ -167,4 +230,5 @@ plot(ks, inertias,
      main = "Méthode du coude pour le choix de k")
 
 ```
-
+Conclusion : La méthode du coude privilégie donc 3 clusters qui permettent de capturer la plus grande partie de l'inertie intra-classe. En effet, ajouter une 4ème classe, n'apporte qu'un faible gain d'inertie intra-classe. 
+ 

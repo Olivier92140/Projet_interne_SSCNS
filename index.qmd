@@ -7,7 +7,7 @@ from: markdown+emoji
 ---
 
 
-## Quarto 
+## Des liens intéressants
 
 - [External link to Quarto website](https://quarto.org/){target="_blank"}
 - [R example](doc/r.qmd)

@@ -6,7 +6,13 @@ website:
   navbar:
     background: lightseagreen
     left:
-      - text: Modèles de classification
+      - text: Présentation
+        menu: 
+          - href: presentation/definition.qmd
+            text: "Définition"
+          - href: presentation/historique.qmd
+            text: "Historique"
+      - text: Modèles
         menu: 
           - href: modeles/mod_kmeans.qmd
             text: "Algorithme des K-means"
@@ -14,7 +20,7 @@ website:
             text: "Classification Ascendante hiérarchique (CAH)"
           - href: modeles/mod_mmelange.qmd
             text: "Modèles de mélange"
-      - text: Examples
+      - text: Exemples
         menu:
           - href: exemples/kmeans.qmd
             text: "Exemples de K-means"
