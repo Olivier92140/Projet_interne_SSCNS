@@ -12,6 +12,8 @@ Voici un bref historique des grandes étapes de la classification non supervisé
 - Années 1930 – Naissance de la classification hiérarchique
 John Tukey et d’autres statisticiens proposent des méthodes de regroupement basées sur la similarité (dendrogrammes) pour organiser les données sans labels.
 
+- Apparue de la classification ascendante hiérarchique dans les années 1950-60 (notamment grace à Sokal & Michener en 1958).
+
 - 1965 – Algorithme des nuées dynamiques
 Stuart Lloyd formalise ce qui deviendra plus tard le k-means, popularisé par James MacQueen en 1967 : partitionner un jeu de points en k groupes en minimisant la variance intra-groupe.
 

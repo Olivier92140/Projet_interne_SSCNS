@@ -1,0 +1,100 @@
+---
+title: "Algorithme CAH"
+author: "Olivier Malahel"
+format: html
+from: markdown+emoji
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+---
+
+## Exemple 
+
+Les données représentent les dépenses de clients dans un magasin selon 3 catégories: alimentaire, habillement et électronique. 
+
+Enjeu : On souhaite identifier des typologies de clients présentant des comportements similaires pour adapter l’offre à chaque poste de dépenses identifié.
+
+Problématique : Comment regrouper de manière homogène une clientèle selon ses habitudes de consommation dans trois domaines : l’alimentaire, l’habillement, et l’électronique ?
+
+### 1. Charger les données et visualisation de données 
+
+```{R}
+
+data <- read.delim2("clients_depenses.csv", sep = "\t", stringsAsFactors = FALSE)
+data
+```
+
+### 2. Matrice des variables (sans la colonne Client)
+
+```{R}
+# Extraction des données numériques uniquement
+X <- data[, -1]
+```
+
+### 3. CAH avec la méthode de Ward
+```{R}
+# Matrice des distances
+d <- dist(X) #distance = plus les individus sont proches plus la distance est faible
+
+# CAH avec la méthode de Ward
+hc <- hclust(d, method = "ward.D2")
+```
+
+### 4.  Visualisation du dendrogramme avec ligne de coupe
+
+```{R}
+# Dendrogramme avec ligne rouge pour visualiser la coupure
+plot(hc, labels = data$Client, main = "Dendrogramme - CAH (Ward)",
+     xlab = "Client", ylab = "Distance")
+abline(h = 300, col = "red", lty = 2) 
+```
+
+la ligne rouge coupe la plus grande distance verticale en 3 branches. Donc le nombre optimal de clusters est 3. 
+
+### 4. Découpage en clusters 
+
+```{R}
+# Découpage en 3 groupes (selon la plus grande distance verticale)
+clusters <- cutree(hc, k = 3)
+
+# Ajouter les clusters au tableau de départ
+data$Cluster <- factor(clusters)
+```
+
+### 5. Visualisation avec ACP 
+
+```{R}
+install.packages("ggplot2")
+library(ggplot2)
+# Étape 1 : Réaliser l'ACP sur les colonnes numériques (sans Client ni Cluster)
+acp <- prcomp(X, scale. = TRUE)
+
+# Étape 2 : Extraire les coordonnées sur les deux premières composantes
+coord <- as.data.frame(acp$x[, 1:2])
+colnames(coord) <- c("PC1", "PC2")
+coord$Client <- data$Client
+coord$Cluster <- factor(data$Cluster, labels = c("1", "2", "3"))
+
+ggplot(coord, aes(x = PC1, y = PC2, color = Cluster, label = Client)) +
+  geom_point(size = 3) +
+  geom_text(vjust = -0.6, size = 3) +
+  labs(title = "ACP - Visualisation des clusters (CAH)",
+       x = "Composante principale 1", y = "Composante principale 2") +
+  theme_minimal()
+```
+
+### contribution variable au plan factoriel
+
+```{R}
+acp$rotation[, 1:2]  # colonnes : PC1 et PC2, lignes : variables
+```
+## Conclusion 
+
+La CAH permet de regrouper les 20 clients en 3 segments de consommation distincts. Ces clusters peuvent correspondre à :
+
+- Cluster 1 (rouge) : Ces clients correspondent à des gros consommateurs en électronique. Pour une entreprise, il est intéressant de cibler de type de client pour leur proposer des offres intéressantes ou des nouveautés. 
+
+- Cluster 2 (vert) : Ce sont des clients orientés alimentaire et l'habillement, peu consommateurs d'électronique. Pour une entreprise, il est intéressant de cibler de type de client pour leur proposer par exemple des cartes de fidélité. 
+
+- Cluster 3 (bleu) :  Ce sont des clients à fort intérêt pour l’habillement, avec des comportements mixtes sur les autres postes. Pour une entreprise, il est intéressant de cibler de type de client pour leur proposer des promotions ou des nouvelles gammes. 
+
+

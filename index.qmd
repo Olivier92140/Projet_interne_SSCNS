@@ -9,6 +9,5 @@ from: markdown+emoji
 
 ## Des liens intéressants
 
-- [External link to Quarto website](https://quarto.org/){target="_blank"}
-- [R example](doc/r.qmd)
-- [Python example](doc/python.qmd) :snake:
+- [Clustering K-Means dans R ](https://statorials.org/k-signifie-regroupement-en-r/){target="_blank"}
+- [Classification ascendante hiérarchique avec R](https://r-stat-sc-donnees.github.io/code_html/CAH.nb.html){target="_blank"}

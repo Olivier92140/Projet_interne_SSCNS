@@ -33,6 +33,14 @@ La méthode des centres mobiles a pour but de fournir une partition de **x= {�
 
 - si les barycentres sont donnés, on commence l'algorithme avec ces barycentres.
 
+### avantage, limite et spécificité de l'algorithme 
+
+- avantage : algorithme rapide 
+
+- limites: besoin de spécifier le nombre de classes K
+
+- spécificité : minimisation de l'inertie intra-classe
+
 ## Exemple 1
 
 Voici un exemple de script R utilisant l’algorithme k-means pour trouver les classes (les clusters)
@@ -213,8 +221,6 @@ print(total_inertia_alt3)
 Le critère du coude est une méthode visuelle consistant à tracer l’inertie intra de k-means en fonction de k et à choisir le nombre de clusters correspondant au point d’inflexion de la courbe.
 
 ```{R}
-
-
 # vecteur de valeurs de k à tester
 ks    <- 2:4
 

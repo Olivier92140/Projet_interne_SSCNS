@@ -53,7 +53,7 @@ D(A,B) ∈ R+, où A,B ∈ P(x) avec A∩B =∅.
 L’algorithme de la CAH fournit une hiérarchie indicée où D est l’indice si D
  est croissante.
 
-## Distance entre les classes 
+## Distance (ou dissimilarité) entre les classes 
 
 Soit A et B deux classes de Ω, on a les **critères d’agrégation (linkages)** suivants :
 
@@ -74,5 +74,72 @@ Soit A et B deux classes de Ω, on a les **critères d’agrégation (linkages)
 
 
     où $µ_A=\frac{\sum_{x∈A}x}{n_A}$ et $µ_B=\frac{\sum_{y∈B}y}{n_B}$
+
+## Dendrogramme
+
+Un dendrogramme est un type de diagramme arborescent utilisé pour représenter visuellement le résultat d’une analyse de regroupement hiérarchique (clustering hiérarchique). 
+
+Les branches représentent les fusions successives de groupes d’objets selon leur similarité ou leur distance.
+
+### Règle de la plus grande distance verticale
+
+La règle de la plus grande distance verticale (aussi appelée "règle de l'élagage maximal") est une méthode visuelle simple pour déterminer le nombre optimal de clusters à partir d’un dendrogramme.
+
+Etapes de la règle : 
+
+- Tracer le dendrogramme.
+
+- Repérer les hauteurs des lignes verticales.
+
+- Identifier la plus grande distance verticale sans ligne horizontale qui la coupe : C’est-à-dire la plus grande "barre verticale libre".
+
+- Tracer une ligne horizontale qui coupe cette barre.
+
+- Le nombre optimal de clusters est alors égal au nombre de branches coupées par cette ligne horizontale.
+
+### avantages, limites et spécificité de l'algorithme CAH
+
+- avantages : pas besoin de spécifier K à l’avance, visualisation hiérarchique.
+
+- limites: complexité quadratique, sensible à l’échelle des variables.
+
+- spécificité : Structure arborescente 
+
+
+### Application directe
+```{R}
+# Étape 1 : Données originales
+data <- data.frame(
+  Employé    = c("E1", "E2", "E3", "E4", "E5"),
+  Ancienneté = c(2, 3, 5, 6, 8),
+  Salaire    = c(2000, 2100, 3500, 4100, 10000)
+)
+
+# Étape 2 : Matrice des caractéristiques
+X <- data[, c("Ancienneté", "Salaire")]
+
+# Étape 3 : Clustering hiérarchique (Ward)
+d <- dist(X)
+hc <- hclust(d, method = "ward.D2")
+
+# Étape 4 : Affichage du dendrogramme avec ylim plus grand
+plot(hc, labels = data$Employé,
+     main = "Dendrogramme - CAH (Ward)",
+     xlab = "Employé", ylab = "Distance",
+     ylim = c(0, 10000))  # Limite supérieure augmentée
+
+# Hauteur de coupure
+n_clusters <- 2
+height_cut <- (sort(hc$height, decreasing = TRUE)[n_clusters - 1] +
+               sort(hc$height, decreasing = TRUE)[n_clusters]) / 1.35
+abline(h = height_cut, col = "red", lty = 2)
+
+# Étape 5 : Clusters
+clusters <- cutree(hc, k = n_clusters)
+data$Cluster <- as.factor(clusters)
+
+# Affichage final
+print(data)
+```
 
 
