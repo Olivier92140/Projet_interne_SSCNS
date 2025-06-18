@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.31">
+<meta name="generator" content="quarto-1.7.32">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -37,12 +72,12 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ef56b68f8fa1e9d2ba328e99e439f80.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-8ec57f05d65a7bcf9f706be35dd71a43.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-49f78ad772de919a72c7fce3dd20fdab.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-7f4cc24fd42949a81cf8b37074ce08f5.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-ae6e44816055ef4041522f0db3d6f824.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -420,8 +455,8 @@ D(A,B) ∈ R+, où A,B ∈ P(x) avec A∩B =∅.</p></li>
 <p><strong>Result</strong> : Hiérarchie indicée</p>
 <p>L’algorithme de la CAH fournit une hiérarchie indicée où D est l’indice si D est croissante.</p>
 </section>
-<section id="distance-entre-les-classes" class="level2">
-<h2 class="anchored" data-anchor-id="distance-entre-les-classes">Distance entre les classes</h2>
+<section id="distance-ou-dissimilarité-entre-les-classes" class="level2">
+<h2 class="anchored" data-anchor-id="distance-ou-dissimilarité-entre-les-classes">Distance (ou dissimilarité) entre les classes</h2>
 <p>Soit A et B deux classes de Ω, on a les <strong>critères d’agrégation (linkages)</strong> suivants :</p>
 <ul>
 <li><p><strong>Critère du saut minimum (single linkage)</strong><br>
@@ -435,8 +470,84 @@ D(A,B) ∈ R+, où A,B ∈ P(x) avec A∩B =∅.</p></li>
 <span class="math inline">\(D_W(A, B) = \frac{n_A\,n_B}{n_A + n_B}\,d^2(\mu_A, \mu_B)\)</span></p>
 <p>où <span class="math inline">\(µ_A=\frac{\sum_{x∈A}x}{n_A}\)</span> et <span class="math inline">\(µ_B=\frac{\sum_{y∈B}y}{n_B}\)</span></p></li>
 </ul>
+</section>
+<section id="dendrogramme" class="level2">
+<h2 class="anchored" data-anchor-id="dendrogramme">Dendrogramme</h2>
+<p>Un dendrogramme est un type de diagramme arborescent utilisé pour représenter visuellement le résultat d’une analyse de regroupement hiérarchique (clustering hiérarchique).</p>
+<p>Les branches représentent les fusions successives de groupes d’objets selon leur similarité ou leur distance.</p>
+<section id="règle-de-la-plus-grande-distance-verticale" class="level3">
+<h3 class="anchored" data-anchor-id="règle-de-la-plus-grande-distance-verticale">Règle de la plus grande distance verticale</h3>
+<p>La règle de la plus grande distance verticale (aussi appelée “règle de l’élagage maximal”) est une méthode visuelle simple pour déterminer le nombre optimal de clusters à partir d’un dendrogramme.</p>
+<p>Etapes de la règle :</p>
+<ul>
+<li><p>Tracer le dendrogramme.</p></li>
+<li><p>Repérer les hauteurs des lignes verticales.</p></li>
+<li><p>Identifier la plus grande distance verticale sans ligne horizontale qui la coupe : C’est-à-dire la plus grande “barre verticale libre”.</p></li>
+<li><p>Tracer une ligne horizontale qui coupe cette barre.</p></li>
+<li><p>Le nombre optimal de clusters est alors égal au nombre de branches coupées par cette ligne horizontale.</p></li>
+</ul>
+</section>
+<section id="avantages-limites-et-spécificité-de-lalgorithme-cah" class="level3">
+<h3 class="anchored" data-anchor-id="avantages-limites-et-spécificité-de-lalgorithme-cah">avantages, limites et spécificité de l’algorithme CAH</h3>
+<ul>
+<li><p>avantages : pas besoin de spécifier K à l’avance, visualisation hiérarchique.</p></li>
+<li><p>limites: complexité quadratique, sensible à l’échelle des variables.</p></li>
+<li><p>spécificité : Structure arborescente</p></li>
+</ul>
+</section>
+<section id="application-directe" class="level3">
+<h3 class="anchored" data-anchor-id="application-directe">Application directe</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Étape 1 : Données originales</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  Employé    <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"E1"</span>, <span class="st">"E2"</span>, <span class="st">"E3"</span>, <span class="st">"E4"</span>, <span class="st">"E5"</span>),</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  Ancienneté <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">8</span>),</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Salaire    =</span> <span class="fu">c</span>(<span class="dv">2000</span>, <span class="dv">2100</span>, <span class="dv">3500</span>, <span class="dv">4100</span>, <span class="dv">10000</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Étape 2 : Matrice des caractéristiques</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> data[, <span class="fu">c</span>(<span class="st">"Ancienneté"</span>, <span class="st">"Salaire"</span>)]</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Étape 3 : Clustering hiérarchique (Ward)</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">dist</span>(X)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>hc <span class="ot">&lt;-</span> <span class="fu">hclust</span>(d, <span class="at">method =</span> <span class="st">"ward.D2"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Étape 4 : Affichage du dendrogramme avec ylim plus grand</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hc, <span class="at">labels =</span> data<span class="sc">$</span>Employé,</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Dendrogramme - CAH (Ward)"</span>,</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Employé"</span>, <span class="at">ylab =</span> <span class="st">"Distance"</span>,</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10000</span>))  <span class="co"># Limite supérieure augmentée</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Hauteur de coupure</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>n_clusters <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>height_cut <span class="ot">&lt;-</span> (<span class="fu">sort</span>(hc<span class="sc">$</span>height, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[n_clusters <span class="sc">-</span> <span class="dv">1</span>] <span class="sc">+</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>               <span class="fu">sort</span>(hc<span class="sc">$</span>height, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[n_clusters]) <span class="sc">/</span> <span class="fl">1.35</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> height_cut, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="mod_CAH_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Étape 5 : Clusters</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>clusters <span class="ot">&lt;-</span> <span class="fu">cutree</span>(hc, <span class="at">k =</span> n_clusters)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>Cluster <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(clusters)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Affichage final</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Employé Ancienneté Salaire Cluster
+1      E1          2    2000       1
+2      E2          3    2100       1
+3      E3          5    3500       1
+4      E4          6    4100       1
+5      E5          8   10000       2</code></pre>
+</div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
