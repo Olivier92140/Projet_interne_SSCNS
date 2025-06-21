@@ -329,7 +329,7 @@ window.Quarto = {
  <span class="dropdown-text">Exemples de CAH</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../exemples/mmelange.qmd">
+    <a class="dropdown-item" href="../exemples/melange.html">
  <span class="dropdown-text">Exemples de modèles de mélange</span></a>
   </li>  
     </ul>
@@ -659,7 +659,7 @@ L_k(\lambda_k) = \sum_{i=1}^{n} t_{ik}(\theta^{[r-1]}) (-\lambda_k + x_i \log \l
 \sum_{k=1}^{K} \left( \sum_{i=1}^{n} t_{ik}(\lambda_k^{[r-1]}) \right) \log \pi_k
 \quad \text{ sous la contrainte } \quad \sum_{k=1}^{K} \pi_k = 1
 \]</span></p>
-<p>On introduit un multiplicateur de Lagrange $ $ :</p>
+<p>On introduit un multiplicateur de Lagrange <span class="math inline">\(\phi\)</span> :</p>
 <p><span class="math display">\[
 \mathcal{L}(\pi, \phi) =
 \sum_{k=1}^{K} \left( \sum_{i} t_{ik}(\lambda_k^{[r-1]}) \right) \log \pi_k
@@ -672,7 +672,7 @@ L_k(\lambda_k) = \sum_{i=1}^{n} t_{ik}(\theta^{[r-1]}) (-\lambda_k + x_i \log \l
 \quad \Rightarrow \quad
 \pi_k = \frac{\sum_i t_{ik}(\theta^{[r-1]})}{\phi}
 \]</span></p>
-<p>Or, sous la contrainte ( _{k=1}^{K} _k = 1 ) :</p>
+<p>Or, sous la contrainte <span class="math inline">\(\sum_{k=1}^{K} \pi_k = 1\)</span> :</p>
 <p><span class="math display">\[
 \phi = \sum_{i=1}^{n} \sum_{k=1}^{K} t_{ik}(\theta^{[r-1]}) = n
 \quad \Rightarrow \quad
