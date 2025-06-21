@@ -1,0 +1,65 @@
+---
+title: "Modèles de mélange de gaussiennes"
+author: "Olivier Malahel"
+format: html
+from: markdown+emoji
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+---
+
+## Introduction
+
+Dans cet exemple, nous ajustons un **modèle de mélange de lois normales** à des données simulées, en utilisant le package R `mclust`. Le but est d’identifier automatiquement des groupes (ou classes) au sein des données.
+
+
+## Simulation de données
+
+```{R}
+# Charger le package
+install.packages("mclust")
+library(mclust)
+
+# Générer deux groupes de données gaussiennes
+set.seed(123)
+x1 <- rnorm(100, mean = 0, sd = 1)
+x2 <- rnorm(100, mean = 5, sd = 1.5)
+x  <- c(x1, x2)
+
+# Affichage rapide de l'histogramme
+hist(x, breaks = 30, col = "lightblue", main = "Histogramme des données simulées", xlab = "x")
+```
+
+```{R}
+# Ajustement du modèle avec mclust (via EM)
+modele <- Mclust(x)
+
+# Résumé des résultats du modèle
+summary(modele)
+
+# Tracé de la densité estimée par le modèle
+plot(modele, what = "density")
+```
+
+Ce graphique représente le modèle de mélange dont voici les paramètres: 
+
+```{R}
+modele$parameters  #affichage des paramètres
+```
+
+
+Visualisation de la classification 
+
+
+```{R}
+table(modele$classification) #visualisation
+plot(modele, what = "classification") #graphique
+```
+
+Ce graphique montre que:  
+
+- environ la moitié des observations ont été classées en classe 1 (bleu), centrée autour de 0.
+
+- l’autre moitié ont été classées en classe 2 (rouge), centrée autour de 5.
+
+- la séparation des classes est très nette (très peu de confusion), ce qui est attendu puisque tes données simulées proviennent de deux groupes bien séparés.
+

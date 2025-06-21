@@ -1,0 +1,345 @@
+---
+title: "Modèles de mélange"
+author: "Olivier Malahel"
+format: html
+from: markdown+emoji
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+
+---
+## Introduction {.unnumbered}
+
+La classification par modèles de mélange est une approche probabiliste.
+L’idée est de modéliser la distribution des données observées par un mélange de distributions de probabilité. On définit une classe comme l’ensemble des observations issues de la même composante du mélange.
+
+## Loi de mélange 
+
+---
+title: "Loi de mélange"
+format: html
+---
+
+::: {.callout-note title="Définition"}
+Une loi de mélange $p$ à $K$ composantes et à support sur un espace $\mathcal{X}$ est une **combinaison linéaire de $K$ lois de probabilité** $p_1, \ldots, p_K$ sur $\mathcal{X}$.
+:::
+
+Ainsi, il existe $K$ coefficients $\pi_1, \ldots, \pi_K$, avec $\pi_k > 0$ et $\sum_{k=1}^K \pi_k = 1$, tels que, pour tout mesurable $A \subset \mathcal{X}$, on a
+
+$$
+p(A ; \theta) = \sum_{k=1}^K \pi_k p_k(A ; \alpha_k), \tag{1}
+$$
+
+où $\theta = \left\{ \{\pi_k, \alpha_k \} : k = 1, \ldots, K \right\}$ groupe les paramètres du modèle et $\alpha_k$ groupe les paramètres de la composante $k$.
+
+Si elle existe, on peut écrire la densité d’une loi de mélange comme :
+
+$$
+f(x ; \theta) = \sum_{k=1}^K \pi_k f_k(x ; \alpha_k), \tag{2}
+$$
+
+pour tout $x \in \mathcal{X}$, où $f_k$ est la densité associée à $p_k$.
+
+## Modélisation
+
+Soient $x_1, \ldots, x_n$ des observations correspondant à $n$ individus issus d’une population $\Omega$ composée par $K$ sous-populations disjointes :
+
+$$
+\Omega = \{1, \ldots, n\} = C_1 \cup \ldots \cup C_K \quad \leftarrow \text{Vrai classement}
+$$
+
+::: {.callout-note}
+On modélise les observations $x_1, \ldots, x_n$ comme des réalisations de $n$ variables aléatoires i.i.d. $\; X_1, \ldots, X_n$.
+:::
+
+On définit $Z_i = (Z_{i1}, \ldots, Z_{iK})$ par :
+
+$$
+Z_{ik} = 
+\begin{cases}
+1 & \text{si } i \in C_k \\
+0 & \text{sinon}
+\end{cases}
+\quad \text{avec} \quad \mathbb{P}(Z_{ik} = 1) = \pi_k
+$$
+
+probabilité *a priori* d’appartenance à $C_k$.
+
+D’après la définition de $Z_i$ : $\sum_{k=1}^K \pi_k = 1$, et puis, par construction,
+
+$$
+Z_i \sim \mathcal{M}(1; \pi_1, \ldots, \pi_K). \quad \text{(Loi multinomiale)}
+$$
+
+Pour tout $i \in \{1, \ldots, n\}$, on modélise par $p_k(\cdot)$ la loi de $X_i \mid \{Z_{ik} = 1\}$ et par $p(\cdot)$ la loi de $X_i$, i.e.
+
+$$
+p_k(A) = \mathbb{P}(X_i \in A \mid Z_{ik} = 1), \\
+p(A) = \mathbb{P}(X_i \in A),
+$$
+
+pour tout $A$ mesurable dans $\mathcal{X}$. En utilisant la formule des probabilités totales, on peut écrire :
+
+$$
+p(A) = \mathbb{P}(X_i \in A) = \sum_{k=1}^K \mathbb{P}(X_i \in A \mid Z_{ik} = 1)\mathbb{P}(Z_{ik} = 1) = \sum_{k=1}^K \pi_k \mathbb{P}(X_i \in A \mid Z_{ik} = 1).
+$$
+
+Par conséquent, on a :
+
+$$
+p(A) = \sum_{k=1}^K \pi_k p_k(A), \tag{3}
+$$
+
+pour tout mesurable $A \subset \mathcal{X}$.
+
+Finalement, en dénotant les $p_k(\cdot)$ et $p(\cdot)$ en fonction de leurs paramètres, on peut réécrire (3) comme :
+
+$$
+p(A, \theta) = \sum_{k=1}^K \pi_k p_k(A ; \alpha_k) 
+\quad \text{où} \quad \theta = \left\{ \{\pi_k, \alpha_k\} : \; k = 1, \ldots, K \right\}, \tag{4}
+$$
+
+qui est une loi de mélange.
+
+Et la densité du mélange (fonction de masse) s'écrit comme une somme pondérée de lois conditionnelles :
+
+$$
+f(x_i; \theta) = \sum_{k=1}^{K} \mathbb{P}(Z_i = k) \cdot \mathbb{P}(X_i = x_i \mid Z_i = k) = \sum_{k=1}^{K} \pi_k f_k(x_i; \alpha_k)
+$$
+
+où :
+
+- $Z_i$ est la variable latente (pas directement observable mais qui influence le modèle) indiquant la composante à laquelle appartient l'observation $x_i$ ;  
+- $\pi_k = \mathbb{P}(Z_i = k)$ est la probabilité a priori d’appartenir à la classe $k$ ;  
+- $f_k(x_i; \alpha_k)$ est la densité conditionnelle dans la classe $k$ avec les paramètres $\alpha_k$.
+
+::: {.callout-note}
+Ainsi les observations $x_1, \ldots, x_n$ sont modélisées pour être *tirées d’une loi de mélange*.
+:::
+
+En résumé, ce modèle caractérise chaque sous-population $C_k$ par :
+
+- $\pi_k$, qui représente la proportion d’individus appartenant à la $k$-ième sous-population,
+- $\alpha_k$, i.e. les paramètres de la distribution de $p_k$.
+
+### Modèle de mélange le plus utilisé
+
+Le modèle de mélange le plus utilisé est le mélange gaussien : 
+
+Si $\mathcal{X} = \mathbb{R}^d$, le modèle le plus utilisé est le mélange gaussien. Ainsi
+
+$$
+f(x_i ; \theta) = \sum_{k=1}^K \pi_k \, \phi_d(x_i ; \mu_k, \Sigma_k),
+$$
+
+où $\theta$ groupe tous les paramètres, $\pi_k$ est la proportion de la classe $k$,  
+$\mu_k \in \mathbb{R}^d$ est le centre de la classe $k$ et $\Sigma_k$ est sa matrice de covariance.
+
+Précisément : 
+
+### Exemple: Mélange de 3 gaussiennes univariées
+
+La densité d’un mélange de 3 gaussiennes univariées (ne dépendant que de x) s’écrit :
+
+$$
+f(x_i; \theta) = \pi_1 f_1(x; \alpha_1) + \pi_2 f_2(x; \alpha_2) + \pi_3 f_3(x; \alpha_3)
+$$
+
+où :
+
+$$
+f_k(x; \alpha_k) = \frac{1}{\sqrt{2\pi}\sigma_k} \exp\left( -\frac{(x - \mu_k)^2}{2\sigma_k^2} \right)
+$$
+
+et :
+
+$$
+\theta = \left\{ \{\pi_k, \alpha_k\} : \alpha_k = (\mu_k, \sigma_k) \text{ pour } k = 1, \ldots, 3 \right\}
+$$
+
+## Vraisemblance
+
+Pour un modèle de mélange, on utilise une vraisemblance car en la maximisant, nous trouverons les valeurs des paramètres qui rendent les données les plus probables (valeurs optimales)
+
+### Vraisemblance incomplète du modèle 
+
+La vraisemblance incomplète du modèle est :
+
+$$
+\mathcal{L}(\theta; x) = \prod_{i=1}^{n} f(x_i, \theta) = \prod_{i=1}^{n} \sum_{k=1}^{K} \pi_k f_k(x_i; \alpha_k)
+$$
+
+et sa log-vraisemblance est :
+
+$$
+\ell(\theta; x) = \sum_{i=1}^{n} \log \left( \sum_{k=1}^{K} \pi_k f_k(x_i; \alpha_k) \right)
+$$
+
+### Vraisemblance complète du modèle 
+
+La vraisemblance complète du modèle est : 
+
+$$
+\mathcal{L}(\theta; x, z) = \prod_{i=1}^{n} \prod_{k=1}^{K} \left[ \pi_k f_k(x_i; \alpha_k) \right]^{z_{ik}}
+$$
+
+où $z_{ik} = 1$ si l’observation $i$ provient de la composante $k$, $0$ sinon.  
+
+Donc la log-vraisemblance complétée est :
+
+$$
+\ell(\theta; x, z) = \sum_{i=1}^{n} \sum_{k=1}^{K} z_{ik} \left( \log \pi_k + \log f_k(x_i; \alpha_k) \right)
+$$
+
+## L'algorithme EM (Expectation Maximisation)
+
+L’algorithme EM est une méthode d’optimisation utilisée pour estimer les paramètres d’un modèle statistique lorsque les données sont incomplètes ou comportent des variables latentes.
+
+### Algorithme EM : définition
+
+L’algorithme EM est initialisé au paramètre $\theta^{[0]}$.  
+Il itère entre les étapes E et M définies à l’itération $r$ par :
+
+— **Étape E** : calcul des probabilités a posteriori $t_{ik}$ sachant $\theta^{[r-1]}$
+
+$$
+t_{ik}(\theta^{[r-1]}) = \frac{\pi_k^{[r-1]} f_k(x_i; \alpha_k^{[r-1]})}{\sum_{l=1}^{K} \pi_l^{[r-1]} f_l(x_i; \alpha_l^{[r-1]})}
+$$
+
+— **Étape M** : maximisation de l’espérance de la log-vraisemblance complétée
+
+$$
+\theta^{[r]} = \arg\max_{\alpha_k, \pi_k} \sum_{i=1}^{n} \sum_{k=1}^{K} t_{ik}(\theta^{[r-1]}) \log \left( \pi_k f_k(x_i; \alpha_k) \right)
+$$
+
+On s’arrête lorsque les valeurs des paramètres ou de la quantité à maximiser entre deux itérations successives ne varient « presque » plus.
+
+L'algorithme EM permet de calculer les valeurs du paramètres qui maximise la vraisemblance à chaque itération. 
+
+## Application : distribution de mélange de Poisson
+
+### Fonction de masse d’une observation xi
+
+La densité (fonction de masse) du mélange s’écrit :
+
+$$
+f(x_i ; \theta) = \sum_{k=1}^{K} \pi_k \cdot \frac{e^{-\lambda_k} \lambda_k^{x_i}}{x_i!}
+$$
+
+avec $\sum_k$ $\pi_k = 1$ , $\pi_k >0$ et $\lambda_k > 0$.
+
+### fonctions de log-vraisemblance et log-vraisemblance complétée du modèle
+
+- **Vraisemblance** :
+
+$$
+\mathcal{L}(\theta ; x) = \prod_{i=1}^{n} \left( \sum_{k=1}^{K} \pi_k \cdot \frac{e^{-\lambda_k} \lambda_k^{x_i}}{x_i!} \right)
+$$
+
+- **Log-vraisemblance** :
+
+$$
+\ell(\theta ; x) = \sum_{i=1}^{n} \log \left( \sum_{k=1}^{K} \pi_k \cdot \frac{e^{-\lambda_k} \lambda_k^{x_i}}{x_i!} \right)
+$$
+
+- **Log-vraisemblance complétée** :
+
+$$
+\ell(\theta ; x, z) = \sum_{i=1}^{n} \sum_{k=1}^{K} z_{ik} \log(\pi_k f_k(x_i ; \lambda_k)) 
+= \sum_{i=1}^{n} \sum_{k=1}^{K} z_{ik} \left( \log \pi_k - \lambda_k + x_i \log \lambda_k - \log(x_i!) \right)
+$$
+
+Le terme $\log(x_i!)$, étant constant par rapport à $\theta$, peut être ignoré lors de l’optimisation.
+
+### Algorithme EM 
+
+- **Étape E** : calcul des probabilités a posteriori $t_{ik}$ sachant $\theta^{[r-1]}$ :
+
+$$
+t_{ik}(\theta^{[r-1]}) = 
+\frac{
+  \pi_k^{[r-1]} e^{-\lambda_k^{[r-1]}} \left( \lambda_k^{[r-1]} \right)^{x_i}
+}{
+  \sum_{h=1}^{K} \pi_h^{[r-1]} e^{-\lambda_h^{[r-1]}} \left( \lambda_h^{[r-1]} \right)^{x_i}
+}
+$$
+
+- **Initialisation** : $\theta^{[0]}$ = $\left\{ \pi_k^{[0]}, \lambda_k^{[0]} \right\}$
+
+- **Étape M** : Maximiser à chaque étape l’espérance conditionnelle de la log-vraisemblance complétée :
+
+$$
+Q(\theta ; \theta^{[r-1]}) = 
+\sum_{i=1}^{n} \sum_{k=1}^{K} 
+t_{ik}(\theta^{[r-1]}) \left( \log \pi_k - \lambda_k + x_i \log \lambda_k \right)
+$$
+
+$$
+\theta^{[r]} = \arg \max_{\lambda_k, \pi_k} 
+\sum_{i=1}^{n} \sum_{k=1}^{K} 
+t_{ik}(\theta^{[r-1]}) \left( \log \pi_k - \lambda_k + x_i \log \lambda_k \right)
+$$
+
+
+### Valeurs des paramètres qui maximisent la vraisemblance à chaque itération
+
+### 1. Mise à jour des paramètres $\lambda_k^{[r]}$
+
+On commence par maximiser par rapport à $\lambda_k$, car cette optimisation ne dépend pas des contraintes sur les $\pi_k$, et les termes sont séparables pour chaque composante \( k \).
+
+On veut maximiser pour chaque k :
+
+$$
+L_k(\lambda_k) = \sum_{i=1}^{n} t_{ik}(\theta^{[r-1]}) (-\lambda_k + x_i \log \lambda_k)
+$$
+
+On dérive cette fonction :
+
+$$
+\frac{\partial L_k}{\partial \lambda_k} 
+= \sum_{i=1}^{n} t_{ik}(\theta^{[r-1]}) \left( -1 + \frac{x_i}{\lambda_k} \right)
+= -\sum_{i=1}^{n} t_{ik}(\theta^{[r-1]}) + \frac{\sum_{i=1}^{n} t_{ik}(\theta^{[r-1]}) x_i}{\lambda_k}
+$$
+
+On annule la dérivée :
+
+$$
+-\sum_{i=1}^{n} t_{ik}(\theta^{[r-1]}) + \frac{\sum_{i=1}^{n} t_{ik}(\theta^{[r-1]}) x_i}{\lambda_k} = 0 
+\quad \Rightarrow \quad
+\lambda_k^{[r]} = \frac{\sum_{i=1}^{n} t_{ik}(\theta^{[r-1]}) x_i}{\sum_{i=1}^{n} t_{ik}(\theta^{[r-1]})}
+$$
+
+### 2. Mise à jour des poids $\pi_k^{[r]}$
+
+On cherche à maximiser sur $(\pi_1, \pi_2, \ldots, \pi_K, \phi)$ la fonction :
+
+$$
+\sum_{k=1}^{K} \left( \sum_{i=1}^{n} t_{ik}(\lambda_k^{[r-1]}) \right) \log \pi_k
+\quad \text{ sous la contrainte } \quad \sum_{k=1}^{K} \pi_k = 1
+$$
+
+On introduit un multiplicateur de Lagrange $ \phi $ :
+
+$$
+\mathcal{L}(\pi, \phi) = 
+\sum_{k=1}^{K} \left( \sum_{i} t_{ik}(\lambda_k^{[r-1]}) \right) \log \pi_k 
+- \phi \left( \sum_{k=1}^{K} \pi_k - 1 \right)
+$$
+
+On dérive la fonction de Lagrange :
+
+$$
+\frac{\partial \mathcal{L}}{\partial \pi_k} 
+= \frac{\sum_i t_{ik}(\theta^{[r-1]})}{\pi_k} - \phi = 0
+\quad \Rightarrow \quad
+\pi_k = \frac{\sum_i t_{ik}(\theta^{[r-1]})}{\phi}
+$$
+
+Or, sous la contrainte \( \sum_{k=1}^{K} \pi_k = 1 \) :
+
+$$
+\phi = \sum_{i=1}^{n} \sum_{k=1}^{K} t_{ik}(\theta^{[r-1]}) = n
+\quad \Rightarrow \quad
+\boxed{
+\pi_k^{[r]} = \frac{1}{n} \sum_{i=1}^{n} t_{ik}(\theta^{[r-1]})
+}
+$$
