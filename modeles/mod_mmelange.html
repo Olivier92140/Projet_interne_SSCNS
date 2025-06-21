@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Olivier Malahel">
 
-<title>mod_mmelange – Classification non supervisée</title>
+<title>Loi de mélange – Classification non supervisée</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -40,8 +41,8 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-0ca8d520645b5189d7194f5d30a4ecf3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-728090f100864248164ae384b99e3527.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-8ec57f05d65a7bcf9f706be35dd71a43.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-49f78ad772de919a72c7fce3dd20fdab.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -70,6 +71,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -324,14 +354,336 @@ ul.task-list li input[type="checkbox"] {
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Loi de mélange</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Olivier Malahel </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
 
 
+</header>
 
 
+<section id="introduction" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="introduction">Introduction</h2>
+<p>La classification par modèles de mélange est une approche probabiliste. L’idée est de modéliser la distribution des données observées par un mélange de distributions de probabilité. On définit une classe comme l’ensemble des observations issues de la même composante du mélange.</p>
+</section>
+<section id="loi-de-mélange" class="level2">
+<h2 class="anchored" data-anchor-id="loi-de-mélange">Loi de mélange</h2>
+<div class="callout callout-style-default callout-note callout-titled" title="Définition">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Définition
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Une loi de mélange <span class="math inline">\(p\)</span> à <span class="math inline">\(K\)</span> composantes et à support sur un espace <span class="math inline">\(\mathcal{X}\)</span> est une <strong>combinaison linéaire de <span class="math inline">\(K\)</span> lois de probabilité</strong> <span class="math inline">\(p_1, \ldots, p_K\)</span> sur <span class="math inline">\(\mathcal{X}\)</span>.</p>
+</div>
+</div>
+<p>Ainsi, il existe <span class="math inline">\(K\)</span> coefficients <span class="math inline">\(\pi_1, \ldots, \pi_K\)</span>, avec <span class="math inline">\(\pi_k &gt; 0\)</span> et <span class="math inline">\(\sum_{k=1}^K \pi_k = 1\)</span>, tels que, pour tout mesurable <span class="math inline">\(A \subset \mathcal{X}\)</span>, on a</p>
+<p><span class="math display">\[
+p(A ; \theta) = \sum_{k=1}^K \pi_k p_k(A ; \alpha_k), \tag{1}
+\]</span></p>
+<p>où <span class="math inline">\(\theta = \left\{ \{\pi_k, \alpha_k \} : k = 1, \ldots, K \right\}\)</span> groupe les paramètres du modèle et <span class="math inline">\(\alpha_k\)</span> groupe les paramètres de la composante <span class="math inline">\(k\)</span>.</p>
+<p>Si elle existe, on peut écrire la densité d’une loi de mélange comme :</p>
+<p><span class="math display">\[
+f(x ; \theta) = \sum_{k=1}^K \pi_k f_k(x ; \alpha_k), \tag{2}
+\]</span></p>
+<p>pour tout <span class="math inline">\(x \in \mathcal{X}\)</span>, où <span class="math inline">\(f_k\)</span> est la densité associée à <span class="math inline">\(p_k\)</span>.</p>
+</section>
+<section id="modélisation" class="level2">
+<h2 class="anchored" data-anchor-id="modélisation">Modélisation</h2>
+<p>Soient <span class="math inline">\(x_1, \ldots, x_n\)</span> des observations correspondant à <span class="math inline">\(n\)</span> individus issus d’une population <span class="math inline">\(\Omega\)</span> composée par <span class="math inline">\(K\)</span> sous-populations disjointes :</p>
+<p><span class="math display">\[
+\Omega = \{1, \ldots, n\} = C_1 \cup \ldots \cup C_K \quad \leftarrow \text{Vrai classement}
+\]</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>On modélise les observations <span class="math inline">\(x_1, \ldots, x_n\)</span> comme des réalisations de <span class="math inline">\(n\)</span> variables aléatoires i.i.d. <span class="math inline">\(\; X_1, \ldots, X_n\)</span>.</p>
+</div>
+</div>
+<p>On définit <span class="math inline">\(Z_i = (Z_{i1}, \ldots, Z_{iK})\)</span> par :</p>
+<p><span class="math display">\[
+Z_{ik} =
+\begin{cases}
+1 &amp; \text{si } i \in C_k \\
+0 &amp; \text{sinon}
+\end{cases}
+\quad \text{avec} \quad \mathbb{P}(Z_{ik} = 1) = \pi_k
+\]</span></p>
+<p>probabilité <em>a priori</em> d’appartenance à <span class="math inline">\(C_k\)</span>.</p>
+<p>D’après la définition de <span class="math inline">\(Z_i\)</span> : <span class="math inline">\(\sum_{k=1}^K \pi_k = 1\)</span>, et puis, par construction,</p>
+<p><span class="math display">\[
+Z_i \sim \mathcal{M}(1; \pi_1, \ldots, \pi_K). \quad \text{(Loi multinomiale)}
+\]</span></p>
+<p>Pour tout <span class="math inline">\(i \in \{1, \ldots, n\}\)</span>, on modélise par <span class="math inline">\(p_k(\cdot)\)</span> la loi de <span class="math inline">\(X_i \mid \{Z_{ik} = 1\}\)</span> et par <span class="math inline">\(p(\cdot)\)</span> la loi de <span class="math inline">\(X_i\)</span>, i.e.</p>
+<p><span class="math display">\[
+p_k(A) = \mathbb{P}(X_i \in A \mid Z_{ik} = 1), \\
+p(A) = \mathbb{P}(X_i \in A),
+\]</span></p>
+<p>pour tout <span class="math inline">\(A\)</span> mesurable dans <span class="math inline">\(\mathcal{X}\)</span>. En utilisant la formule des probabilités totales, on peut écrire :</p>
+<p><span class="math display">\[
+p(A) = \mathbb{P}(X_i \in A) = \sum_{k=1}^K \mathbb{P}(X_i \in A \mid Z_{ik} = 1)\mathbb{P}(Z_{ik} = 1) = \sum_{k=1}^K \pi_k \mathbb{P}(X_i \in A \mid Z_{ik} = 1).
+\]</span></p>
+<p>Par conséquent, on a :</p>
+<p><span class="math display">\[
+p(A) = \sum_{k=1}^K \pi_k p_k(A), \tag{3}
+\]</span></p>
+<p>pour tout mesurable <span class="math inline">\(A \subset \mathcal{X}\)</span>.</p>
+<p>Finalement, en dénotant les <span class="math inline">\(p_k(\cdot)\)</span> et <span class="math inline">\(p(\cdot)\)</span> en fonction de leurs paramètres, on peut réécrire (3) comme :</p>
+<p><span class="math display">\[
+p(A, \theta) = \sum_{k=1}^K \pi_k p_k(A ; \alpha_k)
+\quad \text{où} \quad \theta = \left\{ \{\pi_k, \alpha_k\} : \; k = 1, \ldots, K \right\}, \tag{4}
+\]</span></p>
+<p>qui est une loi de mélange.</p>
+<p>Et la densité du mélange (fonction de masse) s’écrit comme une somme pondérée de lois conditionnelles :</p>
+<p><span class="math display">\[
+f(x_i; \theta) = \sum_{k=1}^{K} \mathbb{P}(Z_i = k) \cdot \mathbb{P}(X_i = x_i \mid Z_i = k) = \sum_{k=1}^{K} \pi_k f_k(x_i; \alpha_k)
+\]</span></p>
+<p>où :</p>
+<ul>
+<li><span class="math inline">\(Z_i\)</span> est la variable latente (pas directement observable mais qui influence le modèle) indiquant la composante à laquelle appartient l’observation <span class="math inline">\(x_i\)</span> ;<br>
+</li>
+<li><span class="math inline">\(\pi_k = \mathbb{P}(Z_i = k)\)</span> est la probabilité a priori d’appartenir à la classe <span class="math inline">\(k\)</span> ;<br>
+</li>
+<li><span class="math inline">\(f_k(x_i; \alpha_k)\)</span> est la densité conditionnelle dans la classe <span class="math inline">\(k\)</span> avec les paramètres <span class="math inline">\(\alpha_k\)</span>.</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Ainsi les observations <span class="math inline">\(x_1, \ldots, x_n\)</span> sont modélisées pour être <em>tirées d’une loi de mélange</em>.</p>
+</div>
+</div>
+<p>En résumé, ce modèle caractérise chaque sous-population <span class="math inline">\(C_k\)</span> par :</p>
+<ul>
+<li><span class="math inline">\(\pi_k\)</span>, qui représente la proportion d’individus appartenant à la <span class="math inline">\(k\)</span>-ième sous-population,</li>
+<li><span class="math inline">\(\alpha_k\)</span>, i.e.&nbsp;les paramètres de la distribution de <span class="math inline">\(p_k\)</span>.</li>
+</ul>
+<section id="modèle-de-mélange-le-plus-utilisé" class="level3">
+<h3 class="anchored" data-anchor-id="modèle-de-mélange-le-plus-utilisé">Modèle de mélange le plus utilisé</h3>
+<p>Le modèle de mélange le plus utilisé est le mélange gaussien :</p>
+<p>Si <span class="math inline">\(\mathcal{X} = \mathbb{R}^d\)</span>, le modèle le plus utilisé est le mélange gaussien. Ainsi</p>
+<p><span class="math display">\[
+f(x_i ; \theta) = \sum_{k=1}^K \pi_k \, \phi_d(x_i ; \mu_k, \Sigma_k),
+\]</span></p>
+<p>où <span class="math inline">\(\theta\)</span> groupe tous les paramètres, <span class="math inline">\(\pi_k\)</span> est la proportion de la classe <span class="math inline">\(k\)</span>,<br>
+<span class="math inline">\(\mu_k \in \mathbb{R}^d\)</span> est le centre de la classe <span class="math inline">\(k\)</span> et <span class="math inline">\(\Sigma_k\)</span> est sa matrice de covariance.</p>
+<p>Précisément :</p>
+</section>
+<section id="exemple-mélange-de-3-gaussiennes-univariées" class="level3">
+<h3 class="anchored" data-anchor-id="exemple-mélange-de-3-gaussiennes-univariées">Exemple: Mélange de 3 gaussiennes univariées</h3>
+<p>La densité d’un mélange de 3 gaussiennes univariées (ne dépendant que de x) s’écrit :</p>
+<p><span class="math display">\[
+f(x_i; \theta) = \pi_1 f_1(x; \alpha_1) + \pi_2 f_2(x; \alpha_2) + \pi_3 f_3(x; \alpha_3)
+\]</span></p>
+<p>où :</p>
+<p><span class="math display">\[
+f_k(x; \alpha_k) = \frac{1}{\sqrt{2\pi}\sigma_k} \exp\left( -\frac{(x - \mu_k)^2}{2\sigma_k^2} \right)
+\]</span></p>
+<p>et :</p>
+<p><span class="math display">\[
+\theta = \left\{ \{\pi_k, \alpha_k\} : \alpha_k = (\mu_k, \sigma_k) \text{ pour } k = 1, \ldots, 3 \right\}
+\]</span></p>
+</section>
+</section>
+<section id="vraisemblance" class="level2">
+<h2 class="anchored" data-anchor-id="vraisemblance">Vraisemblance</h2>
+<p>Pour un modèle de mélange, on utilise une vraisemblance car en la maximisant, nous trouverons les valeurs des paramètres qui rendent les données les plus probables (valeurs optimales)</p>
+<section id="vraisemblance-incomplète-du-modèle" class="level3">
+<h3 class="anchored" data-anchor-id="vraisemblance-incomplète-du-modèle">Vraisemblance incomplète du modèle</h3>
+<p>La vraisemblance incomplète du modèle est :</p>
+<p><span class="math display">\[
+\mathcal{L}(\theta; x) = \prod_{i=1}^{n} f(x_i, \theta) = \prod_{i=1}^{n} \sum_{k=1}^{K} \pi_k f_k(x_i; \alpha_k)
+\]</span></p>
+<p>et sa log-vraisemblance est :</p>
+<p><span class="math display">\[
+\ell(\theta; x) = \sum_{i=1}^{n} \log \left( \sum_{k=1}^{K} \pi_k f_k(x_i; \alpha_k) \right)
+\]</span></p>
+</section>
+<section id="vraisemblance-complète-du-modèle" class="level3">
+<h3 class="anchored" data-anchor-id="vraisemblance-complète-du-modèle">Vraisemblance complète du modèle</h3>
+<p>La vraisemblance complète du modèle est :</p>
+<p><span class="math display">\[
+\mathcal{L}(\theta; x, z) = \prod_{i=1}^{n} \prod_{k=1}^{K} \left[ \pi_k f_k(x_i; \alpha_k) \right]^{z_{ik}}
+\]</span></p>
+<p>où <span class="math inline">\(z_{ik} = 1\)</span> si l’observation <span class="math inline">\(i\)</span> provient de la composante <span class="math inline">\(k\)</span>, <span class="math inline">\(0\)</span> sinon.</p>
+<p>Donc la log-vraisemblance complétée est :</p>
+<p><span class="math display">\[
+\ell(\theta; x, z) = \sum_{i=1}^{n} \sum_{k=1}^{K} z_{ik} \left( \log \pi_k + \log f_k(x_i; \alpha_k) \right)
+\]</span></p>
+</section>
+</section>
+<section id="lalgorithme-em-expectation-maximisation" class="level2">
+<h2 class="anchored" data-anchor-id="lalgorithme-em-expectation-maximisation">L’algorithme EM (Expectation Maximisation)</h2>
+<p>L’algorithme EM est une méthode d’optimisation utilisée pour estimer les paramètres d’un modèle statistique lorsque les données sont incomplètes ou comportent des variables latentes.</p>
+<section id="algorithme-em-définition" class="level3">
+<h3 class="anchored" data-anchor-id="algorithme-em-définition">Algorithme EM : définition</h3>
+<p>L’algorithme EM est initialisé au paramètre <span class="math inline">\(\theta^{[0]}\)</span>.<br>
+Il itère entre les étapes E et M définies à l’itération <span class="math inline">\(r\)</span> par :</p>
+<p>— <strong>Étape E</strong> : calcul des probabilités a posteriori <span class="math inline">\(t_{ik}\)</span> sachant <span class="math inline">\(\theta^{[r-1]}\)</span></p>
+<p><span class="math display">\[
+t_{ik}(\theta^{[r-1]}) = \frac{\pi_k^{[r-1]} f_k(x_i; \alpha_k^{[r-1]})}{\sum_{l=1}^{K} \pi_l^{[r-1]} f_l(x_i; \alpha_l^{[r-1]})}
+\]</span></p>
+<p>— <strong>Étape M</strong> : maximisation de l’espérance de la log-vraisemblance complétée</p>
+<p><span class="math display">\[
+\theta^{[r]} = \arg\max_{\alpha_k, \pi_k} \sum_{i=1}^{n} \sum_{k=1}^{K} t_{ik}(\theta^{[r-1]}) \log \left( \pi_k f_k(x_i; \alpha_k) \right)
+\]</span></p>
+<p>On s’arrête lorsque les valeurs des paramètres ou de la quantité à maximiser entre deux itérations successives ne varient « presque » plus.</p>
+<p>L’algorithme EM permet de calculer les valeurs du paramètres qui maximise la vraisemblance à chaque itération.</p>
+</section>
+</section>
+<section id="application-distribution-de-mélange-de-poisson" class="level2">
+<h2 class="anchored" data-anchor-id="application-distribution-de-mélange-de-poisson">Application : distribution de mélange de Poisson</h2>
+<section id="fonction-de-masse-dune-observation-xi" class="level3">
+<h3 class="anchored" data-anchor-id="fonction-de-masse-dune-observation-xi">Fonction de masse d’une observation xi</h3>
+<p>La densité (fonction de masse) du mélange s’écrit :</p>
+<p><span class="math display">\[
+f(x_i ; \theta) = \sum_{k=1}^{K} \pi_k \cdot \frac{e^{-\lambda_k} \lambda_k^{x_i}}{x_i!}
+\]</span></p>
+<p>avec <span class="math inline">\(\sum_k\)</span> <span class="math inline">\(\pi_k = 1\)</span> , <span class="math inline">\(\pi_k &gt;0\)</span> et <span class="math inline">\(\lambda_k &gt; 0\)</span>.</p>
+</section>
+<section id="fonctions-de-log-vraisemblance-et-log-vraisemblance-complétée-du-modèle" class="level3">
+<h3 class="anchored" data-anchor-id="fonctions-de-log-vraisemblance-et-log-vraisemblance-complétée-du-modèle">fonctions de log-vraisemblance et log-vraisemblance complétée du modèle</h3>
+<ul>
+<li><strong>Vraisemblance</strong> :</li>
+</ul>
+<p><span class="math display">\[
+\mathcal{L}(\theta ; x) = \prod_{i=1}^{n} \left( \sum_{k=1}^{K} \pi_k \cdot \frac{e^{-\lambda_k} \lambda_k^{x_i}}{x_i!} \right)
+\]</span></p>
+<ul>
+<li><strong>Log-vraisemblance</strong> :</li>
+</ul>
+<p><span class="math display">\[
+\ell(\theta ; x) = \sum_{i=1}^{n} \log \left( \sum_{k=1}^{K} \pi_k \cdot \frac{e^{-\lambda_k} \lambda_k^{x_i}}{x_i!} \right)
+\]</span></p>
+<ul>
+<li><strong>Log-vraisemblance complétée</strong> :</li>
+</ul>
+<p><span class="math display">\[
+\ell(\theta ; x, z) = \sum_{i=1}^{n} \sum_{k=1}^{K} z_{ik} \log(\pi_k f_k(x_i ; \lambda_k))
+= \sum_{i=1}^{n} \sum_{k=1}^{K} z_{ik} \left( \log \pi_k - \lambda_k + x_i \log \lambda_k - \log(x_i!) \right)
+\]</span></p>
+<p>Le terme <span class="math inline">\(\log(x_i!)\)</span>, étant constant par rapport à <span class="math inline">\(\theta\)</span>, peut être ignoré lors de l’optimisation.</p>
+</section>
+<section id="algorithme-em" class="level3">
+<h3 class="anchored" data-anchor-id="algorithme-em">Algorithme EM</h3>
+<ul>
+<li><strong>Étape E</strong> : calcul des probabilités a posteriori <span class="math inline">\(t_{ik}\)</span> sachant <span class="math inline">\(\theta^{[r-1]}\)</span> :</li>
+</ul>
+<p><span class="math display">\[
+t_{ik}(\theta^{[r-1]}) =
+\frac{
+  \pi_k^{[r-1]} e^{-\lambda_k^{[r-1]}} \left( \lambda_k^{[r-1]} \right)^{x_i}
+}{
+  \sum_{h=1}^{K} \pi_h^{[r-1]} e^{-\lambda_h^{[r-1]}} \left( \lambda_h^{[r-1]} \right)^{x_i}
+}
+\]</span></p>
+<ul>
+<li><p><strong>Initialisation</strong> : <span class="math inline">\(\theta^{[0]}\)</span> = <span class="math inline">\(\left\{ \pi_k^{[0]}, \lambda_k^{[0]} \right\}\)</span></p></li>
+<li><p><strong>Étape M</strong> : Maximiser à chaque étape l’espérance conditionnelle de la log-vraisemblance complétée :</p></li>
+</ul>
+<p><span class="math display">\[
+Q(\theta ; \theta^{[r-1]}) =
+\sum_{i=1}^{n} \sum_{k=1}^{K}
+t_{ik}(\theta^{[r-1]}) \left( \log \pi_k - \lambda_k + x_i \log \lambda_k \right)
+\]</span></p>
+<p><span class="math display">\[
+\theta^{[r]} = \arg \max_{\lambda_k, \pi_k}
+\sum_{i=1}^{n} \sum_{k=1}^{K}
+t_{ik}(\theta^{[r-1]}) \left( \log \pi_k - \lambda_k + x_i \log \lambda_k \right)
+\]</span></p>
+</section>
+<section id="valeurs-des-paramètres-qui-maximisent-la-vraisemblance-à-chaque-itération" class="level3">
+<h3 class="anchored" data-anchor-id="valeurs-des-paramètres-qui-maximisent-la-vraisemblance-à-chaque-itération">Valeurs des paramètres qui maximisent la vraisemblance à chaque itération</h3>
+</section>
+<section id="mise-à-jour-des-paramètres-lambda_kr" class="level3">
+<h3 class="anchored" data-anchor-id="mise-à-jour-des-paramètres-lambda_kr">1. Mise à jour des paramètres <span class="math inline">\(\lambda_k^{[r]}\)</span></h3>
+<p>On commence par maximiser par rapport à <span class="math inline">\(\lambda_k\)</span>, car cette optimisation ne dépend pas des contraintes sur les <span class="math inline">\(\pi_k\)</span>, et les termes sont séparables pour chaque composante ( k ).</p>
+<p>On veut maximiser pour chaque k :</p>
+<p><span class="math display">\[
+L_k(\lambda_k) = \sum_{i=1}^{n} t_{ik}(\theta^{[r-1]}) (-\lambda_k + x_i \log \lambda_k)
+\]</span></p>
+<p>On dérive cette fonction :</p>
+<p><span class="math display">\[
+\frac{\partial L_k}{\partial \lambda_k}
+= \sum_{i=1}^{n} t_{ik}(\theta^{[r-1]}) \left( -1 + \frac{x_i}{\lambda_k} \right)
+= -\sum_{i=1}^{n} t_{ik}(\theta^{[r-1]}) + \frac{\sum_{i=1}^{n} t_{ik}(\theta^{[r-1]}) x_i}{\lambda_k}
+\]</span></p>
+<p>On annule la dérivée :</p>
+<p><span class="math display">\[
+-\sum_{i=1}^{n} t_{ik}(\theta^{[r-1]}) + \frac{\sum_{i=1}^{n} t_{ik}(\theta^{[r-1]}) x_i}{\lambda_k} = 0
+\quad \Rightarrow \quad
+\lambda_k^{[r]} = \frac{\sum_{i=1}^{n} t_{ik}(\theta^{[r-1]}) x_i}{\sum_{i=1}^{n} t_{ik}(\theta^{[r-1]})}
+\]</span></p>
+</section>
+<section id="mise-à-jour-des-poids-pi_kr" class="level3">
+<h3 class="anchored" data-anchor-id="mise-à-jour-des-poids-pi_kr">2. Mise à jour des poids <span class="math inline">\(\pi_k^{[r]}\)</span></h3>
+<p>On cherche à maximiser sur <span class="math inline">\((\pi_1, \pi_2, \ldots, \pi_K, \phi)\)</span> la fonction :</p>
+<p><span class="math display">\[
+\sum_{k=1}^{K} \left( \sum_{i=1}^{n} t_{ik}(\lambda_k^{[r-1]}) \right) \log \pi_k
+\quad \text{ sous la contrainte } \quad \sum_{k=1}^{K} \pi_k = 1
+\]</span></p>
+<p>On introduit un multiplicateur de Lagrange $ $ :</p>
+<p><span class="math display">\[
+\mathcal{L}(\pi, \phi) =
+\sum_{k=1}^{K} \left( \sum_{i} t_{ik}(\lambda_k^{[r-1]}) \right) \log \pi_k
+- \phi \left( \sum_{k=1}^{K} \pi_k - 1 \right)
+\]</span></p>
+<p>On dérive la fonction de Lagrange :</p>
+<p><span class="math display">\[
+\frac{\partial \mathcal{L}}{\partial \pi_k}
+= \frac{\sum_i t_{ik}(\theta^{[r-1]})}{\pi_k} - \phi = 0
+\quad \Rightarrow \quad
+\pi_k = \frac{\sum_i t_{ik}(\theta^{[r-1]})}{\phi}
+\]</span></p>
+<p>Or, sous la contrainte ( _{k=1}^{K} _k = 1 ) :</p>
+<p><span class="math display">\[
+\phi = \sum_{i=1}^{n} \sum_{k=1}^{K} t_{ik}(\theta^{[r-1]}) = n
+\quad \Rightarrow \quad
+\boxed{
+\pi_k^{[r]} = \frac{1}{n} \sum_{i=1}^{n} t_{ik}(\theta^{[r-1]})
+}
+\]</span></p>
+
+
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
