@@ -334,7 +334,7 @@ $$
 \pi_k = \frac{\sum_i t_{ik}(\theta^{[r-1]})}{\phi}
 $$
 
-Or, sous la contrainte \( \sum_{k=1}^{K} \pi_k = 1 \) :
+Or, sous la contrainte $\sum_{k=1}^{K} \pi_k = 1$ :
 
 $$
 \phi = \sum_{i=1}^{n} \sum_{k=1}^{K} t_{ik}(\theta^{[r-1]}) = n
