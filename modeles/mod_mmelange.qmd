@@ -317,7 +317,7 @@ $$
 \quad \text{ sous la contrainte } \quad \sum_{k=1}^{K} \pi_k = 1
 $$
 
-On introduit un multiplicateur de Lagrange $ \phi $ :
+On introduit un multiplicateur de Lagrange $\phi$ :
 
 $$
 \mathcal{L}(\pi, \phi) = 

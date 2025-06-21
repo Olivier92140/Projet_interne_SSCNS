@@ -26,7 +26,7 @@ website:
             text: "Exemples de K-means"
           - href: exemples/CAH.qmd
             text: "Exemples de CAH"
-          - href: exemples/mmelange.qmd
+          - href: exemples/melange.qmd
             text: "Exemples de modèles de mélange"
 
     right:
