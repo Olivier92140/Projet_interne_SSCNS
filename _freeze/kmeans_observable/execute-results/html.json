@@ -1,0 +1,17 @@
+{
+  "hash": "8e37ab6af9bf32756fdc2e116d5bc651",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"K-means + ObservableJS\"\nauthor: Olivier Malahel\nformat: html\neditor: visual\nexecute:\n  freeze: auto\n---\n\n## 🔢 K-means sur les données `iris` (R)\n\n\n::: {.cell}\n\n```{.r .cell-code}\ninstall.packages(\"datasets\")\n```\n\n::: {.cell-output .cell-output-stderr}\n\n```\nInstalling package into '/usr/local/lib/R/site-library'\n(as 'lib' is unspecified)\n```\n\n\n:::\n\n::: {.cell-output .cell-output-stderr}\n\n```\nWarning: package 'datasets' is a base package, and should not be updated\n```\n\n\n:::\n\n```{.r .cell-code}\nlibrary(datasets)\ndata(iris)\nset.seed(123)\nkm <- kmeans(iris[, 1:4], centers = 3)\niris$Cluster <- as.character(km$cluster)\njsonlite::write_json(iris, \"iris_clusters.json\", pretty = TRUE, auto_unbox = TRUE)\n```\n:::\n\n\n## 🌐 Visualisation interactive (Observable JS)\n\n```{ojs}\nimport { FileAttachment } from \"@observablehq/stdlib\"\n\n// Force la dépendance sur le bloc R\n//await Promises.delay(1000);  // Donne un délai de sécurité\niris_data = FileAttachment(\"iris_clusters.json\").json()\n\nPlot.plot({\n  marks: [\n    Plot.dot(iris_data, {\n      x: d => d[\"Sepal.Length\"],\n      y: d => d[\"Petal.Length\"],\n      fill: d => d.Cluster,\n      title: d => d.Species\n    })\n  ],\n  color: { legend: true },\n  x: { label: \"Longueur Sépale\" },\n  y: { label: \"Longueur Pétale\" },\n  width: 700,\n  height: 450\n})\n```",
+    "supporting": [
+      "kmeans_observable_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

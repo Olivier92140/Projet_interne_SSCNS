@@ -11,55 +11,72 @@ code-block-border-left: "#31BAE9"
 
 Dans cet exemple, nous ajustons un **modèle de mélange de lois normales** à des données simulées, en utilisant le package R `mclust`. Le but est d’identifier automatiquement des groupes (ou classes) au sein des données.
 
+---
+title: "Modèle de Mélange Gaussien"
+format: html
+editor: visual
+---
 
-## Simulation de données
-
-```{R}
-# Charger le package
-install.packages("mclust")
+## Préambule : Simulation des données 
+```{r}
+# chargement des packages
+install.packages("mclust") 
 library(mclust)
-
-# Générer deux groupes de données gaussiennes
 set.seed(123)
+
+# Deux populations gaussiennes
 x1 <- rnorm(100, mean = 0, sd = 1)
 x2 <- rnorm(100, mean = 5, sd = 1.5)
-x  <- c(x1, x2)
 
-# Affichage rapide de l'histogramme
-hist(x, breaks = 30, col = "lightblue", main = "Histogramme des données simulées", xlab = "x")
+# Données mélangées
+x <- c(x1, x2)
 ```
 
-```{R}
-# Ajustement du modèle avec mclust (via EM)
-modele <- Mclust(x)
+## 1. Fonction de densité du mélange
+```{r}
+# Densité d’un mélange à 2 composantes
+densite_melange <- function(x, pi, mu, sigma) {
+  pi[1] * dnorm(x, mean = mu[1], sd = sigma[1]) +
+  pi[2] * dnorm(x, mean = mu[2], sd = sigma[2])
+}
 
-# Résumé des résultats du modèle
-summary(modele)
-
-# Tracé de la densité estimée par le modèle
-plot(modele, what = "density")
+# Exemple de tracé avec pi[1]=0.5 et pi[2]=0.5
+curve(densite_melange(x, pi = c(0.5, 0.5), mu = c(0, 5), sigma = c(1, 1.5)),
+      from = -5, to = 10, col = "red", lwd = 2, ylab = "Densité", main = "Densité du mélange")
 ```
 
-Ce graphique représente le modèle de mélange dont voici les paramètres: 
+## 2. Données incomplètes vs complètes
+```{r}
+# Construction de Z complet (connu car simulation)
+z <- c(rep(1, 100), rep(2, 100))
 
-```{R}
-modele$parameters  #affichage des paramètres
+# Log-vraisemblance complète
+log_vraisemblance_completee <- function(x, z, pi, mu, sigma) {
+  sum(log(pi[z]) + dnorm(x, mean = mu[z], sd = sigma[z], log = TRUE))
+}
+
+# Exemple : vrais paramètres
+log_vraisemblance_completee(x, z, pi = c(0.5, 0.5), mu = c(0, 5), sigma = c(1, 1.5))
 ```
 
+## 3. Estimation par EM via mclust
 
-Visualisation de la classification 
+```{r}
+# Estimation avec mclust
+res <- Mclust(x, G = 2)  # G = nb de composantes
 
-
-```{R}
-table(modele$classification) #visualisation
-plot(modele, what = "classification") #graphique
+# Résumé des paramètres
+summary(res)
 ```
 
-Ce graphique montre que:  
+## 4. Affichage des résultats
 
-- environ la moitié des observations ont été classées en classe 1 (bleu), centrée autour de 0.
+```{r}
+plot(res, what = "density", main = "Estimation du modèle de mélange par EM")
+```
 
-- l’autre moitié ont été classées en classe 2 (rouge), centrée autour de 5.
+## affichage des paramètres 
 
-- la séparation des classes est très nette (très peu de confusion), ce qui est attendu puisque tes données simulées proviennent de deux groupes bien séparés.
-
+```{r}
+print(res$parameters)
+```

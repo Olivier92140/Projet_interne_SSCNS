@@ -1,0 +1,51 @@
+---
+title: "K-means + ObservableJS"
+author: Olivier Malahel
+format: html
+freeze: true
+resources:
+  - exemples/iris_clusters.json
+---
+
+## 🔢 K-means sur les données `iris` (R)
+
+```{r}
+install.packages("datasets")
+library(datasets)
+
+data(iris)
+head(iris)
+set.seed(123)
+km <- kmeans(iris[, 1:4], centers = 3)
+iris$Cluster <- as.character(km$cluster)
+jsonlite::write_json(iris, "iris_clusters.json", pretty = TRUE, auto_unbox = TRUE)
+```
+
+## 🌐 Visualisation interactive avec Observable JS
+
+```{ojs}
+import { FileAttachment } from "@observablehq/stdlib"
+
+// Force la dépendance sur le bloc R
+await Promises.delay(4000);  
+iris_data = FileAttachment("iris_clusters.json").json()
+```
+
+
+```{ojs}
+Plot.plot({
+  marks: [
+    Plot.dot(iris_data, {
+      x: d => d["Sepal.Length"],
+      y: d => d["Petal.Length"],
+      fill: d => d.Cluster,
+      title: d => d.Species
+    })
+  ],
+  color: { legend: true },
+  x: { label: "Longueur Sépale" },
+  y: { label: "Longueur Pétale" },
+  width: 700,
+  height: 450
+})
+```

@@ -28,10 +28,12 @@ website:
             text: "Exemples de CAH"
           - href: exemples/melange.qmd
             text: "Exemples de modèles de mélange"
-
+          - href: exemples/kmeans_observable.qmd
+            text: "Exemples de kmeans avec Observable"
     right:
       - about.qmd  
-
+resources:
+  - exemples/iris_clusters.json
 format:
   html:
     theme:
