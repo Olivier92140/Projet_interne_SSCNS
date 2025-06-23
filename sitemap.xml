@@ -2,42 +2,46 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://Olivier92140.github.io/Projet_interne_SSCNS/presentation/definition.html</loc>
-    <lastmod>2025-06-21T20:19:50.912Z</lastmod>
+    <lastmod>2025-06-23T01:24:43.439Z</lastmod>
   </url>
   <url>
     <loc>https://Olivier92140.github.io/Projet_interne_SSCNS/index.html</loc>
-    <lastmod>2025-06-21T20:19:50.908Z</lastmod>
+    <lastmod>2025-06-23T01:24:43.435Z</lastmod>
   </url>
   <url>
     <loc>https://Olivier92140.github.io/Projet_interne_SSCNS/exemples/melange.html</loc>
-    <lastmod>2025-06-21T20:19:50.908Z</lastmod>
+    <lastmod>2025-06-23T01:24:43.434Z</lastmod>
   </url>
   <url>
-    <loc>https://Olivier92140.github.io/Projet_interne_SSCNS/modeles/mod_mmelange.html</loc>
-    <lastmod>2025-06-21T20:19:50.912Z</lastmod>
-  </url>
-  <url>
-    <loc>https://Olivier92140.github.io/Projet_interne_SSCNS/modeles/mod_kmeans.html</loc>
-    <lastmod>2025-06-21T20:19:50.912Z</lastmod>
-  </url>
-  <url>
-    <loc>https://Olivier92140.github.io/Projet_interne_SSCNS/about.html</loc>
-    <lastmod>2025-06-21T20:19:50.907Z</lastmod>
+    <loc>https://Olivier92140.github.io/Projet_interne_SSCNS/exemples/kmeans_observable.html</loc>
+    <lastmod>2025-06-23T01:24:43.434Z</lastmod>
   </url>
   <url>
     <loc>https://Olivier92140.github.io/Projet_interne_SSCNS/modeles/mod_CAH.html</loc>
-    <lastmod>2025-06-21T20:19:50.912Z</lastmod>
+    <lastmod>2025-06-23T01:24:43.438Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Olivier92140.github.io/Projet_interne_SSCNS/about.html</loc>
+    <lastmod>2025-06-23T01:24:43.434Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Olivier92140.github.io/Projet_interne_SSCNS/modeles/mod_kmeans.html</loc>
+    <lastmod>2025-06-23T01:24:43.438Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Olivier92140.github.io/Projet_interne_SSCNS/modeles/mod_mmelange.html</loc>
+    <lastmod>2025-06-23T01:24:43.438Z</lastmod>
   </url>
   <url>
     <loc>https://Olivier92140.github.io/Projet_interne_SSCNS/exemples/kmeans.html</loc>
-    <lastmod>2025-06-21T20:19:50.908Z</lastmod>
+    <lastmod>2025-06-23T01:24:43.434Z</lastmod>
   </url>
   <url>
     <loc>https://Olivier92140.github.io/Projet_interne_SSCNS/exemples/CAH.html</loc>
-    <lastmod>2025-06-21T20:19:50.907Z</lastmod>
+    <lastmod>2025-06-23T01:24:43.434Z</lastmod>
   </url>
   <url>
     <loc>https://Olivier92140.github.io/Projet_interne_SSCNS/presentation/historique.html</loc>
-    <lastmod>2025-06-21T20:19:50.912Z</lastmod>
+    <lastmod>2025-06-23T01:24:43.439Z</lastmod>
   </url>
 </urlset>
