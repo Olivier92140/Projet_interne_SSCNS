@@ -330,19 +330,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-exemples">    
         <li>
     <a class="dropdown-item" href="../exemples/kmeans.html">
- <span class="dropdown-text">Exemples de K-means</span></a>
+ <span class="dropdown-text">Exemple de K-means avec R</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../exemples/CAH.html">
- <span class="dropdown-text">Exemples de CAH</span></a>
+ <span class="dropdown-text">Exemple de CAH avec R</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="../exemples/CAH2.html">
+ <span class="dropdown-text">CAH2.html</span></a>
+  </li>  
+        <li class="dropdown-header">Exemple de CAH avec Python</li>
+        <li>
     <a class="dropdown-item" href="../exemples/melange.html">
- <span class="dropdown-text">Exemples de modèles de mélange</span></a>
+ <span class="dropdown-text">Exemple de modèles de mélange</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../exemples/kmeans_observable.html">
- <span class="dropdown-text">Exemples de kmeans avec Observable</span></a>
+ <span class="dropdown-text">Exemple de kmeans avec Observable</span></a>
   </li>  
     </ul>
   </li>
@@ -397,18 +402,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="k-means-sur-les-données-iris-r" class="level2">
 <h2 class="anchored" data-anchor-id="k-means-sur-les-données-iris-r">🔢 K-means sur les données <code>iris</code> (R)</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"datasets"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Installing package into '/usr/local/lib/R/site-library'
-(as 'lib' is unspecified)</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'datasets' is a base package, and should not be updated</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(datasets)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(datasets)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 1          5.1         3.5          1.4         0.2  setosa
@@ -418,20 +415,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 5          5.0         3.6          1.4         0.2  setosa
 6          5.4         3.9          1.7         0.4  setosa</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>km <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(iris[, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="at">centers =</span> <span class="dv">3</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>iris<span class="sc">$</span>Cluster <span class="ot">&lt;-</span> <span class="fu">as.character</span>(km<span class="sc">$</span>cluster)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>jsonlite<span class="sc">::</span><span class="fu">write_json</span>(iris, <span class="st">"iris_clusters.json"</span>, <span class="at">pretty =</span> <span class="cn">TRUE</span>, <span class="at">auto_unbox =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>km <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(iris[, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="at">centers =</span> <span class="dv">3</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>iris<span class="sc">$</span>Cluster <span class="ot">&lt;-</span> <span class="fu">as.character</span>(km<span class="sc">$</span>cluster)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">write_json</span>(iris, <span class="st">"iris_clusters.json"</span>, <span class="at">pretty =</span> <span class="cn">TRUE</span>, <span class="at">auto_unbox =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="visualisation-interactive-avec-observable-js" class="level2">
 <h2 class="anchored" data-anchor-id="visualisation-interactive-avec-observable-js">🌐 Visualisation interactive avec Observable JS</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7" data-startfrom="27" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 26;"><span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { FileAttachment } <span class="im">from</span> <span class="st">"@observablehq/stdlib"</span></span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="co">// Force la dépendance sur le bloc R</span></span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="co">//await Promises.delay(4000);  </span></span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>iris_data <span class="op">=</span> <span class="fu">FileAttachment</span>(<span class="st">"iris_clusters.json"</span>)<span class="op">.</span><span class="fu">json</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4" data-startfrom="26" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 25;"><span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { FileAttachment } <span class="im">from</span> <span class="st">"@observablehq/stdlib"</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="co">// Force la dépendance sur le bloc R  </span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>iris_data <span class="op">=</span> <span class="cf">await</span> <span class="fu">FileAttachment</span>(<span class="st">"iris_clusters.json"</span>)<span class="op">.</span><span class="fu">json</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-1-1" data-nodetype="declaration">
@@ -448,21 +444,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8" data-startfrom="35" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 34;"><span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
-<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
-<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(iris_data<span class="op">,</span> {</span>
-<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x</span><span class="op">:</span> d <span class="kw">=&gt;</span> d[<span class="st">"Sepal.Length"</span>]<span class="op">,</span></span>
-<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>      <span class="dt">y</span><span class="op">:</span> d <span class="kw">=&gt;</span> d[<span class="st">"Petal.Length"</span>]<span class="op">,</span></span>
-<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fill</span><span class="op">:</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">Cluster</span><span class="op">,</span></span>
-<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>      <span class="dt">title</span><span class="op">:</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">Species</span></span>
-<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>    })</span>
-<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">,</span></span>
-<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>  <span class="dt">color</span><span class="op">:</span> { <span class="dt">legend</span><span class="op">:</span> <span class="kw">true</span> }<span class="op">,</span></span>
-<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> <span class="st">"Longueur Sépale"</span> }<span class="op">,</span></span>
-<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> <span class="st">"Longueur Pétale"</span> }<span class="op">,</span></span>
-<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> <span class="dv">700</span><span class="op">,</span></span>
-<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">450</span></span>
-<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5" data-startfrom="33" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 32;"><span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(iris_data<span class="op">,</span> {</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x</span><span class="op">:</span> d <span class="kw">=&gt;</span> d[<span class="st">"Sepal.Length"</span>]<span class="op">,</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>      <span class="dt">y</span><span class="op">:</span> d <span class="kw">=&gt;</span> d[<span class="st">"Petal.Length"</span>]<span class="op">,</span></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fill</span><span class="op">:</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">Cluster</span><span class="op">,</span></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>      <span class="dt">title</span><span class="op">:</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">Species</span></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">,</span></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>  <span class="dt">color</span><span class="op">:</span> { <span class="dt">legend</span><span class="op">:</span> <span class="kw">true</span> }<span class="op">,</span></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> <span class="st">"Longueur Sépale"</span> }<span class="op">,</span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> <span class="st">"Longueur Pétale"</span> }<span class="op">,</span></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> <span class="dv">600</span><span class="op">,</span></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">450</span></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-2" data-nodetype="expression">
 
@@ -475,7 +471,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </main> <!-- /main -->
 <script type="ojs-module-contents">
-eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6ImltcG9ydCB7IEZpbGVBdHRhY2htZW50IH0gZnJvbSBcIkBvYnNlcnZhYmxlaHEvc3RkbGliXCJcblxuLy8gRm9yY2UgbGEgZMOpcGVuZGFuY2Ugc3VyIGxlIGJsb2MgUlxuLy9hd2FpdCBQcm9taXNlcy5kZWxheSg0MDAwKTsgIFxuaXJpc19kYXRhID0gRmlsZUF0dGFjaG1lbnQoXCJpcmlzX2NsdXN0ZXJzLmpzb25cIikuanNvbigpXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTIiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJQbG90LnBsb3Qoe1xuICBtYXJrczogW1xuICAgIFBsb3QuZG90KGlyaXNfZGF0YSwge1xuICAgICAgeDogZCA9PiBkW1wiU2VwYWwuTGVuZ3RoXCJdLFxuICAgICAgeTogZCA9PiBkW1wiUGV0YWwuTGVuZ3RoXCJdLFxuICAgICAgZmlsbDogZCA9PiBkLkNsdXN0ZXIsXG4gICAgICB0aXRsZTogZCA9PiBkLlNwZWNpZXNcbiAgICB9KVxuICBdLFxuICBjb2xvcjogeyBsZWdlbmQ6IHRydWUgfSxcbiAgeDogeyBsYWJlbDogXCJMb25ndWV1ciBTw6lwYWxlXCIgfSxcbiAgeTogeyBsYWJlbDogXCJMb25ndWV1ciBQw6l0YWxlXCIgfSxcbiAgd2lkdGg6IDcwMCxcbiAgaGVpZ2h0OiA0NTBcbn0pXG4ifV19
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6ImltcG9ydCB7IEZpbGVBdHRhY2htZW50IH0gZnJvbSBcIkBvYnNlcnZhYmxlaHEvc3RkbGliXCJcblxuLy8gRm9yY2UgbGEgZMOpcGVuZGFuY2Ugc3VyIGxlIGJsb2MgUiAgXG5pcmlzX2RhdGEgPSBhd2FpdCBGaWxlQXR0YWNobWVudChcImlyaXNfY2x1c3RlcnMuanNvblwiKS5qc29uKClcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlBsb3QucGxvdCh7XG4gIG1hcmtzOiBbXG4gICAgUGxvdC5kb3QoaXJpc19kYXRhLCB7XG4gICAgICB4OiBkID0+IGRbXCJTZXBhbC5MZW5ndGhcIl0sXG4gICAgICB5OiBkID0+IGRbXCJQZXRhbC5MZW5ndGhcIl0sXG4gICAgICBmaWxsOiBkID0+IGQuQ2x1c3RlcixcbiAgICAgIHRpdGxlOiBkID0+IGQuU3BlY2llc1xuICAgIH0pXG4gIF0sXG4gIGNvbG9yOiB7IGxlZ2VuZDogdHJ1ZSB9LFxuICB4OiB7IGxhYmVsOiBcIkxvbmd1ZXVyIFPDqXBhbGVcIiB9LFxuICB5OiB7IGxhYmVsOiBcIkxvbmd1ZXVyIFDDqXRhbGVcIiB9LFxuICB3aWR0aDogNjAwLFxuICBoZWlnaHQ6IDQ1MFxufSlcbiJ9XX0=
 </script>
 <script type="module">
 if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
