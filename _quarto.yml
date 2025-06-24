@@ -23,13 +23,15 @@ website:
       - text: Exemples
         menu:
           - href: exemples/kmeans.qmd
-            text: "Exemples de K-means"
+            text: "Exemple de K-means avec R"
           - href: exemples/CAH.qmd
-            text: "Exemples de CAH"
+            text: "Exemple de CAH avec R"
+          - href: exemples/CAH2.qmd
+          - text: "Exemple de CAH avec Python"
           - href: exemples/melange.qmd
-            text: "Exemples de modèles de mélange"
+            text: "Exemple de modèles de mélange"
           - href: exemples/kmeans_observable.qmd
-            text: "Exemples de kmeans avec Observable"
+            text: "Exemple de kmeans avec Observable"
     right:
       - about.qmd  
 resources:

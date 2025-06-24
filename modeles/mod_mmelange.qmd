@@ -156,6 +156,10 @@ $$
 \theta = \left\{ \{\pi_k, \alpha_k\} : \alpha_k = (\mu_k, \sigma_k) \text{ pour } k = 1, \ldots, 3 \right\}
 $$
 
+### A quoi sert les modèles de mélange? {.unnumbered}
+
+Les modèles de mélange permettent de reconstruire les données manquantes en estimant les valeurs manquantes (a posteriori) cf. ci-dessus la détermination des paramètres manquants.  
+
 ## Vraisemblance
 
 Pour un modèle de mélange, on utilise une vraisemblance car en la maximisant, nous trouverons les valeurs des paramètres qui rendent les données les plus probables (valeurs optimales)

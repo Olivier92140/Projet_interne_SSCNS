@@ -4,21 +4,20 @@ author: Olivier Malahel
 format: html
 freeze: true
 resources:
-  - exemples/iris_clusters.json
+  - iris_clusters.json
 ---
 
 ## 🔢 K-means sur les données `iris` (R)
 
 ```{r}
-install.packages("datasets")
 library(datasets)
-
+library(jsonlite)
 data(iris)
 head(iris)
 set.seed(123)
 km <- kmeans(iris[, 1:4], centers = 3)
 iris$Cluster <- as.character(km$cluster)
-jsonlite::write_json(iris, "iris_clusters.json", pretty = TRUE, auto_unbox = TRUE)
+write_json(iris, "iris_clusters.json", pretty = TRUE, auto_unbox = TRUE)
 ```
 
 ## 🌐 Visualisation interactive avec Observable JS
@@ -26,9 +25,8 @@ jsonlite::write_json(iris, "iris_clusters.json", pretty = TRUE, auto_unbox = TRU
 ```{ojs}
 import { FileAttachment } from "@observablehq/stdlib"
 
-// Force la dépendance sur le bloc R
-await Promises.delay(4000);  
-iris_data = FileAttachment("iris_clusters.json").json()
+// Force la dépendance sur le bloc R  
+iris_data = await FileAttachment("iris_clusters.json").json()
 ```
 
 
@@ -45,7 +43,7 @@ Plot.plot({
   color: { legend: true },
   x: { label: "Longueur Sépale" },
   y: { label: "Longueur Pétale" },
-  width: 700,
+  width: 600,
   height: 450
 })
 ```

@@ -7,7 +7,9 @@ from: markdown+emoji
 ---
 
 
-## Des liens intéressants
+## Pour aller plus loin
 
-- [Clustering K-Means dans R ](https://statorials.org/k-signifie-regroupement-en-r/){target="_blank"}
-- [Classification ascendante hiérarchique avec R](https://r-stat-sc-donnees.github.io/code_html/CAH.nb.html){target="_blank"}
+- [Clustering K-Means dans R ](https://statorials.org/k-signifie-regroupement-en-r/){target="_blank"}:butterfly:
+- [Classification ascendante hiérarchique sur exemple simple](https://www.youtube.com/watch?v=Brfc-wGXDRg){target="_blank"}:cat:
+- [Classification ascendante hiérarchique et application en python](https://www.youtube.com/watch?v=QabCGFzJDPM){target="_blank"}:dolphin:
+- [Modèle de mélange gaussien](https://fr.wikipedia.org/wiki/Mod%C3%A8le_de_m%C3%A9lange_gaussien){target="_blank"}:dog:

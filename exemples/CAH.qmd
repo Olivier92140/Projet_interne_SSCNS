@@ -19,7 +19,7 @@ Problématique : Comment regrouper de manière homogène une clientèle selon se
 
 ```{R}
 
-data <- read.delim2("clients_depenses.csv", sep = "\t", stringsAsFactors = FALSE)
+data <- read.csv2("clients_depenses.csv")
 data
 ```
 
