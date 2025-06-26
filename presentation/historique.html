@@ -41,8 +41,8 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-8ec57f05d65a7bcf9f706be35dd71a43.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-49f78ad772de919a72c7fce3dd20fdab.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-7f4cc24fd42949a81cf8b37074ce08f5.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-ae6e44816055ef4041522f0db3d6f824.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -313,6 +313,10 @@ ul.task-list li input[type="checkbox"] {
   </li>  
     </ul>
   </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../quizz.html"> 
+<span class="menu-text">Quizz</span></a>
+  </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
@@ -365,15 +369,73 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="unnumbered anchored" data-anchor-id="dates-clés">Dates clés</h2>
 <p>Voici un bref historique des grandes étapes de la classification non supervisée :</p>
 <ul>
-<li><p>Années 1930 – Naissance de la classification hiérarchique John Tukey et d’autres statisticiens proposent des méthodes de regroupement basées sur la similarité (dendrogrammes) pour organiser les données sans labels.</p></li>
-<li><p>Apparue de la classification ascendante hiérarchique dans les années 1950-60 (notamment grace à Sokal &amp; Michener en 1958).</p></li>
-<li><p>1965 – Algorithme des nuées dynamiques Stuart Lloyd formalise ce qui deviendra plus tard le k-means, popularisé par James MacQueen en 1967 : partitionner un jeu de points en k groupes en minimisant la variance intra-groupe.</p></li>
-<li><p>1970s – Modèles à mélanges et l’algorithme EM Geoffrey J. McLachlan, Thriyambakam Krishnan, et surtout Jerry Dempster, Nan Laird et Donald Rubin (1977) généralisent les modèles de mélange gaussien, entraînés via l’Expectation–Maximization, pour estimer des sous-populations au sein d’un jeu de données.</p></li>
+<li>Années 1930 – Naissance de la classification hiérarchique John Tukey et d’autres statisticiens proposent des méthodes de regroupement basées sur la similarité (dendrogrammes) pour organiser les données sans labels.</li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>En 1958: Apparue de la classification ascendante hiérarchique dans les années 1950-60 (notamment grace à Sokal &amp; Michener).</li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>1965 – Algorithme des nuées dynamiques Stuart Lloyd formalise ce qui deviendra plus tard le k-means, popularisé par James MacQueen en 1967 : partitionner un jeu de points en k groupes en minimisant la variance intra-groupe.</li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>1970s – Modèles à mélanges et l’algorithme EM Geoffrey J. McLachlan, Thriyambakam Krishnan, et surtout Jerry Dempster, Nan Laird et Donald Rubin (1977) généralisent les modèles de mélange gaussien, entraînés via l’Expectation–Maximization, pour estimer des sous-populations au sein d’un jeu de données.</li>
+</ul>
+</div>
+</div>
+<ul>
 <li><p>Années 1980 – Cartes auto-organisatrices (SOM) Teuvo Kohonen développe les Self-Organizing Maps, réseaux de neurones non supervisés qui projettent des données de haute dimension en cartes topologiques 2D.</p></li>
 <li><p>Années 1990 – Clustering spectral et plus de flexibilité Des méthodes comme le clustering spectral (utilisant les valeurs propres du graphe de similarité) permettent de détecter des structures non sphériques. Parallèlement, on affine les distances et noyaux pour mieux capturer la forme des clusters.</p></li>
 <li><p>Années 2000 – Big Data et densité L’algorithme DBSCAN (1996) gagne en popularité ; en 2002, Ester et al.&nbsp;le précisent pour détecter les zones de forte densité dans de grands volumes de données.</p></li>
-<li><p>Années 2010 – Deep clustering L’émergence du deep learning entraîne des approches hybrides (ex. Deep Embedded Clustering) : on apprend simultanément des représentations (via auto-encodeurs) et des partitions.</p></li>
 </ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Années 2010 – Deep clustering L’émergence du deep learning entraîne des approches hybrides (ex. Deep Embedded Clustering) : on apprend simultanément des représentations (via auto-encodeurs) et des partitions.</li>
+</ul>
+</div>
+</div>
 <p>Conclusion :</p>
 <p>Cette évolution illustre comment la classification non supervisée est passée de méthodes statistiques simples (hiérarchique, k-means) à des approches sophistiquées mêlant représentations profondes et techniques de graphe.</p>
 
