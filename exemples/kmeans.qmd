@@ -72,7 +72,9 @@ notes_cluster <- cbind(notes, Cluster = factor(km_res$cluster))
 ### 6. Visualisation 2D avec PCA + clusters
  
 ```{R}
-install.packages("ggplot2")
+suppressMessages(suppressWarnings(
+  capture.output(install.packages("ggplot2"), file = "/dev/null")
+))
 library(ggplot2)
 
 # Calcul des composantes principales

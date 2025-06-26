@@ -1,0 +1,75 @@
+---
+title: "Quiz : Classification non supervisée"
+Author : Olivier Malahel
+format: html
+editor: visual
+---
+
+## 📊 Quiz sur la classification non supervisée
+
+### Question 1
+
+**Le k-means est une méthode :**
+
+```{quiz}
+choix:
+  - supervisée de classification
+  - non supervisée qui minimise la variance intra-classe
+  - basée sur des arbres de décision
+  - de régression linéaire
+```
+
+
+### Question 2
+**Dans la classification hiérarchique ascendante (CAH), on commence par :**
+
+```{quiz}
+choix:
+  - Regrouper les observations les plus éloignées
+  - Créer des groupes arbitraires
+  - Considérer chaque observation comme un cluster individuel
+  - Tirer un échantillon aléatoire
+```
+
+### Question 3
+**Le critère de Ward utilisé en CAH vise à :**
+
+answer: 1
+```{quiz}
+choix:
+  - Maximiser la distance entre les clusters
+  - Minimiser l’augmentation de l’inertie intra-classe
+  - Maximiser la probabilité conditionnelle
+  - Réduire la dimension des données
+```
+
+### Question 4
+**Les modèles de mélange gaussiens reposent sur :**
+```{quiz}
+choix:
+  - Une combinaison pondérée de lois normales
+  - La classification supervisée
+  - L’existence d’une variable latente indiquant l’appartenance au groupe
+  - L’algorithme de classification ascendante
+```
+
+### Question 5
+
+**Dans un modèle de mélange gaussien, que représente la probabilité $\pi_k$ ?**
+
+```{quiz}
+choix:
+  - La variance de la k-ième composante
+  - La probabilité a priori d’appartenir à la composante $k$
+  - La distance entre deux centres
+  - La probabilité conditionnelle de l'observation donnée la composante $k$
+```
+
+```{quiz}
+Réponses : 
+- Q1 : réponse 1
+- Q2 : réponse 2
+- Q3 : réponse 1
+- Q4 : réponses 0 et 2
+- Q5 : réponse 1
+```

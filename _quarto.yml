@@ -32,6 +32,9 @@ website:
             text: "Exemple de modèles de mélange"
           - href: exemples/kmeans_observable.qmd
             text: "Exemple de kmeans avec Observable"
+      - text: Quizz
+        href: quizz.qmd
+
     right:
       - href: about.qmd
         text: "About"
