@@ -1,0 +1,36 @@
+```{python}
+import pandas as pd
+from scipy.cluster.hierarchy import fcluster, dendrogram, linkage
+import matplotlib.pyplot as plt
+
+
+# Charger les données depuis le fichier CSV
+df = pd.read_csv("donnees_pays.csv")
+df.head()
+
+# Normalisation manuelle avec pandas (sans sklearn)
+X = df[["PIB_par_hab", "Espérance_de_vie", "Taux_alphabétisation"]]
+X_scaled = (X - X.mean()) / X.std()
+
+# Calcul des liens hiérarchiques (Ward)
+Z = linkage(X_scaled, method="ward")
+
+# Affichage du dendrogramme avec ligne de coupure
+plt.figure(figsize=(12, 6))
+dendrogram(Z, labels=df["Pays"].values, leaf_rotation=90)
+plt.axhline(
+    y=Z[-3, 2] + 0.5,
+    c='red',
+    linestyle='--',
+    label="Coupure à 3 clusters"
+)
+plt.title("Dendrogramme - Classification Hiérarchique")
+plt.ylabel("Distance")
+plt.legend()
+plt.tight_layout()
+plt.show()
+
+# Découpage en 3 clusters
+df["Cluster"] = fcluster(Z, t=3, criterion="maxclust")
+df[["Pays", "Cluster"]]
+```

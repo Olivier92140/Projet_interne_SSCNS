@@ -27,13 +27,14 @@ website:
           - href: exemples/CAH.qmd
             text: "Exemple de CAH avec R"
           - href: exemples/CAH2.qmd
-          - text: "Exemple de CAH avec Python"
+            text: "Exemple de CAH avec Python"
           - href: exemples/melange.qmd
             text: "Exemple de modèles de mélange"
           - href: exemples/kmeans_observable.qmd
             text: "Exemple de kmeans avec Observable"
     right:
-      - about.qmd  
+      - href: about.qmd
+        text: "About"
 resources:
   - exemples/iris_clusters.json
 format:
