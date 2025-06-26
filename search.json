@@ -158,14 +158,14 @@
     "href": "modeles/mod_kmeans.html",
     "title": "Algorithme des K-means",
     "section": "",
-    "text": "L’algorithme des K-means appelées aussi méthode des centres mobiles (ou algorithme de Lloyd) a pour but de fournir une partition. On considère que les observations x= {𝑥₁, .., 𝑥ₙ} sont décrites par p variables (𝑥ₙ appartient à ℝᵖ) et que l’espace est munie est de la métrique (généralement distance euclidienne).Pour simplifier les notations,on supposera que chaque observation a le même poids."
+    "text": "L’algorithme des K-means, également appelé méthode des centres mobiles ou algorithme de Lloyd, est une méthode de classification non supervisée visant à regrouper un ensemble d’observations en K groupes homogènes, appelés clusters. Le but est de déterminer une partition des données telle que les observations appartenant à un même groupe soient similaires entre elles, et différentes des observations des autres groupes. On considère que les observations x= {𝑥₁, .., 𝑥ₙ} sont décrites par p variables (𝑥ₙ appartient à ℝᵖ) et que l’espace est munie est de la métrique (généralement distance euclidienne).Pour simplifier les notations,on supposera que chaque observation a le même poids."
   },
   {
     "objectID": "modeles/mod_kmeans.html#introduction",
     "href": "modeles/mod_kmeans.html#introduction",
     "title": "Algorithme des K-means",
     "section": "",
-    "text": "L’algorithme des K-means appelées aussi méthode des centres mobiles (ou algorithme de Lloyd) a pour but de fournir une partition. On considère que les observations x= {𝑥₁, .., 𝑥ₙ} sont décrites par p variables (𝑥ₙ appartient à ℝᵖ) et que l’espace est munie est de la métrique (généralement distance euclidienne).Pour simplifier les notations,on supposera que chaque observation a le même poids."
+    "text": "L’algorithme des K-means, également appelé méthode des centres mobiles ou algorithme de Lloyd, est une méthode de classification non supervisée visant à regrouper un ensemble d’observations en K groupes homogènes, appelés clusters. Le but est de déterminer une partition des données telle que les observations appartenant à un même groupe soient similaires entre elles, et différentes des observations des autres groupes. On considère que les observations x= {𝑥₁, .., 𝑥ₙ} sont décrites par p variables (𝑥ₙ appartient à ℝᵖ) et que l’espace est munie est de la métrique (généralement distance euclidienne).Pour simplifier les notations,on supposera que chaque observation a le même poids."
   },
   {
     "objectID": "modeles/mod_kmeans.html#algorithme-de-lloyd-k-means",
@@ -264,6 +264,13 @@
     "title": "K-means + ObservableJS",
     "section": "🌐 Visualisation interactive avec Observable JS",
     "text": "🌐 Visualisation interactive avec Observable JS\n\nimport { FileAttachment } from \"@observablehq/stdlib\"\n\n// Force la dépendance sur le bloc R  \niris_data = await FileAttachment(\"iris_clusters.json\").json()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPlot.plot({\n  marks: [\n    Plot.dot(iris_data, {\n      x: d =&gt; d[\"Sepal.Length\"],\n      y: d =&gt; d[\"Petal.Length\"],\n      fill: d =&gt; d.Cluster,\n      title: d =&gt; d.Species\n    })\n  ],\n  color: { legend: true },\n  x: { label: \"Longueur Sépale\" },\n  y: { label: \"Longueur Pétale\" },\n  width: 600,\n  height: 450\n})"
+  },
+  {
+    "objectID": "exemples/CAH2.html",
+    "href": "exemples/CAH2.html",
+    "title": "Classification non supervisée",
+    "section": "",
+    "text": "import pandas as pd\nfrom scipy.cluster.hierarchy import fcluster, dendrogram, linkage\nimport matplotlib.pyplot as plt\n\n\n# Charger les données depuis le fichier CSV\ndf = pd.read_csv(\"donnees_pays.csv\")\ndf.head()\n\n# Normalisation manuelle avec pandas (sans sklearn)\nX = df[[\"PIB_par_hab\", \"Espérance_de_vie\", \"Taux_alphabétisation\"]]\nX_scaled = (X - X.mean()) / X.std()\n\n# Calcul des liens hiérarchiques (Ward)\nZ = linkage(X_scaled, method=\"ward\")\n\n# Affichage du dendrogramme avec ligne de coupure\nplt.figure(figsize=(12, 6))\ndendrogram(Z, labels=df[\"Pays\"].values, leaf_rotation=90)\nplt.axhline(\n    y=Z[-3, 2] + 0.5,\n    c='red',\n    linestyle='--',\n    label=\"Coupure à 3 clusters\"\n)\nplt.title(\"Dendrogramme - Classification Hiérarchique\")\nplt.ylabel(\"Distance\")\nplt.legend()\nplt.tight_layout()\nplt.show()\n\n# Découpage en 3 clusters\ndf[\"Cluster\"] = fcluster(Z, t=3, criterion=\"maxclust\")\ndf[[\"Pays\", \"Cluster\"]]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPays\nCluster\n\n\n\n\n0\nFrance\n3\n\n\n1\nAllemagne\n3\n\n\n2\nBrésil\n2\n\n\n3\nNigeria\n1\n\n\n4\nChine\n2\n\n\n5\nInde\n1\n\n\n6\nÉtats-Unis\n3\n\n\n7\nJapon\n3\n\n\n8\nAfrique du Sud\n1\n\n\n9\nMexique\n2\n\n\n10\nCanada\n3\n\n\n11\nItalie\n3\n\n\n12\nEspagne\n3\n\n\n13\nArgentine\n2\n\n\n14\nÉgypte\n1\n\n\n15\nRussie\n2\n\n\n16\nTurquie\n2\n\n\n17\nIndonésie\n2\n\n\n18\nCorée du Sud\n3\n\n\n19\nAustralie\n3"
   },
   {
     "objectID": "exemples/CAH.html",
