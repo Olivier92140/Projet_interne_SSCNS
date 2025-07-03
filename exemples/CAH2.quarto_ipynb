@@ -1,0 +1,57 @@
+{
+  "cells": [
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import pandas as pd\n",
+        "from scipy.cluster.hierarchy import fcluster, dendrogram, linkage\n",
+        "import matplotlib.pyplot as plt\n",
+        "\n",
+        "\n",
+        "# Charger les données depuis le fichier CSV\n",
+        "df = pd.read_csv(\"donnees_pays.csv\")\n",
+        "df.head()\n",
+        "\n",
+        "# Normalisation manuelle avec pandas (sans sklearn)\n",
+        "X = df[[\"PIB_par_hab\", \"Espérance_de_vie\", \"Taux_alphabétisation\"]]\n",
+        "X_scaled = (X - X.mean()) / X.std()\n",
+        "\n",
+        "# Calcul des liens hiérarchiques (Ward)\n",
+        "Z = linkage(X_scaled, method=\"ward\")\n",
+        "\n",
+        "# Affichage du dendrogramme avec ligne de coupure\n",
+        "plt.figure(figsize=(12, 6))\n",
+        "dendrogram(Z, labels=df[\"Pays\"].values, leaf_rotation=90)\n",
+        "plt.axhline(\n",
+        "    y=Z[-3, 2] + 0.5,\n",
+        "    c='red',\n",
+        "    linestyle='--',\n",
+        "    label=\"Coupure à 3 clusters\"\n",
+        ")\n",
+        "plt.title(\"Dendrogramme - Classification Hiérarchique\")\n",
+        "plt.ylabel(\"Distance\")\n",
+        "plt.legend()\n",
+        "plt.tight_layout()\n",
+        "plt.show()\n",
+        "\n",
+        "# Découpage en 3 clusters\n",
+        "df[\"Cluster\"] = fcluster(Z, t=3, criterion=\"maxclust\")\n",
+        "df[[\"Pays\", \"Cluster\"]]"
+      ],
+      "id": "56674712",
+      "execution_count": null,
+      "outputs": []
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "python3",
+      "language": "python",
+      "display_name": "Python 3 (ipykernel)",
+      "path": "/usr/local/share/jupyter/kernels/python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}

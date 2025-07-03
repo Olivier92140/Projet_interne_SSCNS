@@ -1,0 +1,20 @@
+### 🔹 Articles fondateurs
+
+- **MacQueen, J. (1967)**. *Some Methods for Classification and Analysis of Multivariate Observations*.  
+  ➤ Article qui introduit l’algorithme des k-means.
+
+- **Dempster, A. P., Laird, N. M., & Rubin, D. B. (1977)**. *Maximum Likelihood from Incomplete Data via the EM Algorithm*. *Journal of the Royal Statistical Society: Series B*, 39(1), 1–38.  
+  ➤ Fondement de l’algorithme EM utilisé pour estimer les paramètres dans les modèles de mélange.
+
+---
+
+### 🔹 Ressources en ligne
+
+- [**Documentation officielle scikit-learn – Clustering**](https://scikit-learn.org/stable/modules/clustering.html)  
+  ➤ Tutoriels Python : k-means, DBSCAN, GMM, etc.
+
+- [**R-bloggers – Articles sur le clustering**](https://www.r-bloggers.com/tag/clustering/)  
+  ➤ Tutoriels en R sur les méthodes de classification non supervisée.
+
+- [**Cours ENSAI / ENSAE – Classification non supervisée**](https://ensae.fr/)  
+  ➤ Supports de cours en statistique pour étudiants et chercheurs.
