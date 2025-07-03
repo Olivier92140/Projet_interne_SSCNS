@@ -20,7 +20,7 @@
         "\n",
         "### Import des bibliothèques"
       ],
-      "id": "2e0df34d"
+      "id": "9e177478"
     },
     {
       "cell_type": "code",
@@ -33,7 +33,7 @@
         "from scipy.cluster.hierarchy import dendrogram, linkage, fcluster\n",
         "df = pd.read_csv(\"donnees_pays.csv\")"
       ],
-      "id": "a73273c4",
+      "id": "c08884c6",
       "execution_count": null,
       "outputs": []
     },
@@ -43,7 +43,7 @@
       "source": [
         "### Chargement les données "
       ],
-      "id": "9edc1a2f"
+      "id": "19a2c8a4"
     },
     {
       "cell_type": "code",
@@ -52,7 +52,7 @@
         "df = pd.read_csv(\"donnees_pays.csv\")\n",
         "df.head()"
       ],
-      "id": "cffec278",
+      "id": "b59feb9c",
       "execution_count": null,
       "outputs": []
     },
@@ -62,7 +62,7 @@
       "source": [
         "### Normalisation avec sklearn"
       ],
-      "id": "cac37484"
+      "id": "5d9addd6"
     },
     {
       "cell_type": "code",
@@ -72,7 +72,7 @@
         "scaler = StandardScaler()\n",
         "X_scaled = scaler.fit_transform(X)"
       ],
-      "id": "d491492f",
+      "id": "5728adbe",
       "execution_count": null,
       "outputs": []
     },
@@ -82,7 +82,7 @@
       "source": [
         "### Calcul des liens hiérarchiques (Ward)"
       ],
-      "id": "f085de50"
+      "id": "2e57a29a"
     },
     {
       "cell_type": "code",
@@ -90,7 +90,7 @@
       "source": [
         "Z = linkage(X_scaled, method=\"ward\")"
       ],
-      "id": "a5e8baf2",
+      "id": "c956cefe",
       "execution_count": null,
       "outputs": []
     },
@@ -100,7 +100,7 @@
       "source": [
         "### Affichage du dendrogramme avec ligne de coupure"
       ],
-      "id": "ffa7cc53"
+      "id": "4935e9c0"
     },
     {
       "cell_type": "code",
@@ -120,7 +120,7 @@
         "plt.tight_layout()\n",
         "plt.show()"
       ],
-      "id": "1bdbcc3c",
+      "id": "d3be9c51",
       "execution_count": null,
       "outputs": []
     },
@@ -130,7 +130,7 @@
       "source": [
         "### Découpage en 3 clusters"
       ],
-      "id": "caf88091"
+      "id": "736c7786"
     },
     {
       "cell_type": "code",
@@ -139,7 +139,7 @@
         "df[\"Cluster\"] = fcluster(Z, t=3, criterion=\"maxclust\")\n",
         "df[[\"Pays\", \"Cluster\"]]"
       ],
-      "id": "b1ffaaa0",
+      "id": "158af312",
       "execution_count": null,
       "outputs": []
     },
@@ -165,7 +165,7 @@
         "\n",
         "Ce sont les pays développés ayant un PIB par habitant élevé, une espérance de vie longue, et un taux d’alphabétisation proche de 100%."
       ],
-      "id": "2c798d8b"
+      "id": "de0b02ca"
     }
   ],
   "metadata": {
