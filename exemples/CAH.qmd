@@ -20,7 +20,7 @@ Problématique : Comment regrouper de manière homogène une clientèle selon se
 ```{R}
 
 data <- read.csv2("clients_depenses.csv")
-data
+head(data)
 ```
 
 ### 2. Matrice des variables (sans la colonne Client)

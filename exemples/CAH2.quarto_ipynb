@@ -1,27 +1,112 @@
 {
   "cells": [
     {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "title: \"Algorithme CAH en utilisant Python\"\n",
+        "author: \"Olivier Malahel\"\n",
+        "format: html\n",
+        "from: markdown+emoji\n",
+        "code-block-bg: true\n",
+        "code-block-border-left: \"#31BAE9\"\n",
+        "---\n",
+        "\n",
+        "\n",
+        "## Exemple\n",
+        "\n",
+        "Enjeu : On souhaite regrouper les pays selon leur PIB, leur espérance de vie et leur taux d'alphabétisation. \n",
+        "\n",
+        "### Import des bibliothèques"
+      ],
+      "id": "2e0df34d"
+    },
+    {
       "cell_type": "code",
       "metadata": {},
       "source": [
         "import pandas as pd\n",
-        "from scipy.cluster.hierarchy import fcluster, dendrogram, linkage\n",
         "import matplotlib.pyplot as plt\n",
-        "\n",
-        "\n",
-        "# Charger les données depuis le fichier CSV\n",
+        "from sklearn.preprocessing import StandardScaler\n",
+        "from sklearn.cluster import AgglomerativeClustering\n",
+        "from scipy.cluster.hierarchy import dendrogram, linkage, fcluster\n",
+        "df = pd.read_csv(\"donnees_pays.csv\")"
+      ],
+      "id": "a73273c4",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "### Chargement les données "
+      ],
+      "id": "9edc1a2f"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
         "df = pd.read_csv(\"donnees_pays.csv\")\n",
-        "df.head()\n",
-        "\n",
-        "# Normalisation manuelle avec pandas (sans sklearn)\n",
+        "df.head()"
+      ],
+      "id": "cffec278",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "### Normalisation avec sklearn"
+      ],
+      "id": "cac37484"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
         "X = df[[\"PIB_par_hab\", \"Espérance_de_vie\", \"Taux_alphabétisation\"]]\n",
-        "X_scaled = (X - X.mean()) / X.std()\n",
-        "\n",
-        "# Calcul des liens hiérarchiques (Ward)\n",
-        "Z = linkage(X_scaled, method=\"ward\")\n",
-        "\n",
-        "# Affichage du dendrogramme avec ligne de coupure\n",
-        "plt.figure(figsize=(12, 6))\n",
+        "scaler = StandardScaler()\n",
+        "X_scaled = scaler.fit_transform(X)"
+      ],
+      "id": "d491492f",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "### Calcul des liens hiérarchiques (Ward)"
+      ],
+      "id": "f085de50"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "Z = linkage(X_scaled, method=\"ward\")"
+      ],
+      "id": "a5e8baf2",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "### Affichage du dendrogramme avec ligne de coupure"
+      ],
+      "id": "ffa7cc53"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "plt.figure(figsize=(10, 5))\n",
         "dendrogram(Z, labels=df[\"Pays\"].values, leaf_rotation=90)\n",
         "plt.axhline(\n",
         "    y=Z[-3, 2] + 0.5,\n",
@@ -33,15 +118,54 @@
         "plt.ylabel(\"Distance\")\n",
         "plt.legend()\n",
         "plt.tight_layout()\n",
-        "plt.show()\n",
-        "\n",
-        "# Découpage en 3 clusters\n",
+        "plt.show()"
+      ],
+      "id": "1bdbcc3c",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "### Découpage en 3 clusters"
+      ],
+      "id": "caf88091"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
         "df[\"Cluster\"] = fcluster(Z, t=3, criterion=\"maxclust\")\n",
         "df[[\"Pays\", \"Cluster\"]]"
       ],
-      "id": "56674712",
+      "id": "b1ffaaa0",
       "execution_count": null,
       "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## Conclusion : \n",
+        "\n",
+        "La CAH permet d'identifier 3 groupes de Pays: \n",
+        "\n",
+        "- Cluster 1 : Nigeria, Afrique du Sud, Inde, Égypte. \n",
+        "\n",
+        "Ce sont les pays avec un développement faible (PIB par habitant plus faible, espérance de vie plus courte, taux d’alphabétisation relativement bas)\n",
+        "\n",
+        "- Cluster 2: Russie, Indonésie, Brésil, Argentine, Turquie, Chine, Mexique\n",
+        "\n",
+        "Ce sont des pays émergents avec un niveau de développement économique moyen, une amélioration progressive de l’espérance de vie et de l’éducation,\n",
+        "\n",
+        "et un fort potentiel économique. \n",
+        "\n",
+        "- Cluster 3 : États-Unis, Canada, Australie, Japon, Italie, Espagne, Corée du Sud, France, Allemagne\n",
+        "\n",
+        "Ce sont les pays développés ayant un PIB par habitant élevé, une espérance de vie longue, et un taux d’alphabétisation proche de 100%."
+      ],
+      "id": "2c798d8b"
     }
   ],
   "metadata": {
