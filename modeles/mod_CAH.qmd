@@ -10,6 +10,14 @@ code-block-border-left: "#31BAE9"
 
 La classification hiérarchique ascendante est une méthode de partitionnement dont l’objectif est de construire une hiérarchie sur un ensemble de n observations, en partant de n singletons puis en fusionnant itérativement les groupes deux à deux.  
 
+Dans la pratique, la CAH, c’est comme si tu voulais ranger des objets (observations) qui se ressemblent dans des boîtes (clusters ou groupes ou classes)
+
+Au début, tu mets chaque objet dans sa propre boîte. 
+Ensuite, tu regardes quelles boîtes contiennent les objets les plus proches, les plus similaires, et tu les rassembles à l'aide d'une distance qu'on appelle distance entre observations (généralement la distance euclidienne)
+Puis tu continues : à chaque étape, tu regroupes deux boîtes qui se ressemblent le plus, à l'aide de la distance entre groupes. 
+
+À la fin, tu obtiens une grande pyramide de regroupements, un peu comme un arbre qu’on appelle un dendrogramme. Et tu peux choisir de couper l’arbre à un certain niveau (grace à la plus longue distance verticale) pour former des groupes.
+
 ## Principe de la méthode 
 
 Soit **x** = {x₁, …, xₙ} l’ensemble d’observations à classer :
@@ -34,6 +42,9 @@ Pour pouvoir regrouper des parties de Ω :
 
 - **Dissimilarité entre observations**  
 d(xi,xj) ∈ R+, xi,xj ∈ x,
+
+::: {.callout-important}
+La distance entre observations le plus utilisée est la distance euclidienne. 
 
 - **Dissimilarité entre classes**  
 D(A,B) ∈ R+, où A,B ∈ P(x) avec A∩B =∅.
