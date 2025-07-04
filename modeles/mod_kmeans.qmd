@@ -8,21 +8,23 @@ code-block-border-left: "#31BAE9"
 ---
 ## Introduction {.unnumbered}
 
-L’algorithme des K-means, également appelé méthode des centres mobiles ou algorithme de Lloyd, est une méthode de classification non supervisée visant à regrouper un ensemble d’observations en K groupes homogènes, appelés clusters. Le but est de déterminer une partition des données telle que les observations appartenant à un même groupe soient similaires entre elles, et différentes des observations des autres groupes. On considère que les observations x= {𝑥₁, .., 𝑥ₙ} sont décrites par p variables (𝑥ₙ appartient à ℝᵖ) et que l'espace est munie est de la métrique (généralement distance euclidienne).Pour simplifier les notations,on supposera que chaque observation a le même poids.
+L’algorithme des K-means, également appelé méthode des centres mobiles ou algorithme de Lloyd, est une méthode de classification non supervisée visant à regrouper un ensemble d’observations en K groupes homogènes, appelés clusters. Le but est de déterminer une partition des données telle que les observations appartenant à un même groupe soient similaires entre elles, et différentes des observations des autres groupes. On considère que les observations $x= {x_₁, .., x_ₙ}$ sont décrites par p variables ($x_n$ appartient à ℝᵖ) et que l'espace est munie est de la métrique (généralement distance euclidienne).Pour simplifier les notations,on supposera que chaque observation a le même poids.
 
 ## Algorithme de Lloyd (k-means) {.unnumbered}
 
 ### Algorithme des *k*-means
 
-La méthode des centres mobiles a pour but de fournir une partition de **x= {𝑥₁, .., 𝑥ₙ}**.
+La méthode des centres mobiles a pour but de fournir une partition de $x= {x_1, .., x_n}$.
 
-> **Principe** : Pour l’ensemble d’observations 𝑥 = {𝑥₁, .., 𝑥ₙ}, on suppose qu’il existe  
-> 𝐶ᴷ = {𝐶₁, .., 𝐶ₖ} tel que 𝑥 = ⋃ₖ₌₁ᴷ 𝐶ₖ est disjoint
+> **Principe** : Pour l’ensemble d’observations $x= {x_1, .., x_1}$, on suppose qu’il existe  
 
-* Etape 1. On commence par choisir **K** observations différentes : {μ₁, .., μₖ}
+> $C^k = {C_n, .., C_k}$ tel que $x = ⋃ₖ₌₁ᴷ C_k$ est disjoint
+
+
+* Etape 1. On commence par choisir **K** observations différentes : ${μ_1, .., μ_n}$
 * Etape 2. On réalise itérativement une succession ces actions: 
-    - Pour chaque observation **x= {𝑥₁, .., 𝑥ₙ}** on trouve son centre (barycentre) le plus proche pour créer 𝐶ₖ = {ensemble d’observations les plus proches du centre μₖ}
-    - Dans chaque nouvelle classe 𝐶ₖ on définit le nouveau centre de classe μₖ comme étant le barycentre de 𝐶ₖ.
+    - Pour chaque observation $x= {x_1, .., x_n}$ on trouve son centre (barycentre) le plus proche pour créer $C_k$ = {ensemble d’observations les plus proches du centre $μ_k$}
+    - Dans chaque nouvelle classe Cₖ on définit le nouveau centre de classe $μ_k$ comme étant le barycentre de $C_k$.
 * Etape 3. on réitère l'étape 1. 
 
 ### Remarques {.unnumbered}
@@ -169,7 +171,7 @@ print(res2$centers)
 ### Définition
 
 > L’inertie intra-classe de x = {x1,..,xn} par rapport à la partition
-  $$C_K = \{\,C_1,\,C_2,\,\dots,\,C_K\} $$ et les centres des classes dans µ = {µ1,..,µK} s’écrit:
+  $$C_K = \{\,C_1,\,C_2,\,\dots,\,C_K\} $$ et les centres des classes dans $µ = {µ_1,..,µ_K}$ s’écrit:
 > IW =$\sum_{k=1}^K d²(xi, µk)$
  Notons-la IW(C,µ) à partir de maintenant.
 
