@@ -36,6 +36,6 @@ jobs:
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
         with:
-          target: main     # ← la branche qui recevra le site
+          target: gh-pages     # ← la branche qui recevra le site
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

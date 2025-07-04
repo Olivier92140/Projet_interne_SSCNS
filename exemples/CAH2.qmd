@@ -19,7 +19,6 @@ Enjeu : On souhaite regrouper les pays selon leur PIB, leur espérance de vie et
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
-from sklearn.cluster import AgglomerativeClustering
 from scipy.cluster.hierarchy import dendrogram, linkage, fcluster
 df = pd.read_csv("donnees_pays.csv")
 ```
