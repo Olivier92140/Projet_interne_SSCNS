@@ -25,8 +25,8 @@
         "  - de régression linéaire\n",
         "```\n",
         "\n",
-        "\n",
         "### Question 2\n",
+        "\n",
         "**Dans la classification hiérarchique ascendante (CAH), on commence par :**\n",
         "\n",
         "```{quiz}\n",
@@ -38,9 +38,11 @@
         "```\n",
         "\n",
         "### Question 3\n",
+        "\n",
         "**Le critère de Ward utilisé en CAH vise à :**\n",
         "\n",
         "answer: 1\n",
+        "\n",
         "```{quiz}\n",
         "choix:\n",
         "  - Maximiser la distance entre les clusters\n",
@@ -50,7 +52,9 @@
         "```\n",
         "\n",
         "### Question 4\n",
+        "\n",
         "**Les modèles de mélange gaussiens reposent sur :**\n",
+        "\n",
         "```{quiz}\n",
         "choix:\n",
         "  - Une combinaison pondérée de lois normales\n",
@@ -61,7 +65,7 @@
         "\n",
         "### Question 5\n",
         "\n",
-        "**Dans un modèle de mélange gaussien, que représente la probabilité $\\pi_k$ ?**\n",
+        "**Dans un modèle de mélange gaussien, que représente la probabilité** $\\pi_k$ ?\n",
         "\n",
         "```{quiz}\n",
         "choix:\n",
@@ -80,7 +84,7 @@
         "- Q5 : réponse 1\n",
         "```"
       ],
-      "id": "8ec9529a"
+      "id": "9480afab"
     }
   ],
   "metadata": {

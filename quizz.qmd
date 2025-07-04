@@ -19,8 +19,8 @@ choix:
   - de régression linéaire
 ```
 
-
 ### Question 2
+
 **Dans la classification hiérarchique ascendante (CAH), on commence par :**
 
 ```{quiz}
@@ -32,9 +32,11 @@ choix:
 ```
 
 ### Question 3
+
 **Le critère de Ward utilisé en CAH vise à :**
 
 answer: 1
+
 ```{quiz}
 choix:
   - Maximiser la distance entre les clusters
@@ -44,7 +46,9 @@ choix:
 ```
 
 ### Question 4
+
 **Les modèles de mélange gaussiens reposent sur :**
+
 ```{quiz}
 choix:
   - Une combinaison pondérée de lois normales
@@ -55,7 +59,7 @@ choix:
 
 ### Question 5
 
-**Dans un modèle de mélange gaussien, que représente la probabilité $\pi_k$ ?**
+**Dans un modèle de mélange gaussien, que représente la probabilité** $\pi_k$ ?
 
 ```{quiz}
 choix:
