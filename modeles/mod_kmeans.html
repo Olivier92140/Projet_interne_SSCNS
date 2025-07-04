@@ -368,7 +368,7 @@ window.Quarto = {
  <span class="dropdown-text">Exemple de CAH avec Python</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../exemples/melange.html">
+    <a class="dropdown-item" href="../exemples/mmelange.html">
  <span class="dropdown-text">Exemple de modèles de mélange</span></a>
   </li>  
         <li>
@@ -431,23 +431,25 @@ window.Quarto = {
 
 <section id="introduction" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="introduction">Introduction</h2>
-<p>L’algorithme des K-means, également appelé méthode des centres mobiles ou algorithme de Lloyd, est une méthode de classification non supervisée visant à regrouper un ensemble d’observations en K groupes homogènes, appelés clusters. Le but est de déterminer une partition des données telle que les observations appartenant à un même groupe soient similaires entre elles, et différentes des observations des autres groupes. On considère que les observations x= {𝑥₁, .., 𝑥ₙ} sont décrites par p variables (𝑥ₙ appartient à ℝᵖ) et que l’espace est munie est de la métrique (généralement distance euclidienne).Pour simplifier les notations,on supposera que chaque observation a le même poids.</p>
+<p>L’algorithme des K-means, également appelé méthode des centres mobiles ou algorithme de Lloyd, est une méthode de classification non supervisée visant à regrouper un ensemble d’observations en K groupes homogènes, appelés clusters. Le but est de déterminer une partition des données telle que les observations appartenant à un même groupe soient similaires entre elles, et différentes des observations des autres groupes. On considère que les observations <span class="math inline">\(x= {x_₁, .., x_ₙ}\)</span> sont décrites par p variables (<span class="math inline">\(x_n\)</span> appartient à ℝᵖ) et que l’espace est munie est de la métrique (généralement distance euclidienne).Pour simplifier les notations,on supposera que chaque observation a le même poids.</p>
 </section>
 <section id="algorithme-de-lloyd-k-means" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="algorithme-de-lloyd-k-means">Algorithme de Lloyd (k-means)</h2>
 <section id="algorithme-des-k-means" class="level3">
 <h3 class="anchored" data-anchor-id="algorithme-des-k-means">Algorithme des <em>k</em>-means</h3>
-<p>La méthode des centres mobiles a pour but de fournir une partition de <strong>x= {𝑥₁, .., 𝑥ₙ}</strong>.</p>
+<p>La méthode des centres mobiles a pour but de fournir une partition de <span class="math inline">\(x= {x_1, .., x_n}\)</span>.</p>
 <blockquote class="blockquote">
-<p><strong>Principe</strong> : Pour l’ensemble d’observations 𝑥 = {𝑥₁, .., 𝑥ₙ}, on suppose qu’il existe<br>
-𝐶ᴷ = {𝐶₁, .., 𝐶ₖ} tel que 𝑥 = ⋃ₖ₌₁ᴷ 𝐶ₖ est disjoint</p>
+<p><strong>Principe</strong> : Pour l’ensemble d’observations <span class="math inline">\(x= {x_1, .., x_1}\)</span>, on suppose qu’il existe</p>
+</blockquote>
+<blockquote class="blockquote">
+<p><span class="math inline">\(C^k = {C_n, .., C_k}\)</span> tel que <span class="math inline">\(x = ⋃ₖ₌₁ᴷ C_k\)</span> est disjoint</p>
 </blockquote>
 <ul>
-<li>Etape 1. On commence par choisir <strong>K</strong> observations différentes : {μ₁, .., μₖ}</li>
+<li>Etape 1. On commence par choisir <strong>K</strong> observations différentes : <span class="math inline">\({μ_1, .., μ_n}\)</span></li>
 <li>Etape 2. On réalise itérativement une succession ces actions:
 <ul>
-<li>Pour chaque observation <strong>x= {𝑥₁, .., 𝑥ₙ}</strong> on trouve son centre (barycentre) le plus proche pour créer 𝐶ₖ = {ensemble d’observations les plus proches du centre μₖ}</li>
-<li>Dans chaque nouvelle classe 𝐶ₖ on définit le nouveau centre de classe μₖ comme étant le barycentre de 𝐶ₖ.</li>
+<li>Pour chaque observation <span class="math inline">\(x= {x_1, .., x_n}\)</span> on trouve son centre (barycentre) le plus proche pour créer <span class="math inline">\(C_k\)</span> = {ensemble d’observations les plus proches du centre <span class="math inline">\(μ_k\)</span>}</li>
+<li>Dans chaque nouvelle classe Cₖ on définit le nouveau centre de classe <span class="math inline">\(μ_k\)</span> comme étant le barycentre de <span class="math inline">\(C_k\)</span>.</li>
 </ul></li>
 <li>Etape 3. on réitère l’étape 1.</li>
 </ul>
@@ -638,7 +640,7 @@ Classe 3 : 20</code></pre>
 <section id="définition" class="level3">
 <h3 class="anchored" data-anchor-id="définition">Définition</h3>
 <blockquote class="blockquote">
-<p>L’inertie intra-classe de x = {x1,..,xn} par rapport à la partition <span class="math display">\[C_K = \{\,C_1,\,C_2,\,\dots,\,C_K\} \]</span> et les centres des classes dans µ = {µ1,..,µK} s’écrit: IW =<span class="math inline">\(\sum_{k=1}^K d²(xi, µk)\)</span> Notons-la IW(C,µ) à partir de maintenant.</p>
+<p>L’inertie intra-classe de x = {x1,..,xn} par rapport à la partition <span class="math display">\[C_K = \{\,C_1,\,C_2,\,\dots,\,C_K\} \]</span> et les centres des classes dans <span class="math inline">\(µ = {µ_1,..,µ_K}\)</span> s’écrit: IW =<span class="math inline">\(\sum_{k=1}^K d²(xi, µk)\)</span> Notons-la IW(C,µ) à partir de maintenant.</p>
 </blockquote>
 <p>l’inertie intra classe est égale à :</p>
 <div class="cell">

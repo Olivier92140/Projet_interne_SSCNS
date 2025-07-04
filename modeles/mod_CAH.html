@@ -368,7 +368,7 @@ window.Quarto = {
  <span class="dropdown-text">Exemple de CAH avec Python</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../exemples/melange.html">
+    <a class="dropdown-item" href="../exemples/mmelange.html">
  <span class="dropdown-text">Exemple de modèles de mélange</span></a>
   </li>  
         <li>
@@ -432,6 +432,9 @@ window.Quarto = {
 <section id="introduction" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="introduction">Introduction</h2>
 <p>La classification hiérarchique ascendante est une méthode de partitionnement dont l’objectif est de construire une hiérarchie sur un ensemble de n observations, en partant de n singletons puis en fusionnant itérativement les groupes deux à deux.</p>
+<p>Dans la pratique, la CAH, c’est comme si tu voulais ranger des objets (observations) qui se ressemblent dans des boîtes (clusters ou groupes ou classes)</p>
+<p>Au début, tu mets chaque objet dans sa propre boîte. Ensuite, tu regardes quelles boîtes contiennent les objets les plus proches, les plus similaires, et tu les rassembles à l’aide d’une distance qu’on appelle distance entre observations (généralement la distance euclidienne) Puis tu continues : à chaque étape, tu regroupes deux boîtes qui se ressemblent le plus, à l’aide de la distance entre groupes.</p>
+<p>À la fin, tu obtiens une grande pyramide de regroupements, un peu comme un arbre qu’on appelle un dendrogramme. Et tu peux choisir de couper l’arbre à un certain niveau (grace à la plus longue distance verticale) pour former des groupes.</p>
 </section>
 <section id="principe-de-la-méthode" class="level2">
 <h2 class="anchored" data-anchor-id="principe-de-la-méthode">Principe de la méthode</h2>
@@ -450,12 +453,24 @@ On fusionne à nouveau les deux éléments (classes ou individus) les plus proch
 <p><strong>Critères d’agrégation</strong><br>
 Pour pouvoir regrouper des parties de Ω :</p>
 <ul>
-<li><p><strong>Dissimilarité entre observations</strong><br>
-d(xi,xj) ∈ R+, xi,xj ∈ x,</p></li>
-<li><p><strong>Dissimilarité entre classes</strong><br>
-D(A,B) ∈ R+, où A,B ∈ P(x) avec A∩B =∅.</p></li>
+<li><strong>Dissimilarité entre observations</strong><br>
+d(xi,xj) ∈ R+, xi,xj ∈ x,</li>
 </ul>
-</section>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La distance entre observations le plus utilisée est la distance euclidienne.</p>
+<ul>
+<li><strong>Dissimilarité entre classes</strong><br>
+D(A,B) ∈ R+, où A,B ∈ P(x) avec A∩B =∅.</li>
+</ul>
 <section id="algorithme-de-cah" class="level2">
 <h2 class="anchored" data-anchor-id="algorithme-de-cah">Algorithme de CAH</h2>
 <p><strong>Data</strong> : x₁, …, xₙ<br>
@@ -560,6 +575,9 @@ D(A,B) ∈ R+, où A,B ∈ P(x) avec A∩B =∅.</p></li>
 
 
 </section>
+</section>
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->
