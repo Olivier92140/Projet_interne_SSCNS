@@ -1,0 +1,47 @@
+---
+title: "Définition"
+author: "Olivier Malahel"
+format: html
+from: markdown+emoji
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+---
+
+## Historique 
+
+### Dates clés :key:
+Voici un bref historique des grandes étapes de la classification non supervisée :
+
+- Années 1930 – Naissance de la classification hiérarchique
+John Tukey et d’autres statisticiens proposent des méthodes de regroupement basées sur la similarité (dendrogrammes) pour organiser les données sans labels.
+
+::: {.callout-note}
+- en 1958: Apparition de la classification ascendante hiérarchique dans les années 1950-60 (notamment grâce à Sokal & Michener).
+:::
+
+::: {.callout-note}
+- en 1965 – Algorithme des nuées dynamiques <br>
+Stuart Lloyd formalise ce qui deviendra plus tard le k-means, popularisé par James MacQueen en 1967 : partitionnement d'un jeu de points en k groupes en minimisant la variance intra-groupe.
+:::
+
+::: {.callout-note}
+- en 1970 – Modèles à mélanges et l’algorithme EM <br>
+Geoffrey J. McLachlan, Thriyambakam Krishnan, et surtout Jerry Dempster, Nan Laird et Donald Rubin (1977) généralisent les modèles de mélange gaussien, entraînés via l’Expectation–Maximization, pour estimer des sous-populations au sein d’un jeu de données.
+:::
+
+- Années 1980 – Cartes auto-organisatrices <br>
+Teuvo Kohonen développe les Self-Organizing Maps, réseaux de neurones non supervisés qui projettent des données de haute dimension en cartes topologiques 2D. L’objectif est de projeter des données d’un espace de très haute dimension en 2D tout en conservant, autant que possible, la structure topologique des données.
+
+- Années 1990 – Clustering spectral et plus de flexibilité <br>
+Des méthodes comme le clustering spectral (utilisant les valeurs propres du graphe de similarité) permettent de détecter des structures non sphériques. Parallèlement, on affine les distances et noyaux pour mieux capturer la forme des clusters.
+
+- Années 2000 – Big Data et densité <br>
+en 1996, l’algorithme DBSCAN (Density-Based Spatial Clustering of Applications with Noise) gagne en popularité.
+en 2002, Ester et al. précisent l’algorithme DBSCAN pour détecter les zones de forte densité dans de grands volumes de données. L'algorithme DBSCAN permet detecter les formes non convexes (chaînes, anneaux, ...) et d'identifier automatiquement le bruit. 
+
+- Années 2010 – Deep clustering <br>
+L’émergence du deep learning (sous-famille du machine learning) entraîne des approches hybrides (ex. Deep Embedded Clustering) : on apprend simultanément des représentations (via auto-encodeurs) et des partitions.En effet, par rapport les méthodes de clustering (k-means, DBSCAN, spectral…) qui opèrent sur des représentations fixes des données, le deep clustering simplifie la structure des clusters et améliore le partitionnement. Le deep clustering peut être utiliser par exemple dans le domaine de l'industrie pour assurer la maintenance prédictive pour repérer les dysfonctionnements anormaux avant panne. 
+
+Conclusion : 
+
+Cette évolution illustre comment la classification non supervisée est passée de méthodes statistiques simples (hiérarchique, k-means) à des approches sophistiquées mêlant représentations profondes et techniques de graphe.

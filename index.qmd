@@ -6,10 +6,10 @@ format: html
 from: markdown+emoji
 ---
 
+## Définition :book:
 
-## Pour aller plus loin
+Une classification non supervisée est une classification non guidée, c'est-à-dire qui ne précise pas selon quel groupe la classification doit se faire. L’algorithme découvre donc lui-même la structure des données et détermine lui-même le regroupement. 
 
-- [Clustering K-Means dans R ](https://statorials.org/k-signifie-regroupement-en-r/){target="_blank"}:butterfly:
-- [Classification ascendante hiérarchique sur exemple simple](https://www.youtube.com/watch?v=Brfc-wGXDRg){target="_blank"}:cat:
-- [Classification ascendante hiérarchique et application en python](https://www.youtube.com/watch?v=QabCGFzJDPM){target="_blank"}:dolphin:
-- [Modèle de mélange gaussien](https://fr.wikipedia.org/wiki/Mod%C3%A8le_de_m%C3%A9lange_gaussien){target="_blank"}:dog:
+Exemple : établir une classification des clients (ou clustering) selon les montants dépensés dans un magasin sans préciser à l'algorithme si les clients fidèles ou occasionnels. 
+
+

@@ -8,7 +8,10 @@ code-block-border-left: "#31BAE9"
 ---
 ## Introduction {.unnumbered}
 
+
+::: {.callout-note title="Définition"}
 L’algorithme des K-means, également appelé méthode des centres mobiles ou algorithme de Lloyd, est une méthode de classification non supervisée visant à regrouper un ensemble d’observations en K groupes homogènes, appelés clusters. Le but est de déterminer une partition des données telle que les observations appartenant à un même groupe soient similaires entre elles, et différentes des observations des autres groupes. On considère que les observations $x= {x_₁, .., x_ₙ}$ sont décrites par p variables ($x_n$ appartient à ℝᵖ) et que l'espace est munie est de la métrique (généralement distance euclidienne).Pour simplifier les notations,on supposera que chaque observation a le même poids.
+:::
 
 ## Algorithme de Lloyd (k-means) {.unnumbered}
 

@@ -6,12 +6,8 @@ website:
   navbar:
     background: lightseagreen
     left:
-      - text: Présentation
-        menu: 
-          - href: presentation/definition.qmd
-            text: "Définition"
-          - href: presentation/historique.qmd
-            text: "Historique"
+      - href: historique.qmd
+        text: "Historique"
       - text: Modèles
         menu: 
           - href: modeles/mod_kmeans.qmd

@@ -1,4 +1,4 @@
-### 🔹 Articles fondateurs
+## Articles fondateurs
 
 - **MacQueen, J. (1967)**. *Some Methods for Classification and Analysis of Multivariate Observations*.  
   ➤ Article qui introduit l’algorithme des k-means.
@@ -7,6 +7,17 @@
   ➤ Fondement de l’algorithme EM utilisé pour estimer les paramètres dans les modèles de mélange.
 
 ---
+
+## Vidéos
+
+- [Classification ascendante hiérarchique sur exemple simple](https://www.youtube.com/watch?v=Brfc-wGXDRg){target="_blank"}
+- [Classification ascendante hiérarchique et application en python](https://www.youtube.com/watch?v=QabCGFzJDPM){target="_blank"}
+
+## Exemples de code R ou Python
+
+- [Clustering K-Means dans R ](https://statorials.org/k-signifie-regroupement-en-r/){target="_blank"}:butterfly:
+- [Modèle de mélange gaussien](https://fr.wikipedia.org/wiki/Mod%C3%A8le_de_m%C3%A9lange_gaussien){target="_blank"}:dog:
+
 
 ### 🔹 Ressources en ligne
 
