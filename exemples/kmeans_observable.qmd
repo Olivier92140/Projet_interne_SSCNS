@@ -2,48 +2,125 @@
 title: "K-means + ObservableJS"
 author: Olivier Malahel
 format: html
-freeze: true
-resources:
-  - iris_clusters.json
 ---
 
-## 🔢 K-means sur les données `iris` (R)
-
-```{r}
-library(datasets)
-library(jsonlite)
-data(iris)
-head(iris)
-set.seed(123)
-km <- kmeans(iris[, 1:4], centers = 3)
-iris$Cluster <- as.character(km$cluster)
-write_json(iris, "iris_clusters.json", pretty = TRUE, auto_unbox = TRUE)
-```
-
-## 🌐 Visualisation interactive avec Observable JS
-
 ```{ojs}
-import { FileAttachment } from "@observablehq/stdlib"
+import { Inputs } from "@observablehq/stdlib"
+import { Plot } from "@observablehq/plot"
 
-// Force la dépendance sur le bloc R  
-iris_data = await FileAttachment("iris_clusters.json").json()
-```
+// 1. Données initiales : notes sur 4 matières
+initial = Array.from({length:30}, (_, i) => ({
+  Etudiant: `E${String(i+1).padStart(2,"0")}`,
+  Maths:   +(14   + 2   * (Math.random() - 0.5)).toFixed(1),
+  Physique:+(12   + 3   * (Math.random() - 0.5)).toFixed(1),
+  Info:    +(15   + 2.5 * (Math.random() - 0.5)).toFixed(1),
+  Chimie:  +(11   + 3   * (Math.random() - 0.5)).toFixed(1)
+}))
 
+// 2. Tableau éditable des notes
+viewof data = Inputs.table(initial, {
+  columns: ["Etudiant", "Maths", "Physique", "Info", "Chimie"],
+  label: "Éditez les notes des étudiants"
+})
 
-```{ojs}
+// 3. Slider pour choisir k
+viewof k = Inputs.range([1, 6], {
+  value: 3,
+  step: 1,
+  label: "Nombre de clusters (k)"
+})
+
+// 4. Calcul du k-means
+points = data.map(d => ({
+  x: +d.Maths,      // abscisse = Mathématiques
+  y: +d.Chimie,     // ordonnée = Chimie
+  name: d.Etudiant
+}))
+
+function kmeans(points, k, maxIter = 50) {
+  let centroids = points
+    .slice()
+    .sort(() => Math.random() - 0.5)
+    .slice(0, k)
+    .map(p => ({x: p.x, y: p.y}))
+  let assignments = new Array(points.length)
+
+  for (let iter = 0; iter < maxIter; iter++) {
+    // Affectation
+    for (let i = 0; i < points.length; i++) {
+      let best = 0, bestDist = Infinity
+      for (let j = 0; j < k; j++) {
+        const dx = points[i].x - centroids[j].x
+        const dy = points[i].y - centroids[j].y
+        const d2 = dx*dx + dy*dy
+        if (d2 < bestDist) { bestDist = d2; best = j }
+      }
+      assignments[i] = best
+    }
+    // Recalcul des centroïdes
+    const sums = Array.from({length: k}, () => ({x:0,y:0,count:0}))
+    for (let i = 0; i < points.length; i++) {
+      const c = assignments[i]
+      sums[c].x += points[i].x
+      sums[c].y += points[i].y
+      sums[c].count++
+    }
+    let moved = false
+    for (let j = 0; j < k; j++) {
+      if (!sums[j].count) continue
+      const nx = sums[j].x / sums[j].count
+      const ny = sums[j].y / sums[j].count
+      if (nx !== centroids[j].x || ny !== centroids[j].y) moved = true
+      centroids[j].x = nx; centroids[j].y = ny
+    }
+    if (!moved) break
+  }
+
+  return {centroids, assignments}
+}
+
+result = kmeans(points, k)
+centroids = result.centroids
+assignments = result.assignments
+
+// 5. Tableau des clusters
+dataWithCluster = data.map((d,i) => ({
+  ...d,
+  Cluster: `Cluster ${assignments[i]+1}`
+}))
+viewof clusterTable = Inputs.table(dataWithCluster, {
+  columns: ["Etudiant","Maths","Physique","Info","Chimie","Cluster"],
+  label: "Profils et clusters"
+})
+
+// 6. Tableau des centroïdes
+centroidsWithLabel = centroids.map((c,i) => ({
+  Cluster: `Cluster ${i+1}`,
+  Centre_Maths: c.x,
+  Centre_Chimie: c.y
+}))
+viewof centroidTable = Inputs.table(centroidsWithLabel, {
+  columns: ["Cluster","Centre_Maths","Centre_Chimie"],
+  label: "Centres des clusters"
+})
+
+// 7. Affichage du scatter : Maths vs Chimie
 Plot.plot({
-  marks: [
-    Plot.dot(iris_data, {
-      x: d => d["Sepal.Length"],
-      y: d => d["Petal.Length"],
-      fill: d => d.Cluster,
-      title: d => d.Species
-    })
-  ],
-  color: { legend: true },
-  x: { label: "Longueur Sépale" },
-  y: { label: "Longueur Pétale" },
   width: 600,
-  height: 450
+  height: 400,
+  x: {label: "Mathématiques"},
+  y: {label: "Chimie"},
+  marks: [
+    // points
+    Plot.dot(
+      points.map((p,i) => ({...p, cluster: String(assignments[i])})),
+      {x:"x", y:"y", fill:"cluster", title:"name"}
+    ),
+    // croix = centroïdes
+    Plot.dot(
+      centroids.map((c,i) => ({x:c.x, y:c.y, cluster:String(i)})),
+      {x:"x", y:"y", stroke:"black", symbol:"cross", strokeWidth:2}
+    )
+  ]
 })
 ```

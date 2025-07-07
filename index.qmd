@@ -6,7 +6,7 @@ format: html
 from: markdown+emoji
 ---
 
-## Définition :book:
+## :book: Définition 
 
 Une classification non supervisée est une classification non guidée, c'est-à-dire qui ne précise pas selon quel groupe la classification doit se faire. L’algorithme découvre donc lui-même la structure des données et détermine lui-même le regroupement. 
 

@@ -4,3 +4,5 @@ scipy
 pandas
 jupyter
 scikit-learn
+observablehq.plot
+observablehq.stdlib
