@@ -316,21 +316,10 @@ window.Quarto = {
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-présentation" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Présentation</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-présentation">    
-        <li>
-    <a class="dropdown-item" href="../presentation/definition.html">
- <span class="dropdown-text">Définition</span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="../historique.html"> 
+<span class="menu-text">Historique</span></a>
   </li>  
-        <li>
-    <a class="dropdown-item" href="../presentation/historique.html">
- <span class="dropdown-text">Historique</span></a>
-  </li>  
-    </ul>
-  </li>
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-modèles" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Modèles</span>
@@ -431,10 +420,22 @@ window.Quarto = {
 
 <section id="introduction" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="introduction">Introduction</h2>
+<div class="callout callout-style-default callout-note callout-titled" title="Définition">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Définition
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>La classification hiérarchique ascendante est une méthode de partitionnement dont l’objectif est de construire une hiérarchie sur un ensemble de n observations, en partant de n singletons puis en fusionnant itérativement les groupes deux à deux.</p>
+</div>
+</div>
 <p>Dans la pratique, la CAH, c’est comme si tu voulais ranger des objets (observations) qui se ressemblent dans des boîtes (clusters ou groupes ou classes)</p>
-<p>Au début, tu mets chaque objet dans sa propre boîte. Ensuite, tu regardes quelles boîtes contiennent les objets les plus proches, les plus similaires, et tu les rassembles à l’aide d’une distance qu’on appelle distance entre observations (généralement la distance euclidienne) Puis tu continues : à chaque étape, tu regroupes deux boîtes qui se ressemblent le plus, à l’aide de la distance entre groupes.</p>
-<p>À la fin, tu obtiens une grande pyramide de regroupements, un peu comme un arbre qu’on appelle un dendrogramme. Et tu peux choisir de couper l’arbre à un certain niveau (grace à la plus longue distance verticale) pour former des groupes.</p>
+<p>Au début, tu mets chaque objet dans sa propre boîte. Ensuite, tu regardes quelles boîtes contiennent les objets les plus proches, les plus similaires, et tu les rassembles à l’aide d’une distance qu’on appelle distance entre observations (généralement la distance euclidienne). Puis tu continues : à chaque étape, tu regroupes deux boîtes qui se ressemblent le plus, à l’aide de la distance entre groupes.</p>
+<p>À la fin, tu obtiens une grande pyramide de regroupements, un peu comme un arbre qu’on appelle un dendrogramme. Et tu peux choisir de couper l’arbre à un certain niveau (grâce à la plus longue distance verticale) pour former des groupes.</p>
 </section>
 <section id="principe-de-la-méthode" class="level2">
 <h2 class="anchored" data-anchor-id="principe-de-la-méthode">Principe de la méthode</h2>
@@ -456,21 +457,24 @@ Pour pouvoir regrouper des parties de Ω :</p>
 <li><strong>Dissimilarité entre observations</strong><br>
 d(xi,xj) ∈ R+, xi,xj ∈ x,</li>
 </ul>
-<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Important
+Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>La distance entre observations le plus utilisée est la distance euclidienne.</p>
+</div>
+</div>
 <ul>
 <li><strong>Dissimilarité entre classes</strong><br>
 D(A,B) ∈ R+, où A,B ∈ P(x) avec A∩B =∅.</li>
 </ul>
+</section>
 <section id="algorithme-de-cah" class="level2">
 <h2 class="anchored" data-anchor-id="algorithme-de-cah">Algorithme de CAH</h2>
 <p><strong>Data</strong> : x₁, …, xₙ<br>
@@ -575,9 +579,6 @@ D(A,B) ∈ R+, où A,B ∈ P(x) avec A∩B =∅.</li>
 
 
 </section>
-</section>
-</div>
-</div>
 </section>
 
 </main> <!-- /main -->
