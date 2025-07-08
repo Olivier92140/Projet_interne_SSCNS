@@ -242,7 +242,7 @@
     "href": "about.html#exemples-de-code-r-ou-python",
     "title": "Classification non supervisée",
     "section": "Exemples de code R ou Python",
-    "text": "Exemples de code R ou Python\n\nClustering K-Means dans R:butterfly:\nModèle de mélange gaussien:dog:\n\n\n🔹 Ressources en ligne\n\nDocumentation officielle scikit-learn – Clustering\n➤ Tutoriels Python : k-means, DBSCAN, GMM, etc.\nR-bloggers – Articles sur le clustering\n➤ Tutoriels en R sur les méthodes de classification non supervisée.\nCours ENSAI / ENSAE – Classification non supervisée\n➤ Supports de cours en statistique pour étudiants et chercheurs."
+    "text": "Exemples de code R ou Python\n\nClustering K-Means dans R\nModèle de mélange gaussien\n\n\nRessources en ligne\n\nDocumentation officielle scikit-learn – Clustering\n➤ Tutoriels Python : k-means, DBSCAN, GMM, etc.\nR-bloggers – Articles sur le clustering\n➤ Tutoriels en R sur les méthodes de classification non supervisée.\nCours ENSAI / ENSAE – Classification non supervisée\n➤ Supports de cours en statistique pour étudiants et chercheurs."
   },
   {
     "objectID": "modeles/comparaison.html",
