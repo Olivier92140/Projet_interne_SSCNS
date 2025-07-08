@@ -1,5 +1,5 @@
 ---
-title: "Classification non supervisée"
+title: ""
 description: "Site présentant les concepts de classification non supervisée"
 author: "Olivier Malahel"
 format: html

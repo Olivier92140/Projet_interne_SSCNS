@@ -15,11 +15,11 @@
 
 ## Exemples de code R ou Python
 
-- [Clustering K-Means dans R ](https://statorials.org/k-signifie-regroupement-en-r/){target="_blank"}:butterfly:
-- [Modèle de mélange gaussien](https://fr.wikipedia.org/wiki/Mod%C3%A8le_de_m%C3%A9lange_gaussien){target="_blank"}:dog:
+- [Clustering K-Means dans R ](https://statorials.org/k-signifie-regroupement-en-r/){target="_blank"}
+- [Modèle de mélange gaussien](https://fr.wikipedia.org/wiki/Mod%C3%A8le_de_m%C3%A9lange_gaussien){target="_blank"}
 
 
-### 🔹 Ressources en ligne
+### Ressources en ligne
 
 - [**Documentation officielle scikit-learn – Clustering**](https://scikit-learn.org/stable/modules/clustering.html)  
   ➤ Tutoriels Python : k-means, DBSCAN, GMM, etc.

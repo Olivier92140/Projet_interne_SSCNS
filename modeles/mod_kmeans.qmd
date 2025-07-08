@@ -6,7 +6,7 @@ from: markdown+emoji
 code-block-bg: true
 code-block-border-left: "#31BAE9"
 ---
-## Introduction {.unnumbered}
+## Introduction {.unnumbered} 
 
 
 ::: {.callout-note title="Définition"}
