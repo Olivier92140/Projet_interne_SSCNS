@@ -5,7 +5,8 @@
       "metadata": {},
       "source": [
         "---\n",
-        "title: \"Algorithme CAH en utilisant Python\"\n",
+        "title: \"Algorithme CAH utilisant\n",
+        " Python\"\n",
         "author: \"Olivier Malahel\"\n",
         "format: html\n",
         "from: markdown+emoji\n",
@@ -20,7 +21,7 @@
         "\n",
         "### Import des bibliothèques"
       ],
-      "id": "3a89d2cc"
+      "id": "fb7d84df"
     },
     {
       "cell_type": "code",
@@ -32,7 +33,7 @@
         "from scipy.cluster.hierarchy import dendrogram, linkage, fcluster\n",
         "df = pd.read_csv(\"donnees_pays.csv\")"
       ],
-      "id": "40cacf1c",
+      "id": "260a972a",
       "execution_count": null,
       "outputs": []
     },
@@ -42,7 +43,7 @@
       "source": [
         "### Chargement les données "
       ],
-      "id": "23d26b18"
+      "id": "6da3cd8d"
     },
     {
       "cell_type": "code",
@@ -51,7 +52,7 @@
         "df = pd.read_csv(\"donnees_pays.csv\")\n",
         "df.head()"
       ],
-      "id": "0320cbd8",
+      "id": "f9dbc0af",
       "execution_count": null,
       "outputs": []
     },
@@ -61,7 +62,7 @@
       "source": [
         "### Normalisation avec sklearn"
       ],
-      "id": "62a8dd10"
+      "id": "1944ba1a"
     },
     {
       "cell_type": "code",
@@ -71,7 +72,7 @@
         "scaler = StandardScaler()\n",
         "X_scaled = scaler.fit_transform(X)"
       ],
-      "id": "ebddf316",
+      "id": "8e0c2da6",
       "execution_count": null,
       "outputs": []
     },
@@ -81,7 +82,7 @@
       "source": [
         "### Calcul des liens hiérarchiques (Ward)"
       ],
-      "id": "e9cf750e"
+      "id": "181ec0ff"
     },
     {
       "cell_type": "code",
@@ -89,7 +90,7 @@
       "source": [
         "Z = linkage(X_scaled, method=\"ward\")"
       ],
-      "id": "30f53da0",
+      "id": "d6afe597",
       "execution_count": null,
       "outputs": []
     },
@@ -99,7 +100,7 @@
       "source": [
         "### Affichage du dendrogramme avec ligne de coupure"
       ],
-      "id": "531cf76f"
+      "id": "831a0205"
     },
     {
       "cell_type": "code",
@@ -119,7 +120,7 @@
         "plt.tight_layout()\n",
         "plt.show()"
       ],
-      "id": "984e5378",
+      "id": "d4a07877",
       "execution_count": null,
       "outputs": []
     },
@@ -129,7 +130,7 @@
       "source": [
         "### Découpage en 3 clusters"
       ],
-      "id": "12bce1b8"
+      "id": "1852dd83"
     },
     {
       "cell_type": "code",
@@ -138,7 +139,7 @@
         "df[\"Cluster\"] = fcluster(Z, t=3, criterion=\"maxclust\")\n",
         "df[[\"Pays\", \"Cluster\"]]"
       ],
-      "id": "746a69e2",
+      "id": "5d618d2b",
       "execution_count": null,
       "outputs": []
     },
@@ -164,7 +165,7 @@
         "\n",
         "Ce sont les pays développés ayant un PIB par habitant élevé, une espérance de vie longue, et un taux d’alphabétisation proche de 100%."
       ],
-      "id": "350fff5e"
+      "id": "440a11b1"
     }
   ],
   "metadata": {

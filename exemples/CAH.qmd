@@ -1,5 +1,5 @@
 ---
-title: "Algorithme CAH"
+title: "Algorithme CAH utilisant R"
 author: "Olivier Malahel"
 format: html
 from: markdown+emoji

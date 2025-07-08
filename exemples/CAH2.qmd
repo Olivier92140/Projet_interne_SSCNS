@@ -1,6 +1,7 @@
 
 ---
-title: "Algorithme CAH en utilisant Python"
+title: "Algorithme CAH utilisant
+ Python"
 author: "Olivier Malahel"
 format: html
 from: markdown+emoji

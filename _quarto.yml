@@ -16,18 +16,20 @@ website:
             text: "Classification Ascendante hiérarchique (CAH)"
           - href: modeles/mod_mmelange.qmd
             text: "Modèles de mélange"
+          - href: modeles/comparaison.qmd
+            text: "Comparaison des modèles"
       - text: Exemples
         menu:
           - href: exemples/kmeans.qmd
             text: "Exemple de K-means avec R"
+          - href: exemples/kmeans_observable.qmd
+            text: "Exemple de kmeans avec Observable"
           - href: exemples/CAH.qmd
             text: "Exemple de CAH avec R"
           - href: exemples/CAH2.qmd
             text: "Exemple de CAH avec Python"
           - href: exemples/mmelange.qmd
             text: "Exemple de modèles de mélange"
-          - href: exemples/kmeans_observable.qmd
-            text: "Exemple de kmeans avec Observable"
       - text: Quizz
         href: quizz.qmd
 

@@ -4,10 +4,17 @@ author: Olivier Malahel
 format: html
 ---
 
+## import des bibliothèques Observable
 ```{ojs}
 import { Inputs } from "@observablehq/stdlib"
 import { Plot } from "@observablehq/plot"
+```
 
+## Génération des notes dans quatre matières
+
+Des notes de quatre matières sont générés selon une loi uniforme: par exemple les notes de math sont approximativement autour de 14. 
+
+```{ojs}
 // 1. Données initiales : notes sur 4 matières
 initial = Array.from({length:30}, (_, i) => ({
   Etudiant: `E${String(i+1).padStart(2,"0")}`,
@@ -16,13 +23,20 @@ initial = Array.from({length:30}, (_, i) => ({
   Info:    +(15   + 2.5 * (Math.random() - 0.5)).toFixed(1),
   Chimie:  +(11   + 3   * (Math.random() - 0.5)).toFixed(1)
 }))
+```
 
-// 2. Tableau éditable des notes
+## Affichage du tableau des notes
+
+```{ojs}
 viewof data = Inputs.table(initial, {
   columns: ["Etudiant", "Maths", "Physique", "Info", "Chimie"],
   label: "Éditez les notes des étudiants"
 })
+```
 
+### Curseur pour faire varier le nombre de clusters 
+
+```{ojs}
 // 3. Slider pour choisir k
 viewof k = Inputs.range([1, 6], {
   value: 3,
@@ -40,7 +54,7 @@ points = data.map(d => ({
 function kmeans(points, k, maxIter = 50) {
   let centroids = points
     .slice()
-    .sort(() => Math.random() - 0.5)
+    .sort(() => Math.random() - 0.5)  // le k-mean choisit son centre au début de manière aléatoire
     .slice(0, k)
     .map(p => ({x: p.x, y: p.y}))
   let assignments = new Array(points.length)
@@ -82,7 +96,12 @@ function kmeans(points, k, maxIter = 50) {
 result = kmeans(points, k)
 centroids = result.centroids
 assignments = result.assignments
+```
 
+
+## Tableau des notes avec les clusters
+
+```{ojs}
 // 5. Tableau des clusters
 dataWithCluster = data.map((d,i) => ({
   ...d,
@@ -103,7 +122,14 @@ viewof centroidTable = Inputs.table(centroidsWithLabel, {
   columns: ["Cluster","Centre_Maths","Centre_Chimie"],
   label: "Centres des clusters"
 })
+```
 
+
+## Représentation graphique 
+
+Ici, les notes des élèves en mathématiques et en chimie, sont représentées dans le plan  
+
+```{ojs}
 // 7. Affichage du scatter : Maths vs Chimie
 Plot.plot({
   width: 600,
@@ -124,3 +150,17 @@ Plot.plot({
   ]
 })
 ```
+
+
+En variant le nombre de clusters k. Par exemple pour k=3, le graphique peut être interprété comme suit: 
+
+Cluster 1 (bleu): élèves un peu moins à l’aise en maths, mais très bons en chimie.
+
+Cluster 2 (orange): 5 élèves meilleurs en chimie, tout en conservant un bon niveau en maths. 
+
+Cluster 3 (rouges) : élèves forts en maths et moyen en chimie
+
+
+
+
+

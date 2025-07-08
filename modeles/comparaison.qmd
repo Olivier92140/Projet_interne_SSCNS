@@ -1,0 +1,16 @@
+---
+title: "Comparaison des modèles de classification non supervisée"
+author: "Olivier Malahel"
+format: html
+from: markdown+emoji
+code-block-bg: true
+code-block-border-left: "#31BAE9"
+---
+
+Ce tableau compare les techniques de classification non supervisée en donnant leurs avantages et leurs inconvénients.
+
+| Méthode             | Avantages                                                                                              | Inconvénients                                                                                 |
+|---------------------|--------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
+| **K-means**         | - Simple et rapide à implémenter<br>- Efficace pour de grands volumes de données<br>- Interprétation intuitive des centres de clusters | - Nécessite de fixer le nombre de clusters à l’avance<br>- Sensible aux valeurs initiales et aux outliers<br>- Ne capture pas les formes non sphériques |
+| **CAH**             | - Ne nécessite pas de fixer un nombre de clusters à l’avance<br>- Représentation visuelle via le dendrogramme<br>- Fonctionne bien sur petits jeux de données | - Complexité élevée pour grands jeux de données<br>- Une fusion ne peut pas être annulée<br>- Sensible aux choix de distance et de méthode d’agrégation |
+| **Modèle de mélange** | - Probabiliste : attribue des probabilités d’appartenance<br>- Peut capturer des formes complexes (non sphériques)<br>- Estimation des paramètres via l’algorithme EM | - Plus complexe à mettre en œuvre<br>- Peut converger vers des optima locaux<br>- Choix du nombre de classes critique (critères BIC/AIC nécessaires) |

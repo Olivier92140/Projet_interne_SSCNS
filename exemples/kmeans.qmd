@@ -20,11 +20,12 @@ notes <- data.frame(
   Etudiant = paste0("E", sprintf("%02d", 1:n_students)),
   Mathematiques   = round(rnorm(n_students, mean = 14, sd = 2), 1),
   Physique        = round(rnorm(n_students, mean = 12, sd = 3), 1),
-  Informatique    = round(rnorm(n_students, mean = 15, sd = 2.5), 1),
+  Informatique    = round(rnorm(n_students, mean = 15, sd = 2.4), 1),
   Chimie          = round(rnorm(n_students, mean = 11, sd = 3), 1)
 )
 rownames(notes) <- notes$Etudiant
 notes$Etudiant <- NULL
+notes
 ```
 
 ### 2. Préparation : standardisation des notes
@@ -57,7 +58,6 @@ On choisit ainsi k=3 donc 3 clusters.
 ### 4. Exécution du k-means pour k = 3
 
 ```{R}
-set.seed(42)
 k <- 3
 km_res <- kmeans(notes_scaled, centers = k, nstart = 25)
 print(km_res)

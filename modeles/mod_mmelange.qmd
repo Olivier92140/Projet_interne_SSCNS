@@ -10,7 +10,7 @@ code-block-border-left: "#31BAE9"
 ## Introduction {.unnumbered}
 
 La classification par modèles de mélange est une approche probabiliste.
-L’idée est de modéliser la distribution des données observées par un mélange de distributions de probabilité. On définit une classe comme l’ensemble des observations issues de la même composante du mélange.
+L’idée est de modéliser la distribution des données observées par un mélange de distributions de probabilité. On définit une classe comme l’ensemble des observations issues de la même composante du mélange. Ainsi, chaque loi élémentaire génère une partie des points.
 
 ## Loi de mélange 
 

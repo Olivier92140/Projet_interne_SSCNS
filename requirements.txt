@@ -4,5 +4,7 @@ scipy
 pandas
 jupyter
 scikit-learn
-observablehq.plot
+observablehq
 observablehq.stdlib
+seedrandom
+d3-random
