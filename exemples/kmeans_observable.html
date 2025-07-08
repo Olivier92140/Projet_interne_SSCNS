@@ -310,6 +310,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="../modeles/mod_mmelange.html">
  <span class="dropdown-text">Modèles de mélange</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../modeles/comparaison.html">
+ <span class="dropdown-text">Comparaison des modèles</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -322,6 +326,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">Exemple de K-means avec R</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="../exemples/kmeans_observable.html">
+ <span class="dropdown-text">Exemple de kmeans avec Observable</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../exemples/CAH.html">
  <span class="dropdown-text">Exemple de CAH avec R</span></a>
   </li>  
@@ -332,10 +340,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li>
     <a class="dropdown-item" href="../exemples/mmelange.html">
  <span class="dropdown-text">Exemple de modèles de mélange</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../exemples/kmeans_observable.html">
- <span class="dropdown-text">Exemple de kmeans avec Observable</span></a>
   </li>  
     </ul>
   </li>
@@ -391,35 +395,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="k-means-sur-les-données-iris-r" class="level2">
-<h2 class="anchored" data-anchor-id="k-means-sur-les-données-iris-r">🔢 K-means sur les données <code>iris</code> (R)</h2>
+<section id="import-des-bibliothèques-observable" class="level2">
+<h2 class="anchored" data-anchor-id="import-des-bibliothèques-observable">import des bibliothèques Observable</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(datasets)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-1          5.1         3.5          1.4         0.2  setosa
-2          4.9         3.0          1.4         0.2  setosa
-3          4.7         3.2          1.3         0.2  setosa
-4          4.6         3.1          1.5         0.2  setosa
-5          5.0         3.6          1.4         0.2  setosa
-6          5.4         3.9          1.7         0.4  setosa</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>km <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(iris[, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="at">centers =</span> <span class="dv">3</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>iris<span class="sc">$</span>Cluster <span class="ot">&lt;-</span> <span class="fu">as.character</span>(km<span class="sc">$</span>cluster)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">write_json</span>(iris, <span class="st">"iris_clusters.json"</span>, <span class="at">pretty =</span> <span class="cn">TRUE</span>, <span class="at">auto_unbox =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="visualisation-interactive-avec-observable-js" class="level2">
-<h2 class="anchored" data-anchor-id="visualisation-interactive-avec-observable-js">🌐 Visualisation interactive avec Observable JS</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4" data-startfrom="26" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 25;"><span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { FileAttachment } <span class="im">from</span> <span class="st">"@observablehq/stdlib"</span></span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="co">// Force la dépendance sur le bloc R  </span></span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>iris_data <span class="op">=</span> <span class="cf">await</span> <span class="fu">FileAttachment</span>(<span class="st">"iris_clusters.json"</span>)<span class="op">.</span><span class="fu">json</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1" data-startfrom="9" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 8;"><span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { Inputs } <span class="im">from</span> <span class="st">"@observablehq/stdlib"</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { Plot } <span class="im">from</span> <span class="st">"@observablehq/plot"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-1-1" data-nodetype="declaration">
@@ -435,35 +415,237 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+</section>
+<section id="génération-des-notes-dans-quatre-matières" class="level2">
+<h2 class="anchored" data-anchor-id="génération-des-notes-dans-quatre-matières">Génération des notes dans quatre matières</h2>
+<p>Des notes de quatre matières sont générés selon une loi uniforme: par exemple les notes de math sont approximativement autour de 14.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5" data-startfrom="33" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 32;"><span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(iris_data<span class="op">,</span> {</span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x</span><span class="op">:</span> d <span class="kw">=&gt;</span> d[<span class="st">"Sepal.Length"</span>]<span class="op">,</span></span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>      <span class="dt">y</span><span class="op">:</span> d <span class="kw">=&gt;</span> d[<span class="st">"Petal.Length"</span>]<span class="op">,</span></span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fill</span><span class="op">:</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">Cluster</span><span class="op">,</span></span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>      <span class="dt">title</span><span class="op">:</span> d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">Species</span></span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>    })</span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>  ]<span class="op">,</span></span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>  <span class="dt">color</span><span class="op">:</span> { <span class="dt">legend</span><span class="op">:</span> <span class="kw">true</span> }<span class="op">,</span></span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> <span class="st">"Longueur Sépale"</span> }<span class="op">,</span></span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> { <span class="dt">label</span><span class="op">:</span> <span class="st">"Longueur Pétale"</span> }<span class="op">,</span></span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> <span class="dv">600</span><span class="op">,</span></span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">450</span></span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2" data-startfrom="17" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 16;"><span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co">// 1. Données initiales : notes sur 4 matières</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>initial <span class="op">=</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>({<span class="dt">length</span><span class="op">:</span><span class="dv">30</span>}<span class="op">,</span> (_<span class="op">,</span> i) <span class="kw">=&gt;</span> ({</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Etudiant</span><span class="op">:</span> <span class="vs">`E</span><span class="sc">${</span><span class="bu">String</span>(i<span class="op">+</span><span class="dv">1</span>)<span class="op">.</span><span class="fu">padStart</span>(<span class="dv">2</span><span class="op">,</span><span class="st">"0"</span>)<span class="sc">}</span><span class="vs">`</span><span class="op">,</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Maths</span><span class="op">:</span>   <span class="op">+</span>(<span class="dv">14</span>   <span class="op">+</span> <span class="dv">2</span>   <span class="op">*</span> (<span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>() <span class="op">-</span> <span class="fl">0.5</span>))<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)<span class="op">,</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Physique</span><span class="op">:+</span>(<span class="dv">12</span>   <span class="op">+</span> <span class="dv">3</span>   <span class="op">*</span> (<span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>() <span class="op">-</span> <span class="fl">0.5</span>))<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)<span class="op">,</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Info</span><span class="op">:</span>    <span class="op">+</span>(<span class="dv">15</span>   <span class="op">+</span> <span class="fl">2.5</span> <span class="op">*</span> (<span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>() <span class="op">-</span> <span class="fl">0.5</span>))<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)<span class="op">,</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Chimie</span><span class="op">:</span>  <span class="op">+</span>(<span class="dv">11</span>   <span class="op">+</span> <span class="dv">3</span>   <span class="op">*</span> (<span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>() <span class="op">-</span> <span class="fl">0.5</span>))<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>}))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<div id="ojs-cell-2" data-nodetype="expression">
+<div id="ojs-cell-2" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
+</section>
+<section id="affichage-du-tableau-des-notes" class="level2">
+<h2 class="anchored" data-anchor-id="affichage-du-tableau-des-notes">Affichage du tableau des notes</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3" data-startfrom="30" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 29;"><span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>viewof data <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">table</span>(initial<span class="op">,</span> {</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>  <span class="dt">columns</span><span class="op">:</span> [<span class="st">"Etudiant"</span><span class="op">,</span> <span class="st">"Maths"</span><span class="op">,</span> <span class="st">"Physique"</span><span class="op">,</span> <span class="st">"Info"</span><span class="op">,</span> <span class="st">"Chimie"</span>]<span class="op">,</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Éditez les notes des étudiants"</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<section id="curseur-pour-faire-varier-le-nombre-de-clusters" class="level3">
+<h3 class="anchored" data-anchor-id="curseur-pour-faire-varier-le-nombre-de-clusters">Curseur pour faire varier le nombre de clusters</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4" data-startfrom="41" data-source-offset="-28"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 40;"><span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>viewof k <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">6</span>]<span class="op">,</span> {</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">3</span><span class="op">,</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Nombre de clusters (k)"</span></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="co">// 4. Calcul du k-means</span></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>points <span class="op">=</span> data<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> ({</span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> <span class="op">+</span>d<span class="op">.</span><span class="at">Maths</span><span class="op">,</span>      <span class="co">// abscisse = Mathématiques</span></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> <span class="op">+</span>d<span class="op">.</span><span class="at">Chimie</span><span class="op">,</span>     <span class="co">// ordonnée = Chimie</span></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>  <span class="dt">name</span><span class="op">:</span> d<span class="op">.</span><span class="at">Etudiant</span></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>}))</span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">kmeans</span>(points<span class="op">,</span> k<span class="op">,</span> maxIter <span class="op">=</span> <span class="dv">50</span>) {</span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> centroids <span class="op">=</span> points</span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">slice</span>()</span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">sort</span>(() <span class="kw">=&gt;</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>() <span class="op">-</span> <span class="fl">0.5</span>)  <span class="co">// le k-mean choisit son centre au début de manière aléatoire</span></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">slice</span>(<span class="dv">0</span><span class="op">,</span> k)</span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">map</span>(p <span class="kw">=&gt;</span> ({<span class="dt">x</span><span class="op">:</span> p<span class="op">.</span><span class="at">x</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> p<span class="op">.</span><span class="at">y</span>}))</span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> assignments <span class="op">=</span> <span class="kw">new</span> <span class="bu">Array</span>(points<span class="op">.</span><span class="at">length</span>)</span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> iter <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> iter <span class="op">&lt;</span> maxIter<span class="op">;</span> iter<span class="op">++</span>) {</span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Affectation</span></span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> points<span class="op">.</span><span class="at">length</span><span class="op">;</span> i<span class="op">++</span>) {</span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>      <span class="kw">let</span> best <span class="op">=</span> <span class="dv">0</span><span class="op">,</span> bestDist <span class="op">=</span> <span class="kw">Infinity</span></span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span> (<span class="kw">let</span> j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;</span> k<span class="op">;</span> j<span class="op">++</span>) {</span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> dx <span class="op">=</span> points[i]<span class="op">.</span><span class="at">x</span> <span class="op">-</span> centroids[j]<span class="op">.</span><span class="at">x</span></span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> dy <span class="op">=</span> points[i]<span class="op">.</span><span class="at">y</span> <span class="op">-</span> centroids[j]<span class="op">.</span><span class="at">y</span></span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> d2 <span class="op">=</span> dx<span class="op">*</span>dx <span class="op">+</span> dy<span class="op">*</span>dy</span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (d2 <span class="op">&lt;</span> bestDist) { bestDist <span class="op">=</span> d2<span class="op">;</span> best <span class="op">=</span> j }</span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a>      assignments[i] <span class="op">=</span> best</span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Recalcul des centroïdes</span></span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> sums <span class="op">=</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>({<span class="dt">length</span><span class="op">:</span> k}<span class="op">,</span> () <span class="kw">=&gt;</span> ({<span class="dt">x</span><span class="op">:</span><span class="dv">0</span><span class="op">,</span><span class="dt">y</span><span class="op">:</span><span class="dv">0</span><span class="op">,</span><span class="dt">count</span><span class="op">:</span><span class="dv">0</span>}))</span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> points<span class="op">.</span><span class="at">length</span><span class="op">;</span> i<span class="op">++</span>) {</span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> c <span class="op">=</span> assignments[i]</span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a>      sums[c]<span class="op">.</span><span class="at">x</span> <span class="op">+=</span> points[i]<span class="op">.</span><span class="at">x</span></span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a>      sums[c]<span class="op">.</span><span class="at">y</span> <span class="op">+=</span> points[i]<span class="op">.</span><span class="at">y</span></span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a>      sums[c]<span class="op">.</span><span class="at">count</span><span class="op">++</span></span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> moved <span class="op">=</span> <span class="kw">false</span></span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="kw">let</span> j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;</span> k<span class="op">;</span> j<span class="op">++</span>) {</span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (<span class="op">!</span>sums[j]<span class="op">.</span><span class="at">count</span>) <span class="cf">continue</span></span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> nx <span class="op">=</span> sums[j]<span class="op">.</span><span class="at">x</span> <span class="op">/</span> sums[j]<span class="op">.</span><span class="at">count</span></span>
+<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a>      <span class="kw">const</span> ny <span class="op">=</span> sums[j]<span class="op">.</span><span class="at">y</span> <span class="op">/</span> sums[j]<span class="op">.</span><span class="at">count</span></span>
+<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (nx <span class="op">!==</span> centroids[j]<span class="op">.</span><span class="at">x</span> <span class="op">||</span> ny <span class="op">!==</span> centroids[j]<span class="op">.</span><span class="at">y</span>) moved <span class="op">=</span> <span class="kw">true</span></span>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a>      centroids[j]<span class="op">.</span><span class="at">x</span> <span class="op">=</span> nx<span class="op">;</span> centroids[j]<span class="op">.</span><span class="at">y</span> <span class="op">=</span> ny</span>
+<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="op">!</span>moved) <span class="cf">break</span></span>
+<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> {centroids<span class="op">,</span> assignments}</span>
+<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> <span class="fu">kmeans</span>(points<span class="op">,</span> k)</span>
+<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a>centroids <span class="op">=</span> result<span class="op">.</span><span class="at">centroids</span></span>
+<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a>assignments <span class="op">=</span> result<span class="op">.</span><span class="at">assignments</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-5" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-6" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="tableau-des-notes-avec-les-clusters" class="level2">
+<h2 class="anchored" data-anchor-id="tableau-des-notes-avec-les-clusters">Tableau des notes avec les clusters</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5" data-startfrom="106" data-source-offset="-27"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 105;"><span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a>dataWithCluster <span class="op">=</span> data<span class="op">.</span><span class="fu">map</span>((d<span class="op">,</span>i) <span class="kw">=&gt;</span> ({</span>
+<span id="cb5-107"><a href="#cb5-107" aria-hidden="true" tabindex="-1"></a>  <span class="op">...</span>d<span class="op">,</span></span>
+<span id="cb5-108"><a href="#cb5-108" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Cluster</span><span class="op">:</span> <span class="vs">`Cluster </span><span class="sc">${</span>assignments[i]<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="vs">`</span></span>
+<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a>}))</span>
+<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a>viewof clusterTable <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">table</span>(dataWithCluster<span class="op">,</span> {</span>
+<span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a>  <span class="dt">columns</span><span class="op">:</span> [<span class="st">"Etudiant"</span><span class="op">,</span><span class="st">"Maths"</span><span class="op">,</span><span class="st">"Physique"</span><span class="op">,</span><span class="st">"Info"</span><span class="op">,</span><span class="st">"Chimie"</span><span class="op">,</span><span class="st">"Cluster"</span>]<span class="op">,</span></span>
+<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Profils et clusters"</span></span>
+<span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a><span class="co">// 6. Tableau des centroïdes</span></span>
+<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a>centroidsWithLabel <span class="op">=</span> centroids<span class="op">.</span><span class="fu">map</span>((c<span class="op">,</span>i) <span class="kw">=&gt;</span> ({</span>
+<span id="cb5-117"><a href="#cb5-117" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Cluster</span><span class="op">:</span> <span class="vs">`Cluster </span><span class="sc">${</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="vs">`</span><span class="op">,</span></span>
+<span id="cb5-118"><a href="#cb5-118" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Centre_Maths</span><span class="op">:</span> c<span class="op">.</span><span class="at">x</span><span class="op">,</span></span>
+<span id="cb5-119"><a href="#cb5-119" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Centre_Chimie</span><span class="op">:</span> c<span class="op">.</span><span class="at">y</span></span>
+<span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a>}))</span>
+<span id="cb5-121"><a href="#cb5-121" aria-hidden="true" tabindex="-1"></a>viewof centroidTable <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">table</span>(centroidsWithLabel<span class="op">,</span> {</span>
+<span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a>  <span class="dt">columns</span><span class="op">:</span> [<span class="st">"Cluster"</span><span class="op">,</span><span class="st">"Centre_Maths"</span><span class="op">,</span><span class="st">"Centre_Chimie"</span>]<span class="op">,</span></span>
+<span id="cb5-123"><a href="#cb5-123" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Centres des clusters"</span></span>
+<span id="cb5-124"><a href="#cb5-124" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-5-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-5-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-5-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-5-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="représentation-graphique" class="level2">
+<h2 class="anchored" data-anchor-id="représentation-graphique">Représentation graphique</h2>
+<p>Ici, les notes des élèves en mathématiques et en chimie, sont représentées dans le plan</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6" data-startfrom="132" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 131;"><span id="cb6-132"><a href="#cb6-132" aria-hidden="true" tabindex="-1"></a><span class="co">// 7. Affichage du scatter : Maths vs Chimie</span></span>
+<span id="cb6-133"><a href="#cb6-133" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb6-134"><a href="#cb6-134" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> <span class="dv">600</span><span class="op">,</span></span>
+<span id="cb6-135"><a href="#cb6-135" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">400</span><span class="op">,</span></span>
+<span id="cb6-136"><a href="#cb6-136" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Mathématiques"</span>}<span class="op">,</span></span>
+<span id="cb6-137"><a href="#cb6-137" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Chimie"</span>}<span class="op">,</span></span>
+<span id="cb6-138"><a href="#cb6-138" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb6-139"><a href="#cb6-139" aria-hidden="true" tabindex="-1"></a>    <span class="co">// points</span></span>
+<span id="cb6-140"><a href="#cb6-140" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(</span>
+<span id="cb6-141"><a href="#cb6-141" aria-hidden="true" tabindex="-1"></a>      points<span class="op">.</span><span class="fu">map</span>((p<span class="op">,</span>i) <span class="kw">=&gt;</span> ({<span class="op">...</span>p<span class="op">,</span> <span class="dt">cluster</span><span class="op">:</span> <span class="bu">String</span>(assignments[i])}))<span class="op">,</span></span>
+<span id="cb6-142"><a href="#cb6-142" aria-hidden="true" tabindex="-1"></a>      {<span class="dt">x</span><span class="op">:</span><span class="st">"x"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span><span class="st">"y"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span><span class="st">"cluster"</span><span class="op">,</span> <span class="dt">title</span><span class="op">:</span><span class="st">"name"</span>}</span>
+<span id="cb6-143"><a href="#cb6-143" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span></span>
+<span id="cb6-144"><a href="#cb6-144" aria-hidden="true" tabindex="-1"></a>    <span class="co">// croix = centroïdes</span></span>
+<span id="cb6-145"><a href="#cb6-145" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(</span>
+<span id="cb6-146"><a href="#cb6-146" aria-hidden="true" tabindex="-1"></a>      centroids<span class="op">.</span><span class="fu">map</span>((c<span class="op">,</span>i) <span class="kw">=&gt;</span> ({<span class="dt">x</span><span class="op">:</span>c<span class="op">.</span><span class="at">x</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span>c<span class="op">.</span><span class="at">y</span><span class="op">,</span> <span class="dt">cluster</span><span class="op">:</span><span class="bu">String</span>(i)}))<span class="op">,</span></span>
+<span id="cb6-147"><a href="#cb6-147" aria-hidden="true" tabindex="-1"></a>      {<span class="dt">x</span><span class="op">:</span><span class="st">"x"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span><span class="st">"y"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span><span class="st">"black"</span><span class="op">,</span> <span class="dt">symbol</span><span class="op">:</span><span class="st">"cross"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span><span class="dv">2</span>}</span>
+<span id="cb6-148"><a href="#cb6-148" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb6-149"><a href="#cb6-149" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb6-150"><a href="#cb6-150" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-6" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<p>En variant le nombre de clusters k. Par exemple pour k=3, le graphique peut être interprété comme suit:</p>
+<p>Cluster 1 (bleu): élèves un peu moins à l’aise en maths, mais très bons en chimie.</p>
+<p>Cluster 2 (orange): 5 élèves meilleurs en chimie, tout en conservant un bon niveau en maths.</p>
+<p>Cluster 3 (rouges) : élèves forts en maths et moyen en chimie</p>
 
 
 </section>
 
 </main> <!-- /main -->
 <script type="ojs-module-contents">
-eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6ImltcG9ydCB7IEZpbGVBdHRhY2htZW50IH0gZnJvbSBcIkBvYnNlcnZhYmxlaHEvc3RkbGliXCJcblxuLy8gRm9yY2UgbGEgZMOpcGVuZGFuY2Ugc3VyIGxlIGJsb2MgUiAgXG5pcmlzX2RhdGEgPSBhd2FpdCBGaWxlQXR0YWNobWVudChcImlyaXNfY2x1c3RlcnMuanNvblwiKS5qc29uKClcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlBsb3QucGxvdCh7XG4gIG1hcmtzOiBbXG4gICAgUGxvdC5kb3QoaXJpc19kYXRhLCB7XG4gICAgICB4OiBkID0+IGRbXCJTZXBhbC5MZW5ndGhcIl0sXG4gICAgICB5OiBkID0+IGRbXCJQZXRhbC5MZW5ndGhcIl0sXG4gICAgICBmaWxsOiBkID0+IGQuQ2x1c3RlcixcbiAgICAgIHRpdGxlOiBkID0+IGQuU3BlY2llc1xuICAgIH0pXG4gIF0sXG4gIGNvbG9yOiB7IGxlZ2VuZDogdHJ1ZSB9LFxuICB4OiB7IGxhYmVsOiBcIkxvbmd1ZXVyIFPDqXBhbGVcIiB9LFxuICB5OiB7IGxhYmVsOiBcIkxvbmd1ZXVyIFDDqXRhbGVcIiB9LFxuICB3aWR0aDogNjAwLFxuICBoZWlnaHQ6IDQ1MFxufSlcbiJ9XX0=
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6ImltcG9ydCB7IElucHV0cyB9IGZyb20gXCJAb2JzZXJ2YWJsZWhxL3N0ZGxpYlwiXG5pbXBvcnQgeyBQbG90IH0gZnJvbSBcIkBvYnNlcnZhYmxlaHEvcGxvdFwiXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTIiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiIvLyAxLiBEb25uw6llcyBpbml0aWFsZXMgOiBub3RlcyBzdXIgNCBtYXRpw6hyZXNcbmluaXRpYWwgPSBBcnJheS5mcm9tKHtsZW5ndGg6MzB9LCAoXywgaSkgPT4gKHtcbiAgRXR1ZGlhbnQ6IGBFJHtTdHJpbmcoaSsxKS5wYWRTdGFydCgyLFwiMFwiKX1gLFxuICBNYXRoczogICArKDE0ICAgKyAyICAgKiAoTWF0aC5yYW5kb20oKSAtIDAuNSkpLnRvRml4ZWQoMSksXG4gIFBoeXNpcXVlOisoMTIgICArIDMgICAqIChNYXRoLnJhbmRvbSgpIC0gMC41KSkudG9GaXhlZCgxKSxcbiAgSW5mbzogICAgKygxNSAgICsgMi41ICogKE1hdGgucmFuZG9tKCkgLSAwLjUpKS50b0ZpeGVkKDEpLFxuICBDaGltaWU6ICArKDExICAgKyAzICAgKiAoTWF0aC5yYW5kb20oKSAtIDAuNSkpLnRvRml4ZWQoMSlcbn0pKVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0zIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoidmlld29mIGRhdGEgPSBJbnB1dHMudGFibGUoaW5pdGlhbCwge1xuICBjb2x1bW5zOiBbXCJFdHVkaWFudFwiLCBcIk1hdGhzXCIsIFwiUGh5c2lxdWVcIiwgXCJJbmZvXCIsIFwiQ2hpbWllXCJdLFxuICBsYWJlbDogXCLDiWRpdGV6IGxlcyBub3RlcyBkZXMgw6l0dWRpYW50c1wiXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC00IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiLy8gMy4gU2xpZGVyIHBvdXIgY2hvaXNpciBrXG52aWV3b2YgayA9IElucHV0cy5yYW5nZShbMSwgNl0sIHtcbiAgdmFsdWU6IDMsXG4gIHN0ZXA6IDEsXG4gIGxhYmVsOiBcIk5vbWJyZSBkZSBjbHVzdGVycyAoaylcIlxufSlcblxuLy8gNC4gQ2FsY3VsIGR1IGstbWVhbnNcbnBvaW50cyA9IGRhdGEubWFwKGQgPT4gKHtcbiAgeDogK2QuTWF0aHMsICAgICAgLy8gYWJzY2lzc2UgPSBNYXRow6ltYXRpcXVlc1xuICB5OiArZC5DaGltaWUsICAgICAvLyBvcmRvbm7DqWUgPSBDaGltaWVcbiAgbmFtZTogZC5FdHVkaWFudFxufSkpXG5cbmZ1bmN0aW9uIGttZWFucyhwb2ludHMsIGssIG1heEl0ZXIgPSA1MCkge1xuICBsZXQgY2VudHJvaWRzID0gcG9pbnRzXG4gICAgLnNsaWNlKClcbiAgICAuc29ydCgoKSA9PiBNYXRoLnJhbmRvbSgpIC0gMC41KSAgLy8gbGUgay1tZWFuIGNob2lzaXQgc29uIGNlbnRyZSBhdSBkw6lidXQgZGUgbWFuacOocmUgYWzDqWF0b2lyZVxuICAgIC5zbGljZSgwLCBrKVxuICAgIC5tYXAocCA9PiAoe3g6IHAueCwgeTogcC55fSkpXG4gIGxldCBhc3NpZ25tZW50cyA9IG5ldyBBcnJheShwb2ludHMubGVuZ3RoKVxuXG4gIGZvciAobGV0IGl0ZXIgPSAwOyBpdGVyIDwgbWF4SXRlcjsgaXRlcisrKSB7XG4gICAgLy8gQWZmZWN0YXRpb25cbiAgICBmb3IgKGxldCBpID0gMDsgaSA8IHBvaW50cy5sZW5ndGg7IGkrKykge1xuICAgICAgbGV0IGJlc3QgPSAwLCBiZXN0RGlzdCA9IEluZmluaXR5XG4gICAgICBmb3IgKGxldCBqID0gMDsgaiA8IGs7IGorKykge1xuICAgICAgICBjb25zdCBkeCA9IHBvaW50c1tpXS54IC0gY2VudHJvaWRzW2pdLnhcbiAgICAgICAgY29uc3QgZHkgPSBwb2ludHNbaV0ueSAtIGNlbnRyb2lkc1tqXS55XG4gICAgICAgIGNvbnN0IGQyID0gZHgqZHggKyBkeSpkeVxuICAgICAgICBpZiAoZDIgPCBiZXN0RGlzdCkgeyBiZXN0RGlzdCA9IGQyOyBiZXN0ID0gaiB9XG4gICAgICB9XG4gICAgICBhc3NpZ25tZW50c1tpXSA9IGJlc3RcbiAgICB9XG4gICAgLy8gUmVjYWxjdWwgZGVzIGNlbnRyb8OvZGVzXG4gICAgY29uc3Qgc3VtcyA9IEFycmF5LmZyb20oe2xlbmd0aDoga30sICgpID0+ICh7eDowLHk6MCxjb3VudDowfSkpXG4gICAgZm9yIChsZXQgaSA9IDA7IGkgPCBwb2ludHMubGVuZ3RoOyBpKyspIHtcbiAgICAgIGNvbnN0IGMgPSBhc3NpZ25tZW50c1tpXVxuICAgICAgc3Vtc1tjXS54ICs9IHBvaW50c1tpXS54XG4gICAgICBzdW1zW2NdLnkgKz0gcG9pbnRzW2ldLnlcbiAgICAgIHN1bXNbY10uY291bnQrK1xuICAgIH1cbiAgICBsZXQgbW92ZWQgPSBmYWxzZVxuICAgIGZvciAobGV0IGogPSAwOyBqIDwgazsgaisrKSB7XG4gICAgICBpZiAoIXN1bXNbal0uY291bnQpIGNvbnRpbnVlXG4gICAgICBjb25zdCBueCA9IHN1bXNbal0ueCAvIHN1bXNbal0uY291bnRcbiAgICAgIGNvbnN0IG55ID0gc3Vtc1tqXS55IC8gc3Vtc1tqXS5jb3VudFxuICAgICAgaWYgKG54ICE9PSBjZW50cm9pZHNbal0ueCB8fCBueSAhPT0gY2VudHJvaWRzW2pdLnkpIG1vdmVkID0gdHJ1ZVxuICAgICAgY2VudHJvaWRzW2pdLnggPSBueDsgY2VudHJvaWRzW2pdLnkgPSBueVxuICAgIH1cbiAgICBpZiAoIW1vdmVkKSBicmVha1xuICB9XG5cbiAgcmV0dXJuIHtjZW50cm9pZHMsIGFzc2lnbm1lbnRzfVxufVxuXG5yZXN1bHQgPSBrbWVhbnMocG9pbnRzLCBrKVxuY2VudHJvaWRzID0gcmVzdWx0LmNlbnRyb2lkc1xuYXNzaWdubWVudHMgPSByZXN1bHQuYXNzaWdubWVudHNcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIDUuIFRhYmxlYXUgZGVzIGNsdXN0ZXJzXG5kYXRhV2l0aENsdXN0ZXIgPSBkYXRhLm1hcCgoZCxpKSA9PiAoe1xuICAuLi5kLFxuICBDbHVzdGVyOiBgQ2x1c3RlciAke2Fzc2lnbm1lbnRzW2ldKzF9YFxufSkpXG52aWV3b2YgY2x1c3RlclRhYmxlID0gSW5wdXRzLnRhYmxlKGRhdGFXaXRoQ2x1c3Rlciwge1xuICBjb2x1bW5zOiBbXCJFdHVkaWFudFwiLFwiTWF0aHNcIixcIlBoeXNpcXVlXCIsXCJJbmZvXCIsXCJDaGltaWVcIixcIkNsdXN0ZXJcIl0sXG4gIGxhYmVsOiBcIlByb2ZpbHMgZXQgY2x1c3RlcnNcIlxufSlcblxuLy8gNi4gVGFibGVhdSBkZXMgY2VudHJvw69kZXNcbmNlbnRyb2lkc1dpdGhMYWJlbCA9IGNlbnRyb2lkcy5tYXAoKGMsaSkgPT4gKHtcbiAgQ2x1c3RlcjogYENsdXN0ZXIgJHtpKzF9YCxcbiAgQ2VudHJlX01hdGhzOiBjLngsXG4gIENlbnRyZV9DaGltaWU6IGMueVxufSkpXG52aWV3b2YgY2VudHJvaWRUYWJsZSA9IElucHV0cy50YWJsZShjZW50cm9pZHNXaXRoTGFiZWwsIHtcbiAgY29sdW1uczogW1wiQ2x1c3RlclwiLFwiQ2VudHJlX01hdGhzXCIsXCJDZW50cmVfQ2hpbWllXCJdLFxuICBsYWJlbDogXCJDZW50cmVzIGRlcyBjbHVzdGVyc1wiXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC02IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiLy8gNy4gQWZmaWNoYWdlIGR1IHNjYXR0ZXIgOiBNYXRocyB2cyBDaGltaWVcblBsb3QucGxvdCh7XG4gIHdpZHRoOiA2MDAsXG4gIGhlaWdodDogNDAwLFxuICB4OiB7bGFiZWw6IFwiTWF0aMOpbWF0aXF1ZXNcIn0sXG4gIHk6IHtsYWJlbDogXCJDaGltaWVcIn0sXG4gIG1hcmtzOiBbXG4gICAgLy8gcG9pbnRzXG4gICAgUGxvdC5kb3QoXG4gICAgICBwb2ludHMubWFwKChwLGkpID0+ICh7Li4ucCwgY2x1c3RlcjogU3RyaW5nKGFzc2lnbm1lbnRzW2ldKX0pKSxcbiAgICAgIHt4OlwieFwiLCB5OlwieVwiLCBmaWxsOlwiY2x1c3RlclwiLCB0aXRsZTpcIm5hbWVcIn1cbiAgICApLFxuICAgIC8vIGNyb2l4ID0gY2VudHJvw69kZXNcbiAgICBQbG90LmRvdChcbiAgICAgIGNlbnRyb2lkcy5tYXAoKGMsaSkgPT4gKHt4OmMueCwgeTpjLnksIGNsdXN0ZXI6U3RyaW5nKGkpfSkpLFxuICAgICAge3g6XCJ4XCIsIHk6XCJ5XCIsIHN0cm9rZTpcImJsYWNrXCIsIHN5bWJvbDpcImNyb3NzXCIsIHN0cm9rZVdpZHRoOjJ9XG4gICAgKVxuICBdXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdkYXRhJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ2snKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnY2x1c3RlclRhYmxlJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ2NlbnRyb2lkVGFibGUnKSJ9XX0=
 </script>
 <script type="module">
 if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }

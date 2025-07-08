@@ -308,6 +308,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="../modeles/mod_mmelange.html">
  <span class="dropdown-text">Modèles de mélange</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../modeles/comparaison.html">
+ <span class="dropdown-text">Comparaison des modèles</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -320,6 +324,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">Exemple de K-means avec R</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="../exemples/kmeans_observable.html">
+ <span class="dropdown-text">Exemple de kmeans avec Observable</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../exemples/CAH.html">
  <span class="dropdown-text">Exemple de CAH avec R</span></a>
   </li>  
@@ -330,10 +338,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li>
     <a class="dropdown-item" href="../exemples/mmelange.html">
  <span class="dropdown-text">Exemple de modèles de mélange</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../exemples/kmeans_observable.html">
- <span class="dropdown-text">Exemple de kmeans avec Observable</span></a>
   </li>  
     </ul>
   </li>
@@ -401,32 +405,66 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Etudiant =</span> <span class="fu">paste0</span>(<span class="st">"E"</span>, <span class="fu">sprintf</span>(<span class="st">"%02d"</span>, <span class="dv">1</span><span class="sc">:</span>n_students)),</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Mathematiques   =</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(n_students, <span class="at">mean =</span> <span class="dv">14</span>, <span class="at">sd =</span> <span class="dv">2</span>), <span class="dv">1</span>),</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Physique        =</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(n_students, <span class="at">mean =</span> <span class="dv">12</span>, <span class="at">sd =</span> <span class="dv">3</span>), <span class="dv">1</span>),</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">Informatique    =</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(n_students, <span class="at">mean =</span> <span class="dv">15</span>, <span class="at">sd =</span> <span class="fl">2.5</span>), <span class="dv">1</span>),</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">Informatique    =</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(n_students, <span class="at">mean =</span> <span class="dv">15</span>, <span class="at">sd =</span> <span class="fl">2.4</span>), <span class="dv">1</span>),</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">Chimie          =</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(n_students, <span class="at">mean =</span> <span class="dv">11</span>, <span class="at">sd =</span> <span class="dv">3</span>), <span class="dv">1</span>)</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(notes) <span class="ot">&lt;-</span> notes<span class="sc">$</span>Etudiant</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>notes<span class="sc">$</span>Etudiant <span class="ot">&lt;-</span> <span class="cn">NULL</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>notes<span class="sc">$</span>Etudiant <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>notes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    Mathematiques Physique Informatique Chimie
+E01          12.9     13.3         15.9   14.0
+E02          13.5     11.1         13.8   12.6
+E03          17.1     14.7         14.2   11.7
+E04          14.1     14.6         12.6    9.1
+E05          14.3     14.5         12.4   15.1
+E06          17.4     14.1         15.7    9.2
+E07          14.9     13.7         16.1   17.6
+E08          11.5     11.8         15.1   15.6
+E09          12.6     11.1         17.2   10.3
+E10          13.1     10.9         19.9    7.9
+E11          16.4      9.9         13.8    8.9
+E12          14.7     11.4          9.5   11.8
+E13          14.8      8.2         17.4   10.3
+E14          14.2     18.5         13.3   10.0
+E15          12.9     15.6         13.3    8.1
+E16          17.6      8.6         17.5   10.9
+E17          15.0     10.8         14.3    8.6
+E18          10.1     10.6         12.1    6.0
+E19          15.4     14.3         15.4    9.9
+E20          13.1     11.7         14.7   13.8
+E21          11.9     12.8         15.0    9.3
+E22          13.6     11.9         15.9   12.8
+E23          11.9     11.9         14.1    6.1
+E24          12.5     16.1         16.5   10.8
+E25          12.7     11.3         14.5   12.6
+E26          10.6     16.5         15.8   11.9
+E27          15.7      7.4         17.6   11.3
+E28          14.3     13.8         16.0    9.1
+E29          11.7     12.4         14.2    8.5
+E30          16.5     12.6         17.8    7.9</code></pre>
+</div>
 </div>
 </section>
 <section id="préparation-standardisation-des-notes" class="level3">
 <h3 class="anchored" data-anchor-id="préparation-standardisation-des-notes">2. Préparation : standardisation des notes</h3>
 <p>Ici, on centre et réduit chaque variable comme la dispersion des notes de chaque matière est différente.Ainsi, les notes des matières pourront être comparables</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>notes_scaled <span class="ot">&lt;-</span> <span class="fu">scale</span>(notes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>notes_scaled <span class="ot">&lt;-</span> <span class="fu">scale</span>(notes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="choix-du-nombre-de-clusters-k-via-la-méthode-du-coude" class="level3">
 <h3 class="anchored" data-anchor-id="choix-du-nombre-de-clusters-k-via-la-méthode-du-coude">3. Choix du nombre de clusters k via la méthode du coude</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>wss <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="dv">10</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) {</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  km <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(notes_scaled, <span class="at">centers =</span> k, <span class="at">nstart =</span> <span class="dv">25</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  wss[k] <span class="ot">&lt;-</span> km<span class="sc">$</span>tot.withinss</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, wss, <span class="at">type =</span> <span class="st">"b"</span>, <span class="at">pch =</span> <span class="dv">19</span>,</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Nombre de clusters k"</span>,</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Somme des carrés intra-clusters"</span>,</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Méthode du coude pour choisir k"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>wss <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="dv">10</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) {</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  km <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(notes_scaled, <span class="at">centers =</span> k, <span class="at">nstart =</span> <span class="dv">25</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  wss[k] <span class="ot">&lt;-</span> km<span class="sc">$</span>tot.withinss</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, wss, <span class="at">type =</span> <span class="st">"b"</span>, <span class="at">pch =</span> <span class="dv">19</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Nombre de clusters k"</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Somme des carrés intra-clusters"</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Méthode du coude pour choisir k"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -440,28 +478,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="exécution-du-k-means-pour-k-3" class="level3">
 <h3 class="anchored" data-anchor-id="exécution-du-k-means-pour-k-3">4. Exécution du k-means pour k = 3</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>km_res <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(notes_scaled, <span class="at">centers =</span> k, <span class="at">nstart =</span> <span class="dv">25</span>)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(km_res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>km_res <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(notes_scaled, <span class="at">centers =</span> k, <span class="at">nstart =</span> <span class="dv">25</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(km_res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>K-means clustering with 3 clusters of sizes 9, 12, 9
+<pre><code>K-means clustering with 3 clusters of sizes 9, 9, 12
 
 Cluster means:
   Mathematiques   Physique Informatique     Chimie
-1    -0.8619349  0.7183503   -0.4564989 -0.6801298
-2     0.8123169 -0.4677940    0.6541109 -0.3870757
-3    -0.2211544 -0.0946250   -0.4156489  1.1962307
+1    -0.2211544 -0.0946250   -0.4048354  1.1962307
+2    -0.8619349  0.7183503   -0.4582437 -0.6801298
+3     0.8123169 -0.4677940    0.6473093 -0.3870757
 
 Clustering vector:
 E01 E02 E03 E04 E05 E06 E07 E08 E09 E10 E11 E12 E13 E14 E15 E16 E17 E18 E19 E20 
-  3   3   2   1   3   2   3   3   2   2   2   3   2   1   1   2   2   1   2   3 
+  1   1   3   2   1   3   1   1   3   3   3   1   3   2   2   3   3   2   3   1 
 E21 E22 E23 E24 E25 E26 E27 E28 E29 E30 
-  1   3   1   1   3   1   2   2   1   2 
+  2   1   2   2   1   2   3   3   2   3 
 
 Within cluster sum of squares by cluster:
-[1] 20.63932 29.27492 16.28552
- (between_SS / total_SS =  42.9 %)
+[1] 16.22915 20.59663 29.54569
+ (between_SS / total_SS =  42.8 %)
 
 Available components:
 
@@ -473,30 +510,30 @@ Available components:
 <section id="ajouter-les-labels-de-cluster-au-tableau-original" class="level3">
 <h3 class="anchored" data-anchor-id="ajouter-les-labels-de-cluster-au-tableau-original">5. Ajouter les labels de cluster au tableau original</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>notes_cluster <span class="ot">&lt;-</span> <span class="fu">cbind</span>(notes, <span class="at">Cluster =</span> <span class="fu">factor</span>(km_res<span class="sc">$</span>cluster))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>notes_cluster <span class="ot">&lt;-</span> <span class="fu">cbind</span>(notes, <span class="at">Cluster =</span> <span class="fu">factor</span>(km_res<span class="sc">$</span>cluster))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="visualisation-2d-avec-pca-clusters" class="level3">
 <h3 class="anchored" data-anchor-id="visualisation-2d-avec-pca-clusters">6. Visualisation 2D avec PCA + clusters</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">suppressWarnings</span>(</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">capture.output</span>(<span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>), <span class="at">file =</span> <span class="st">"/dev/null"</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>))</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcul des composantes principales</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>pca <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(notes_scaled)</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>scores <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(pca<span class="sc">$</span>x[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>scores<span class="sc">$</span>Cluster <span class="ot">&lt;-</span> <span class="fu">factor</span>(km_res<span class="sc">$</span>cluster)</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>scores<span class="sc">$</span>Étudiant <span class="ot">&lt;-</span> <span class="fu">rownames</span>(scores)</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(scores, <span class="fu">aes</span>(<span class="at">x =</span> PC1, <span class="at">y =</span> PC2, <span class="at">color =</span> Cluster, <span class="at">label =</span> Étudiant)) <span class="sc">+</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Clustering k-means des profils étudiants"</span>,</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Projection sur les deux premières composantes principales"</span>,</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"PC1"</span>, <span class="at">y =</span> <span class="st">"PC2"</span>) <span class="sc">+</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">suppressWarnings</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">capture.output</span>(<span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>), <span class="at">file =</span> <span class="st">"/dev/null"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcul des composantes principales</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>pca <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(notes_scaled)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>scores <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(pca<span class="sc">$</span>x[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>scores<span class="sc">$</span>Cluster <span class="ot">&lt;-</span> <span class="fu">factor</span>(km_res<span class="sc">$</span>cluster)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>scores<span class="sc">$</span>Étudiant <span class="ot">&lt;-</span> <span class="fu">rownames</span>(scores)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(scores, <span class="fu">aes</span>(<span class="at">x =</span> PC1, <span class="at">y =</span> PC2, <span class="at">color =</span> Cluster, <span class="at">label =</span> Étudiant)) <span class="sc">+</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Clustering k-means des profils étudiants"</span>,</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Projection sur les deux premières composantes principales"</span>,</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"PC1"</span>, <span class="at">y =</span> <span class="st">"PC2"</span>) <span class="sc">+</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -506,13 +543,13 @@ Available components:
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>pca<span class="sc">$</span>rotation[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>] </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>pca<span class="sc">$</span>rotation[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>] </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                      PC1         PC2
-Mathematiques  0.50381044 -0.34672112
-Physique      -0.60778171 -0.20884255
-Informatique   0.61054070 -0.01669262
-Chimie        -0.06337573 -0.91427053</code></pre>
+Mathematiques  0.49868636 -0.34021342
+Physique      -0.61219046 -0.21342747
+Informatique   0.61106222 -0.02010495
+Chimie        -0.05601533 -0.91558688</code></pre>
 </div>
 </div>
 <p>Le premier axe factoriel oppose profils maths/info vs physique et le deuxième axe factoriel sépare les étudiants bons en chimie (en haut) des plus faibles en chimie (en bas)</p>
