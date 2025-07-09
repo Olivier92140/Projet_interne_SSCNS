@@ -387,8 +387,8 @@ window.Quarto = {
 </header>
 
 
-<section id="introduction" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="introduction">Introduction</h2>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>La classification par modèles de mélange est une approche probabiliste. L’idée est de modéliser la distribution des données observées par un mélange de distributions de probabilité. On définit une classe comme l’ensemble des observations issues de la même composante du mélange. Ainsi, chaque loi élémentaire génère une partie des points.</p>
 </section>
 <section id="loi-de-mélange" class="level2">
@@ -526,9 +526,21 @@ f_k(x; \alpha_k) = \frac{1}{\sqrt{2\pi}\sigma_k} \exp\left( -\frac{(x - \mu_k)^2
 \theta = \left\{ \{\pi_k, \alpha_k\} : \alpha_k = (\mu_k, \sigma_k) \text{ pour } k = 1, \ldots, 3 \right\}
 \]</span></p>
 </section>
-<section id="a-quoi-sert-les-modèles-de-mélange" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="a-quoi-sert-les-modèles-de-mélange">A quoi sert les modèles de mélange?</h3>
+<section id="a-quoi-sert-les-modèles-de-mélange" class="level3">
+<h3 class="anchored" data-anchor-id="a-quoi-sert-les-modèles-de-mélange">A quoi sert les modèles de mélange?</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Les modèles de mélange permettent de reconstruire les données manquantes en estimant les valeurs manquantes (a posteriori) cf.&nbsp;ci-dessus la détermination des paramètres manquants.</p>
+</div>
+</div>
 </section>
 </section>
 <section id="vraisemblance" class="level2">
@@ -536,26 +548,74 @@ f_k(x; \alpha_k) = \frac{1}{\sqrt{2\pi}\sigma_k} \exp\left( -\frac{(x - \mu_k)^2
 <p>Pour un modèle de mélange, on utilise une vraisemblance car en la maximisant, nous trouverons les valeurs des paramètres qui rendent les données les plus probables (valeurs optimales)</p>
 <section id="vraisemblance-incomplète-du-modèle" class="level3">
 <h3 class="anchored" data-anchor-id="vraisemblance-incomplète-du-modèle">Vraisemblance incomplète du modèle</h3>
+<div class="callout callout-style-default callout-note callout-titled" title="Définition">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Définition
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>La vraisemblance incomplète du modèle est :</p>
 <p><span class="math display">\[
 \mathcal{L}(\theta; x) = \prod_{i=1}^{n} f(x_i, \theta) = \prod_{i=1}^{n} \sum_{k=1}^{K} \pi_k f_k(x_i; \alpha_k)
 \]</span></p>
-<p>et sa log-vraisemblance est :</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Définition">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Définition
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>et la log-vraisemblance incomplète est :</p>
 <p><span class="math display">\[
 \ell(\theta; x) = \sum_{i=1}^{n} \log \left( \sum_{k=1}^{K} \pi_k f_k(x_i; \alpha_k) \right)
 \]</span></p>
+</div>
+</div>
 </section>
 <section id="vraisemblance-complète-du-modèle" class="level3">
 <h3 class="anchored" data-anchor-id="vraisemblance-complète-du-modèle">Vraisemblance complète du modèle</h3>
+<div class="callout callout-style-default callout-note callout-titled" title="Définition">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Définition
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>La vraisemblance complète du modèle est :</p>
 <p><span class="math display">\[
 \mathcal{L}(\theta; x, z) = \prod_{i=1}^{n} \prod_{k=1}^{K} \left[ \pi_k f_k(x_i; \alpha_k) \right]^{z_{ik}}
 \]</span></p>
 <p>où <span class="math inline">\(z_{ik} = 1\)</span> si l’observation <span class="math inline">\(i\)</span> provient de la composante <span class="math inline">\(k\)</span>, <span class="math inline">\(0\)</span> sinon.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Définition">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Définition
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Donc la log-vraisemblance complétée est :</p>
 <p><span class="math display">\[
 \ell(\theta; x, z) = \sum_{i=1}^{n} \sum_{k=1}^{K} z_{ik} \left( \log \pi_k + \log f_k(x_i; \alpha_k) \right)
 \]</span></p>
+</div>
+</div>
 </section>
 </section>
 <section id="lalgorithme-em-expectation-maximisation" class="level2">
@@ -575,6 +635,16 @@ t_{ik}(\theta^{[r-1]}) = \frac{\pi_k^{[r-1]} f_k(x_i; \alpha_k^{[r-1]})}{\sum_{l
 \]</span></p>
 <p>On s’arrête lorsque les valeurs des paramètres ou de la quantité à maximiser entre deux itérations successives ne varient « presque » plus.</p>
 <p>L’algorithme EM permet de calculer les valeurs du paramètres qui maximise la vraisemblance à chaque itération.</p>
+</section>
+<section id="interprétation" class="level3">
+<h3 class="anchored" data-anchor-id="interprétation">Interprétation</h3>
+<ul>
+<li><p><strong>Avant calcul des observations <span class="math inline">\(x_n\)</span></strong> :<br>
+On ne sait pas de quelle composante vient <span class="math inline">\(x_n\)</span>, on a seulement les probabilités a priori <span class="math inline">\(\pi_k\)</span></p></li>
+<li><p><strong>Après calcul des observations <span class="math inline">\(x_n\)</span></strong> :<br>
+On ajuste nos croyances grâce à la vraisemblance <span class="math inline">\(P(x_n \mid \theta_k)\)</span> et on obtient les probabilités a posteriori <span class="math inline">\(t_{nk}\)</span></p></li>
+<li><p>Ces probabilités a posteriori sont essentielles pour « répartir » chaque donnée entre les composantes lors de l’estimation EM</p></li>
+</ul>
 </section>
 </section>
 <section id="application-distribution-de-mélange-de-poisson" class="level2">
@@ -658,7 +728,9 @@ L_k(\lambda_k) = \sum_{i=1}^{n} t_{ik}(\theta^{[r-1]}) (-\lambda_k + x_i \log \l
 <p><span class="math display">\[
 -\sum_{i=1}^{n} t_{ik}(\theta^{[r-1]}) + \frac{\sum_{i=1}^{n} t_{ik}(\theta^{[r-1]}) x_i}{\lambda_k} = 0
 \quad \Rightarrow \quad
+\boxed{
 \lambda_k^{[r]} = \frac{\sum_{i=1}^{n} t_{ik}(\theta^{[r-1]}) x_i}{\sum_{i=1}^{n} t_{ik}(\theta^{[r-1]})}
+}
 \]</span></p>
 </section>
 <section id="mise-à-jour-des-poids-pi_kr" class="level3">
@@ -689,9 +761,35 @@ L_k(\lambda_k) = \sum_{i=1}^{n} t_{ik}(\theta^{[r-1]}) (-\lambda_k + x_i \log \l
 \pi_k^{[r]} = \frac{1}{n} \sum_{i=1}^{n} t_{ik}(\theta^{[r-1]})
 }
 \]</span></p>
-
-
 </section>
+</section>
+<section id="critère-bic" class="level2">
+<h2 class="anchored" data-anchor-id="critère-bic">Critère BIC</h2>
+<p>Du point de vue bayésien, un bon modèle est celui qui maximise la vraisemblance.</p>
+<p>Dans ce cas, on utilise le critère <strong>BIC(Bayesian Information Criterion)</strong> :</p>
+<p><span class="math display">\[
+\mathrm{BIC}(m) \;=\; \ell(\hat\theta_m; \mathbf{x}) \;-\; \frac{\nu_m}{2}\,\ln n
+\]</span></p>
+<p>où <span class="math inline">\(\nu_m\)</span> est le nombre de paramètres du modèle m et <span class="math inline">\(\hat\theta_m\)</span> est l’estimateur du maximum de vraisemblance pour les paramètres du modèle m avec n est la taille de l’échantillon.</p>
+<p>Pour comparer plusieurs modèles, on choisit celui qui maximise le BIC.</p>
+</section>
+<section id="critère-icl" class="level2">
+<h2 class="anchored" data-anchor-id="critère-icl">Critère ICL</h2>
+<p>Pour tenir compte de l’objectif de classification lors du choix de modèle, on peut utiliser le critère <strong>ICL(Integrated Completed Likelihood)</strong> :</p>
+<p><span class="math display">\[
+\mathrm{ICL}(m)
+\;=\;
+\ell(\hat\theta_m; \mathbf{x}, \hat{\mathbf{z}})
+\;-\;
+\frac{\nu_m}{2}\,\ln n
+\;=\;
+\mathrm{BIC}(m)
+\;+\;
+\sum_{i=1}^n \sum_{k=1}^K \hat z_{ik}\,\ln t_{ik}(\hat\theta_m)
+\]</span></p>
+<p>où <span class="math inline">\(\hat{\mathbf{z}}\)</span> est la partition donnée par la règle du MAP pour le modèle m et <span class="math inline">\(t_{ik}(\hat\theta_m) = P(Z_i = k \mid X_i = x_i; \hat\theta_m)\)</span> est la probabilité a posteriori.</p>
+
+
 </section>
 
 </main> <!-- /main -->

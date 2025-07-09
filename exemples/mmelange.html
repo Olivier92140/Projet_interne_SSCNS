@@ -8,7 +8,7 @@
 
 <meta name="author" content="Olivier Malahel">
 
-<title>Modèle de Mélange Gaussien – Classification non supervisée</title>
+<title>Modèles de mélange de gaussiennes – Classification non supervisée</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -106,6 +106,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -370,7 +399,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Modèle de Mélange Gaussien</h1>
+<h1 class="title">Modèles de mélange de gaussiennes</h1>
 </div>
 
 
@@ -399,75 +428,53 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="préambule-simulation-des-données" class="level2">
 <h2 class="anchored" data-anchor-id="préambule-simulation-des-données">Préambule : Simulation des données</h2>
+<p>On simule 200 points selon des 2 lois normales</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># chargement des packages</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"mclust"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Installing package into '/home/runner/work/_temp/Library'
-(as 'lib' is unspecified)</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mclust)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Package 'mclust' version 6.1.1
-Type 'citation("mclust")' for citing this R package in publications.</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Deux populations gaussiennes</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="fl">1.5</span>)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Données mélangées</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(x1, x2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"mclust"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"mclust"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mclust)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Deux populations gaussiennes</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="fl">1.5</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Données mélangées</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(x1, x2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="fonction-de-densité-du-mélange" class="level2">
 <h2 class="anchored" data-anchor-id="fonction-de-densité-du-mélange">1. Fonction de densité du mélange</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Densité d’un mélange à 2 composantes</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>densite_melange <span class="ot">&lt;-</span> <span class="cf">function</span>(x, pi, mu, sigma) {</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  pi[<span class="dv">1</span>] <span class="sc">*</span> <span class="fu">dnorm</span>(x, <span class="at">mean =</span> mu[<span class="dv">1</span>], <span class="at">sd =</span> sigma[<span class="dv">1</span>]) <span class="sc">+</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  pi[<span class="dv">2</span>] <span class="sc">*</span> <span class="fu">dnorm</span>(x, <span class="at">mean =</span> mu[<span class="dv">2</span>], <span class="at">sd =</span> sigma[<span class="dv">2</span>])</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Exemple de tracé avec pi[1]=0.5 et pi[2]=0.5</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">densite_melange</span>(x, <span class="at">pi =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>), <span class="at">mu =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">5</span>), <span class="at">sigma =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">1.5</span>)),</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">from =</span> <span class="sc">-</span><span class="dv">5</span>, <span class="at">to =</span> <span class="dv">10</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">ylab =</span> <span class="st">"Densité"</span>, <span class="at">main =</span> <span class="st">"Densité du mélange"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="mmelange_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Densité d’un mélange à 2 composantes</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>densite_melange <span class="ot">&lt;-</span> <span class="cf">function</span>(x, pi, mu, sigma) {</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  pi[<span class="dv">1</span>] <span class="sc">*</span> <span class="fu">dnorm</span>(x, <span class="at">mean =</span> mu[<span class="dv">1</span>], <span class="at">sd =</span> sigma[<span class="dv">1</span>]) <span class="sc">+</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  pi[<span class="dv">2</span>] <span class="sc">*</span> <span class="fu">dnorm</span>(x, <span class="at">mean =</span> mu[<span class="dv">2</span>], <span class="at">sd =</span> sigma[<span class="dv">2</span>])</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="données-incomplètes-vs-complètes" class="level2">
-<h2 class="anchored" data-anchor-id="données-incomplètes-vs-complètes">2. Données incomplètes vs complètes</h2>
+<section id="données-complètes" class="level2">
+<h2 class="anchored" data-anchor-id="données-complètes">2. Données complètes</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Construction de Z complet (connu car simulation)</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">100</span>), <span class="fu">rep</span>(<span class="dv">2</span>, <span class="dv">100</span>))</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Log-vraisemblance complète</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>log_vraisemblance_completee <span class="ot">&lt;-</span> <span class="cf">function</span>(x, z, pi, mu, sigma) {</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>(<span class="fu">log</span>(pi[z]) <span class="sc">+</span> <span class="fu">dnorm</span>(x, <span class="at">mean =</span> mu[z], <span class="at">sd =</span> sigma[z], <span class="at">log =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Exemple : vrais paramètres</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="fu">log_vraisemblance_completee</span>(x, z, <span class="at">pi =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>), <span class="at">mu =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">5</span>), <span class="at">sigma =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">1.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] -451.4813</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Construction de Z complet (connu car simulation)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">100</span>), <span class="fu">rep</span>(<span class="dv">2</span>, <span class="dv">100</span>))</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Log-vraisemblance complète</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>log_vraisemblance_completee <span class="ot">&lt;-</span> <span class="cf">function</span>(x, z, pi, mu, sigma) {</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>(<span class="fu">log</span>(pi[z]) <span class="sc">+</span> <span class="fu">dnorm</span>(x, <span class="at">mean =</span> mu[z], <span class="at">sd =</span> sigma[z], <span class="at">log =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="estimation-par-em-via-mclust" class="level2">
 <h2 class="anchored" data-anchor-id="estimation-par-em-via-mclust">3. Estimation par EM via mclust</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimation avec mclust</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">Mclust</span>(x, <span class="at">G =</span> <span class="dv">2</span>)  <span class="co"># G = nb de composantes</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Résumé des paramètres</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimation avec mclust</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">Mclust</span>(x, <span class="at">G =</span> <span class="dv">2</span>)  <span class="co"># G = nombre de composantes</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Résumé des paramètres</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>---------------------------------------------------- 
 Gaussian finite mixture model fitted by EM algorithm 
@@ -483,47 +490,18 @@ Clustering table:
  96 104 </code></pre>
 </div>
 </div>
+<p><u>Conclusion</u> : Sur les 200 points simulés, 96 ont été assignés au cluster 1, et 104 au cluster 2, selon la règle du maximum a posteriori <span class="math inline">\(P(Z_n = k \mid X_n = x_n)\)</span></p>
 </section>
-<section id="affichage-des-résultats" class="level2">
-<h2 class="anchored" data-anchor-id="affichage-des-résultats">4. Affichage des résultats</h2>
+<section id="affichage-de-la-densité-estimée" class="level2">
+<h2 class="anchored" data-anchor-id="affichage-de-la-densité-estimée">4. Affichage de la densité estimée</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(res, <span class="at">what =</span> <span class="st">"density"</span>, <span class="at">main =</span> <span class="st">"Estimation du modèle de mélange par EM"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(res, <span class="at">what =</span> <span class="st">"density"</span>, <span class="at">main =</span> <span class="st">"Estimation du modèle de mélange par EM"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
 <p><img src="mmelange_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
-</div>
-</div>
-</section>
-<section id="affichage-des-paramètres" class="level2">
-<h2 class="anchored" data-anchor-id="affichage-des-paramètres">affichage des paramètres</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(res<span class="sc">$</span>parameters)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>$pro
-[1] 0.4671275 0.5328725
-
-$mean
-           1            2 
--0.005518509  4.629851983 
-
-$variance
-$variance$modelName
-[1] "V"
-
-$variance$d
-[1] 1
-
-$variance$G
-[1] 2
-
-$variance$sigmasq
-[1] 0.7145053 2.6426426
-
-$variance$scale
-[1] 0.7145053 2.6426426</code></pre>
 </div>
 </div>
 
