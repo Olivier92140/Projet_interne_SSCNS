@@ -11,16 +11,17 @@ code-block-border-left: "#31BAE9"
 
 Dans cet exemple, nous ajustons un **modèle de mélange de lois normales** à des données simulées, en utilisant le package R `mclust`. Le but est d’identifier automatiquement des groupes (ou classes) au sein des données.
 
----
-title: "Modèle de Mélange Gaussien"
-format: html
-editor: visual
----
-
 ## Préambule : Simulation des données 
+
+On simule 200 points selon des 2 lois normales
+
 ```{r}
+#| message: false
+#| warning: false
 # chargement des packages
-install.packages("mclust") 
+if (!requireNamespace("mclust", quietly = TRUE)) {
+  install.packages("mclust")
+}
 library(mclust)
 set.seed(123)
 
@@ -34,18 +35,15 @@ x <- c(x1, x2)
 
 ## 1. Fonction de densité du mélange
 ```{r}
+
 # Densité d’un mélange à 2 composantes
 densite_melange <- function(x, pi, mu, sigma) {
   pi[1] * dnorm(x, mean = mu[1], sd = sigma[1]) +
   pi[2] * dnorm(x, mean = mu[2], sd = sigma[2])
 }
-
-# Exemple de tracé avec pi[1]=0.5 et pi[2]=0.5
-curve(densite_melange(x, pi = c(0.5, 0.5), mu = c(0, 5), sigma = c(1, 1.5)),
-      from = -5, to = 10, col = "red", lwd = 2, ylab = "Densité", main = "Densité du mélange")
 ```
 
-## 2. Données incomplètes vs complètes
+## 2. Données complètes
 ```{r}
 # Construction de Z complet (connu car simulation)
 z <- c(rep(1, 100), rep(2, 100))
@@ -55,28 +53,22 @@ log_vraisemblance_completee <- function(x, z, pi, mu, sigma) {
   sum(log(pi[z]) + dnorm(x, mean = mu[z], sd = sigma[z], log = TRUE))
 }
 
-# Exemple : vrais paramètres
-log_vraisemblance_completee(x, z, pi = c(0.5, 0.5), mu = c(0, 5), sigma = c(1, 1.5))
 ```
 
 ## 3. Estimation par EM via mclust
 
 ```{r}
 # Estimation avec mclust
-res <- Mclust(x, G = 2)  # G = nb de composantes
+res <- Mclust(x, G = 2)  # G = nombre de composantes
 
 # Résumé des paramètres
 summary(res)
 ```
 
-## 4. Affichage des résultats
+<u>Conclusion</u> : Sur les 200 points simulés, 96 ont été assignés au cluster 1, et 104 au cluster 2, selon la règle du maximum a posteriori $P(Z_n = k \mid X_n = x_n)$
+
+## 4. Affichage de la densité estimée
 
 ```{r}
 plot(res, what = "density", main = "Estimation du modèle de mélange par EM")
-```
-
-## affichage des paramètres 
-
-```{r}
-print(res$parameters)
 ```

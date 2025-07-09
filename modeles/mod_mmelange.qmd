@@ -7,7 +7,7 @@ code-block-bg: true
 code-block-border-left: "#31BAE9"
 
 ---
-## Introduction {.unnumbered}
+## Introduction
 
 La classification par modèles de mélange est une approche probabiliste.
 L’idée est de modéliser la distribution des données observées par un mélange de distributions de probabilité. On définit une classe comme l’ensemble des observations issues de la même composante du mélange. Ainsi, chaque loi élémentaire génère une partie des points.
@@ -156,9 +156,11 @@ $$
 \theta = \left\{ \{\pi_k, \alpha_k\} : \alpha_k = (\mu_k, \sigma_k) \text{ pour } k = 1, \ldots, 3 \right\}
 $$
 
-### A quoi sert les modèles de mélange? {.unnumbered}
+### A quoi sert les modèles de mélange?
 
-Les modèles de mélange permettent de reconstruire les données manquantes en estimant les valeurs manquantes (a posteriori) cf. ci-dessus la détermination des paramètres manquants.  
+::: {.callout-note}
+Les modèles de mélange permettent de reconstruire les données manquantes en estimant les valeurs manquantes (a posteriori) cf. ci-dessus la détermination des paramètres manquants.
+:::  
 
 ## Vraisemblance
 
@@ -166,20 +168,25 @@ Pour un modèle de mélange, on utilise une vraisemblance car en la maximisant, 
 
 ### Vraisemblance incomplète du modèle 
 
+::: {.callout-note title="Définition"}
 La vraisemblance incomplète du modèle est :
 
 $$
 \mathcal{L}(\theta; x) = \prod_{i=1}^{n} f(x_i, \theta) = \prod_{i=1}^{n} \sum_{k=1}^{K} \pi_k f_k(x_i; \alpha_k)
 $$
+:::
 
-et sa log-vraisemblance est :
+::: {.callout-note title="Définition"}
+et la log-vraisemblance incomplète est :
 
 $$
 \ell(\theta; x) = \sum_{i=1}^{n} \log \left( \sum_{k=1}^{K} \pi_k f_k(x_i; \alpha_k) \right)
 $$
+:::
 
 ### Vraisemblance complète du modèle 
 
+::: {.callout-note title="Définition"}
 La vraisemblance complète du modèle est : 
 
 $$
@@ -187,13 +194,15 @@ $$
 $$
 
 où $z_{ik} = 1$ si l’observation $i$ provient de la composante $k$, $0$ sinon.  
+:::
 
+::: {.callout-note title="Définition"}
 Donc la log-vraisemblance complétée est :
 
 $$
 \ell(\theta; x, z) = \sum_{i=1}^{n} \sum_{k=1}^{K} z_{ik} \left( \log \pi_k + \log f_k(x_i; \alpha_k) \right)
 $$
-
+:::
 ## L'algorithme EM (Expectation Maximisation)
 
 L’algorithme EM est une méthode d’optimisation utilisée pour estimer les paramètres d’un modèle statistique lorsque les données sont incomplètes ou comportent des variables latentes.
@@ -218,6 +227,16 @@ $$
 On s’arrête lorsque les valeurs des paramètres ou de la quantité à maximiser entre deux itérations successives ne varient « presque » plus.
 
 L'algorithme EM permet de calculer les valeurs du paramètres qui maximise la vraisemblance à chaque itération. 
+
+### Interprétation
+
+- **Avant calcul des observations $x_n$** :  
+  On ne sait pas de quelle composante vient $x_n$, on a seulement les probabilités a priori $\pi_k$
+
+- **Après calcul des observations $x_n$** :  
+  On ajuste nos croyances grâce à la vraisemblance $P(x_n \mid \theta_k)$ et on obtient les probabilités a posteriori $t_{nk}$
+
+- Ces probabilités a posteriori sont essentielles pour « répartir » chaque donnée entre les composantes lors de l’estimation EM
 
 ## Application : distribution de mélange de Poisson
 
@@ -309,7 +328,9 @@ On annule la dérivée :
 $$
 -\sum_{i=1}^{n} t_{ik}(\theta^{[r-1]}) + \frac{\sum_{i=1}^{n} t_{ik}(\theta^{[r-1]}) x_i}{\lambda_k} = 0 
 \quad \Rightarrow \quad
+\boxed{
 \lambda_k^{[r]} = \frac{\sum_{i=1}^{n} t_{ik}(\theta^{[r-1]}) x_i}{\sum_{i=1}^{n} t_{ik}(\theta^{[r-1]})}
+}
 $$
 
 ### 2. Mise à jour des poids $\pi_k^{[r]}$
@@ -347,3 +368,41 @@ $$
 \pi_k^{[r]} = \frac{1}{n} \sum_{i=1}^{n} t_{ik}(\theta^{[r-1]})
 }
 $$
+
+
+## Critère BIC
+
+Du point de vue bayésien, un bon modèle est celui qui maximise la vraisemblance.  
+
+Dans ce cas, on utilise le critère **BIC(Bayesian Information Criterion)** :
+
+$$
+\mathrm{BIC}(m) \;=\; \ell(\hat\theta_m; \mathbf{x}) \;-\; \frac{\nu_m}{2}\,\ln n
+$$
+
+où
+$\nu_m$ est le nombre de paramètres du modèle m
+et $\hat\theta_m$ est l’estimateur du maximum de vraisemblance pour les paramètres du modèle m 
+avec n est la taille de l’échantillon.
+
+Pour comparer plusieurs modèles, on choisit celui qui maximise le BIC. 
+
+## Critère ICL
+
+Pour tenir compte de l’objectif de classification lors du choix de modèle, on peut utiliser le critère **ICL(Integrated Completed Likelihood)** :
+
+$$
+\mathrm{ICL}(m)
+\;=\;
+\ell(\hat\theta_m; \mathbf{x}, \hat{\mathbf{z}})
+\;-\;
+\frac{\nu_m}{2}\,\ln n
+\;=\;
+\mathrm{BIC}(m)
+\;+\;
+\sum_{i=1}^n \sum_{k=1}^K \hat z_{ik}\,\ln t_{ik}(\hat\theta_m)
+$$
+
+où
+$\hat{\mathbf{z}}$ est la partition donnée par la règle du MAP pour le modèle m 
+et $t_{ik}(\hat\theta_m) = P(Z_i = k \mid X_i = x_i; \hat\theta_m)$ est la probabilité a posteriori.
