@@ -6,7 +6,7 @@ from: markdown+emoji
 code-block-bg: true
 code-block-border-left: "#31BAE9"
 ---
-## Introduction {.unnumbered}
+## Introduction
 
 ::: {.callout-note title="Définition"}
 La classification hiérarchique ascendante est une méthode de partitionnement dont l’objectif est de construire une hiérarchie sur un ensemble de n observations, en partant de n singletons puis en fusionnant itérativement les groupes deux à deux.  

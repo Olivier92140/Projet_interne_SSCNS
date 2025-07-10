@@ -34,7 +34,7 @@ viewof data = Inputs.table(initial, {
 })
 ```
 
-### Curseur pour faire varier le nombre de clusters 
+## Curseur pour faire varier le nombre de clusters 
 
 ```{ojs}
 // 3. Slider pour choisir k

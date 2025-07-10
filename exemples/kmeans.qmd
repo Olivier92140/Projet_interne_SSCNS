@@ -98,7 +98,7 @@ pca$rotation[, 1:2]
 
 Le premier axe factoriel oppose profils maths/info vs physique et le deuxième axe factoriel sépare les étudiants bons en chimie (en haut) des plus faibles en chimie (en bas)
 
-## Conclusion 
+### Conclusion 
 
 Les clusters issus de k-means se retrouvent bien séparés :
 

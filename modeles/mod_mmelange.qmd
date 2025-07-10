@@ -240,7 +240,7 @@ L'algorithme EM permet de calculer les valeurs du paramètres qui maximise la vr
 
 ## Application : distribution de mélange de Poisson
 
-### Fonction de masse d’une observation xi
+### Fonction de masse d’une observation $x_i$
 
 La densité (fonction de masse) du mélange s’écrit :
 
