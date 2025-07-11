@@ -76,8 +76,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-7f4cc24fd42949a81cf8b37074ce08f5.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-ae6e44816055ef4041522f0db3d6f824.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-0ca8d520645b5189d7194f5d30a4ecf3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-728090f100864248164ae384b99e3527.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -399,6 +399,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="simuler-un-jeu-de-données-notes-sur-4-matières-pour-30-étudiants" class="level3">
 <h3 class="anchored" data-anchor-id="simuler-un-jeu-de-données-notes-sur-4-matières-pour-30-étudiants">1. Simuler un jeu de données : notes sur 4 matières pour 30 étudiants</h3>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>n_students <span class="ot">&lt;-</span> <span class="dv">30</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>notes <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
@@ -411,6 +413,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(notes) <span class="ot">&lt;-</span> notes<span class="sc">$</span>Etudiant</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>notes<span class="sc">$</span>Etudiant <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>notes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>    Mathematiques Physique Informatique Chimie
 E01          12.9     13.3         15.9   14.0
@@ -450,12 +453,17 @@ E30          16.5     12.6         17.8    7.9</code></pre>
 <h3 class="anchored" data-anchor-id="préparation-standardisation-des-notes">2. Préparation : standardisation des notes</h3>
 <p>Ici, on centre et réduit chaque variable comme la dispersion des notes de chaque matière est différente.Ainsi, les notes des matières pourront être comparables</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>notes_scaled <span class="ot">&lt;-</span> <span class="fu">scale</span>(notes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </section>
 <section id="choix-du-nombre-de-clusters-k-via-la-méthode-du-coude" class="level3">
 <h3 class="anchored" data-anchor-id="choix-du-nombre-de-clusters-k-via-la-méthode-du-coude">3. Choix du nombre de clusters k via la méthode du coude</h3>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>wss <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="dv">10</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) {</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  km <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(notes_scaled, <span class="at">centers =</span> k, <span class="at">nstart =</span> <span class="dv">25</span>)</span>
@@ -465,6 +473,7 @@ E30          16.5     12.6         17.8    7.9</code></pre>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Nombre de clusters k"</span>,</span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Somme des carrés intra-clusters"</span>,</span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Méthode du coude pour choisir k"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -478,9 +487,12 @@ E30          16.5     12.6         17.8    7.9</code></pre>
 <section id="exécution-du-k-means-pour-k-3" class="level3">
 <h3 class="anchored" data-anchor-id="exécution-du-k-means-pour-k-3">4. Exécution du k-means pour k = 3</h3>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">3</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>km_res <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(notes_scaled, <span class="at">centers =</span> k, <span class="at">nstart =</span> <span class="dv">25</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(km_res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>K-means clustering with 3 clusters of sizes 9, 9, 12
 
@@ -510,12 +522,17 @@ Available components:
 <section id="ajouter-les-labels-de-cluster-au-tableau-original" class="level3">
 <h3 class="anchored" data-anchor-id="ajouter-les-labels-de-cluster-au-tableau-original">5. Ajouter les labels de cluster au tableau original</h3>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>notes_cluster <span class="ot">&lt;-</span> <span class="fu">cbind</span>(notes, <span class="at">Cluster =</span> <span class="fu">factor</span>(km_res<span class="sc">$</span>cluster))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </section>
 <section id="visualisation-2d-avec-pca-clusters" class="level3">
 <h3 class="anchored" data-anchor-id="visualisation-2d-avec-pca-clusters">6. Visualisation 2D avec PCA + clusters</h3>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">suppressWarnings</span>(</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">capture.output</span>(<span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>), <span class="at">file =</span> <span class="st">"/dev/null"</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>))</span>
@@ -534,6 +551,7 @@ Available components:
 <span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Projection sur les deux premières composantes principales"</span>,</span>
 <span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"PC1"</span>, <span class="at">y =</span> <span class="st">"PC2"</span>) <span class="sc">+</span></span>
 <span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -543,7 +561,10 @@ Available components:
 </div>
 </div>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>pca<span class="sc">$</span>rotation[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>] </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>                      PC1         PC2
 Mathematiques  0.49868636 -0.34021342

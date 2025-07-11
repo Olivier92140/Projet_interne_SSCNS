@@ -397,10 +397,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="import-des-bibliothèques-observable" class="level2">
 <h2 class="anchored" data-anchor-id="import-des-bibliothèques-observable">Import des bibliothèques Observable</h2>
-<p>On commence par importer la bibliothèque observablehq voir le code</p>
+<p>On commence par importer la bibliothèque observablehq</p>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb1" data-startfrom="16" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 15;"><span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { Inputs } <span class="im">from</span> <span class="st">"@observablehq/stdlib"</span></span>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1" data-startfrom="16" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 15;"><span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { Inputs } <span class="im">from</span> <span class="st">"@observablehq/stdlib"</span></span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { Plot } <span class="im">from</span> <span class="st">"@observablehq/plot"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-1-1" data-nodetype="declaration">
@@ -421,7 +424,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="génération-des-notes-dans-quatre-matières">Génération des notes dans quatre matières</h2>
 <p>Des notes de quatre matières sont générés selon une loi uniforme pour 30 élèves: par exemple les notes de math sont approximativement autour de 14.</p>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb2" data-startfrom="24" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 23;"><span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co">// 1. Données initiales : notes sur 4 matières</span></span>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2" data-startfrom="24" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 23;"><span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co">// 1. Données initiales : notes sur 4 matières</span></span>
 <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>initial <span class="op">=</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>({<span class="dt">length</span><span class="op">:</span><span class="dv">30</span>}<span class="op">,</span> (_<span class="op">,</span> i) <span class="kw">=&gt;</span> ({</span>
 <span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Etudiant</span><span class="op">:</span> <span class="vs">`E</span><span class="sc">${</span><span class="bu">String</span>(i<span class="op">+</span><span class="dv">1</span>)<span class="op">.</span><span class="fu">padStart</span>(<span class="dv">2</span><span class="op">,</span><span class="st">"0"</span>)<span class="sc">}</span><span class="vs">`</span><span class="op">,</span></span>
 <span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Maths</span><span class="op">:</span>   <span class="op">+</span>(<span class="dv">14</span>   <span class="op">+</span> <span class="dv">2</span>   <span class="op">*</span> (<span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>() <span class="op">-</span> <span class="fl">0.5</span>))<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)<span class="op">,</span></span>
@@ -429,6 +434,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Info</span><span class="op">:</span>    <span class="op">+</span>(<span class="dv">15</span>   <span class="op">+</span> <span class="fl">2.5</span> <span class="op">*</span> (<span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>() <span class="op">-</span> <span class="fl">0.5</span>))<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)<span class="op">,</span></span>
 <span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Chimie</span><span class="op">:</span>  <span class="op">+</span>(<span class="dv">11</span>   <span class="op">+</span> <span class="dv">3</span>   <span class="op">*</span> (<span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>() <span class="op">-</span> <span class="fl">0.5</span>))<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)</span>
 <span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>}))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-2" data-nodetype="declaration">
 
@@ -439,10 +445,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="affichage-du-tableau-des-notes" class="level2">
 <h2 class="anchored" data-anchor-id="affichage-du-tableau-des-notes">Affichage du tableau des notes</h2>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb3" data-startfrom="37" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 36;"><span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>viewof data <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">table</span>(initial<span class="op">,</span> {</span>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3" data-startfrom="37" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 36;"><span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>viewof data <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">table</span>(initial<span class="op">,</span> {</span>
 <span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>  <span class="dt">columns</span><span class="op">:</span> [<span class="st">"Etudiant"</span><span class="op">,</span> <span class="st">"Maths"</span><span class="op">,</span> <span class="st">"Physique"</span><span class="op">,</span> <span class="st">"Info"</span><span class="op">,</span> <span class="st">"Chimie"</span>]<span class="op">,</span></span>
 <span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Éditez les notes des étudiants"</span></span>
 <span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-3" data-nodetype="declaration">
 
@@ -453,7 +462,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="curseur-pour-faire-varier-le-nombre-de-clusters" class="level2">
 <h2 class="anchored" data-anchor-id="curseur-pour-faire-varier-le-nombre-de-clusters">Curseur pour faire varier le nombre de clusters</h2>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb4" data-startfrom="48" data-source-offset="-28"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 47;"><span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>viewof k <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">6</span>]<span class="op">,</span> {</span>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4" data-startfrom="48" data-source-offset="-28"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 47;"><span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>viewof k <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">6</span>]<span class="op">,</span> {</span>
 <span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">3</span><span class="op">,</span></span>
 <span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
 <span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Nombre de clusters (k)"</span></span>
@@ -511,6 +522,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> <span class="fu">kmeans</span>(points<span class="op">,</span> k)</span>
 <span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a>centroids <span class="op">=</span> result<span class="op">.</span><span class="at">centroids</span></span>
 <span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a>assignments <span class="op">=</span> result<span class="op">.</span><span class="at">assignments</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-4-1" data-nodetype="declaration">
@@ -555,7 +567,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb5" data-startfrom="113" data-source-offset="-27"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 112;"><span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a>dataWithCluster <span class="op">=</span> data<span class="op">.</span><span class="fu">map</span>((d<span class="op">,</span>i) <span class="kw">=&gt;</span> ({</span>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5" data-startfrom="113" data-source-offset="-27"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 112;"><span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a>dataWithCluster <span class="op">=</span> data<span class="op">.</span><span class="fu">map</span>((d<span class="op">,</span>i) <span class="kw">=&gt;</span> ({</span>
 <span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a>  <span class="op">...</span>d<span class="op">,</span></span>
 <span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Cluster</span><span class="op">:</span> <span class="vs">`Cluster </span><span class="sc">${</span>assignments[i]<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="vs">`</span></span>
 <span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a>}))</span>
@@ -567,6 +581,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Centre_Maths</span><span class="op">:</span> c<span class="op">.</span><span class="at">x</span><span class="op">,</span></span>
 <span id="cb5-123"><a href="#cb5-123" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Centre_Chimie</span><span class="op">:</span> c<span class="op">.</span><span class="at">y</span></span>
 <span id="cb5-124"><a href="#cb5-124" aria-hidden="true" tabindex="-1"></a>}))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-5-1" data-nodetype="declaration">
@@ -587,7 +602,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="représentation-graphique">Représentation graphique</h2>
 <p>Ici, les notes des élèves en mathématiques et en chimie, sont représentées dans le plan</p>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb6" data-startfrom="132" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 131;"><span id="cb6-132"><a href="#cb6-132" aria-hidden="true" tabindex="-1"></a><span class="co">// 7. Affichage du scatter : Maths vs Chimie</span></span>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6" data-startfrom="132" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 131;"><span id="cb6-132"><a href="#cb6-132" aria-hidden="true" tabindex="-1"></a><span class="co">// 7. Affichage du scatter : Maths vs Chimie</span></span>
 <span id="cb6-133"><a href="#cb6-133" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
 <span id="cb6-134"><a href="#cb6-134" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> <span class="dv">600</span><span class="op">,</span></span>
 <span id="cb6-135"><a href="#cb6-135" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">400</span><span class="op">,</span></span>
@@ -606,6 +623,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-148"><a href="#cb6-148" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb6-149"><a href="#cb6-149" aria-hidden="true" tabindex="-1"></a>  ]</span>
 <span id="cb6-150"><a href="#cb6-150" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-6" data-nodetype="expression">
 
@@ -621,7 +639,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="tableau-des-notes-avec-les-clusters" class="level2">
 <h2 class="anchored" data-anchor-id="tableau-des-notes-avec-les-clusters">Tableau des notes avec les clusters</h2>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb7" data-startfrom="163" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 162;"><span id="cb7-163"><a href="#cb7-163" aria-hidden="true" tabindex="-1"></a>viewof clusterTable <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">table</span>(dataWithCluster<span class="op">,</span> {</span>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7" data-startfrom="163" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 162;"><span id="cb7-163"><a href="#cb7-163" aria-hidden="true" tabindex="-1"></a>viewof clusterTable <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">table</span>(dataWithCluster<span class="op">,</span> {</span>
 <span id="cb7-164"><a href="#cb7-164" aria-hidden="true" tabindex="-1"></a>  <span class="dt">columns</span><span class="op">:</span> [<span class="st">"Etudiant"</span><span class="op">,</span><span class="st">"Maths"</span><span class="op">,</span><span class="st">"Physique"</span><span class="op">,</span><span class="st">"Info"</span><span class="op">,</span><span class="st">"Chimie"</span><span class="op">,</span><span class="st">"Cluster"</span>]<span class="op">,</span></span>
 <span id="cb7-165"><a href="#cb7-165" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Profils et clusters"</span></span>
 <span id="cb7-166"><a href="#cb7-166" aria-hidden="true" tabindex="-1"></a>})</span>
@@ -630,6 +650,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-169"><a href="#cb7-169" aria-hidden="true" tabindex="-1"></a>  <span class="dt">columns</span><span class="op">:</span> [<span class="st">"Cluster"</span><span class="op">,</span><span class="st">"Centre_Maths"</span><span class="op">,</span><span class="st">"Centre_Chimie"</span>]<span class="op">,</span></span>
 <span id="cb7-170"><a href="#cb7-170" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Centres des clusters"</span></span>
 <span id="cb7-171"><a href="#cb7-171" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-7-1" data-nodetype="declaration">
