@@ -2,9 +2,6 @@
 title: "Comparaison des modèles de classification non supervisée"
 author: "Olivier Malahel"
 format: html
-from: markdown+emoji
-code-block-bg: true
-code-block-border-left: "#31BAE9"
 ---
 
 Ce tableau compare les techniques de classification non supervisée en donnant leurs avantages et leurs inconvénients.

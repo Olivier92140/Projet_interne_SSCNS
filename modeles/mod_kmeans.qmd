@@ -1,10 +1,9 @@
 ---
 title: "Algorithme des K-means"
 author: "Olivier Malahel"
-format: html
-from: markdown+emoji
-code-block-bg: true
-code-block-border-left: "#31BAE9"
+format: 
+  html:
+    code-fold: true
 ---
 ## Introduction
 
