@@ -18,7 +18,10 @@ choix:
   - basée sur des arbres de décision
   - de régression linéaire
 ```
+::: {.callout-note title="Réponse" collapse="true"}
 
+Réponse 2
+:::
 ### Question 2
 
 **Dans la classification hiérarchique ascendante (CAH), on commence par :**
@@ -30,12 +33,13 @@ choix:
   - Considérer chaque observation comme un cluster individuel
   - Tirer un échantillon aléatoire
 ```
-
+::: {.callout-note title="Réponse" collapse="true"}
+ 
+Réponse 3
+:::
 ### Question 3
 
 **Le critère de Ward utilisé en CAH vise à :**
-
-answer: 1
 
 ```{quiz}
 choix:
@@ -45,6 +49,9 @@ choix:
   - Réduire la dimension des données
 ```
 
+::: {.callout-note title="Réponse" collapse="true"}
+Réponse 2
+:::
 ### Question 4
 
 **Les modèles de mélange gaussiens reposent sur :**
@@ -57,6 +64,9 @@ choix:
   - L’algorithme de classification ascendante
 ```
 
+::: {.callout-note title="Réponse" collapse="true"}
+Réponses 1 et 3
+:::
 ### Question 5
 
 **Dans un modèle de mélange gaussien, que représente la probabilité** $\pi_k$ ?
@@ -64,16 +74,11 @@ choix:
 ```{quiz}
 choix:
   - La variance de la k-ième composante
-  - La probabilité a priori d’appartenir à la composante $k$
+  - La probabilité a priori d’appartenir à la composante k
   - La distance entre deux centres
   - La probabilité conditionnelle de l'observation donnée la composante $k$
 ```
 
-```{quiz}
-Réponses : 
-- Q1 : réponse 1
-- Q2 : réponse 2
-- Q3 : réponse 1
-- Q4 : réponses 0 et 2
-- Q5 : réponse 1
-```
+::: {.callout-note title="Réponse" collapse="true"}
+Réponse 2
+:::

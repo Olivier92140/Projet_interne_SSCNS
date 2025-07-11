@@ -30,7 +30,7 @@ website:
             text: "Exemple de CAH avec Python"
           - href: exemples/mmelange.qmd
             text: "Exemple de modèles de mélange"
-      - text: Quizz
+      - text: Quiz
         href: quizz.qmd
 
     right:

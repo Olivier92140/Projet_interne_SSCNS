@@ -1,18 +1,25 @@
 ---
-title: "K-means + ObservableJS"
+title: "K-means avec Observable"
 author: Olivier Malahel
 format: html
+execute:
+  echo: false
 ---
 
-## import des bibliothèques Observable
+## Import des bibliothèques Observable
+
+On commence par importer la bibliothèque observablehq voir le code
+
+
 ```{ojs}
+
 import { Inputs } from "@observablehq/stdlib"
 import { Plot } from "@observablehq/plot"
 ```
 
 ## Génération des notes dans quatre matières
 
-Des notes de quatre matières sont générés selon une loi uniforme: par exemple les notes de math sont approximativement autour de 14. 
+Des notes de quatre matières sont générés selon une loi uniforme pour 30 élèves: par exemple les notes de math sont approximativement autour de 14. 
 
 ```{ojs}
 // 1. Données initiales : notes sur 4 matières
@@ -99,7 +106,7 @@ assignments = result.assignments
 ```
 
 
-## Tableau des notes avec les clusters
+
 
 ```{ojs}
 // 5. Tableau des clusters
@@ -107,10 +114,7 @@ dataWithCluster = data.map((d,i) => ({
   ...d,
   Cluster: `Cluster ${assignments[i]+1}`
 }))
-viewof clusterTable = Inputs.table(dataWithCluster, {
-  columns: ["Etudiant","Maths","Physique","Info","Chimie","Cluster"],
-  label: "Profils et clusters"
-})
+
 
 // 6. Tableau des centroïdes
 centroidsWithLabel = centroids.map((c,i) => ({
@@ -118,10 +122,6 @@ centroidsWithLabel = centroids.map((c,i) => ({
   Centre_Maths: c.x,
   Centre_Chimie: c.y
 }))
-viewof centroidTable = Inputs.table(centroidsWithLabel, {
-  columns: ["Cluster","Centre_Maths","Centre_Chimie"],
-  label: "Centres des clusters"
-})
 ```
 
 
@@ -151,16 +151,25 @@ Plot.plot({
 })
 ```
 
+### Interprétation graphique
 
-En variant le nombre de clusters k. Par exemple pour k=3, le graphique peut être interprété comme suit: 
+Plus les points sont vers la droite, plus les élèves sont bons en maths.
 
-Cluster 1 (bleu): élèves un peu moins à l’aise en maths, mais très bons en chimie.
+Plus les points sont vers la haut, plus les élèves sont bons en chimie. 
 
-Cluster 2 (orange): 5 élèves meilleurs en chimie, tout en conservant un bon niveau en maths. 
+## Tableau des notes avec les clusters
 
-Cluster 3 (rouges) : élèves forts en maths et moyen en chimie
+```{ojs}
+viewof clusterTable = Inputs.table(dataWithCluster, {
+  columns: ["Etudiant","Maths","Physique","Info","Chimie","Cluster"],
+  label: "Profils et clusters"
+})
 
-
+viewof centroidTable = Inputs.table(centroidsWithLabel, {
+  columns: ["Cluster","Centre_Maths","Centre_Chimie"],
+  label: "Centres des clusters"
+})
+```
 
 
 
