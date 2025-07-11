@@ -76,8 +76,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-7f4cc24fd42949a81cf8b37074ce08f5.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-ae6e44816055ef4041522f0db3d6f824.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-0ca8d520645b5189d7194f5d30a4ecf3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-728090f100864248164ae384b99e3527.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -533,6 +533,8 @@ D(A,B) ∈ R+, où A,B ∈ P(x) avec A∩B =∅.</li>
 <section id="application-directe" class="level3">
 <h3 class="anchored" data-anchor-id="application-directe">Application directe</h3>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Étape 1 : Données originales</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  Employé    <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"E1"</span>, <span class="st">"E2"</span>, <span class="st">"E3"</span>, <span class="st">"E4"</span>, <span class="st">"E5"</span>),</span>
@@ -558,6 +560,7 @@ D(A,B) ∈ R+, où A,B ∈ P(x) avec A∩B =∅.</li>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>height_cut <span class="ot">&lt;-</span> (<span class="fu">sort</span>(hc<span class="sc">$</span>height, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[n_clusters <span class="sc">-</span> <span class="dv">1</span>] <span class="sc">+</span></span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>               <span class="fu">sort</span>(hc<span class="sc">$</span>height, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)[n_clusters]) <span class="sc">/</span> <span class="fl">1.35</span></span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> height_cut, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -565,12 +568,15 @@ D(A,B) ∈ R+, où A,B ∈ P(x) avec A∩B =∅.</li>
 </figure>
 </div>
 </div>
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Étape 5 : Clusters</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>clusters <span class="ot">&lt;-</span> <span class="fu">cutree</span>(hc, <span class="at">k =</span> n_clusters)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>Cluster <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(clusters)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Affichage final</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Employé Ancienneté Salaire Cluster
 1      E1          2    2000       1
