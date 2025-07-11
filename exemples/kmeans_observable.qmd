@@ -1,14 +1,14 @@
 ---
 title: "K-means avec Observable"
 author: Olivier Malahel
-format: html
-execute:
-  echo: false
+format: 
+  html:
+    code-fold: true
 ---
 
 ## Import des bibliothèques Observable
 
-On commence par importer la bibliothèque observablehq voir le code
+On commence par importer la bibliothèque observablehq
 
 
 ```{ojs}

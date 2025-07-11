@@ -1,10 +1,9 @@
 ---
 title: "Modèles de mélange de gaussiennes"
 author: "Olivier Malahel"
-format: html
-from: markdown+emoji
-code-block-bg: true
-code-block-border-left: "#31BAE9"
+format: 
+  html:
+    code-fold: true
 ---
 
 ## Introduction
@@ -33,7 +32,7 @@ x2 <- rnorm(100, mean = 5, sd = 1.5)
 x <- c(x1, x2)
 ```
 
-## 1. Fonction de densité du mélange
+## 1. Densité du mélange
 ```{r}
 
 # Densité d’un mélange à 2 composantes
