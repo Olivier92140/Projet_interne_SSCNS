@@ -158,7 +158,7 @@ $$
 ### A quoi sert les modèles de mélange?
 
 ::: {.callout-note}
-Les modèles de mélange permettent de reconstruire les données manquantes en estimant les valeurs manquantes (a posteriori) cf. ci-dessus la détermination des paramètres manquants.
+Les modèles de mélange permettent de reconstruire les données manquantes en estimant les valeurs manquantes (a posteriori)
 :::  
 
 ## Vraisemblance
